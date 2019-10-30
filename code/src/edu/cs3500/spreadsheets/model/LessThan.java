@@ -1,22 +1,34 @@
 package edu.cs3500.spreadsheets.model;
 
-import java.util.ArrayList;
-
-public class LessThan implements ValueVisitor<Value> {
-
+public class LessThan implements CellContentVisitor<Double> {
 
   @Override
-  public Value visitDoubleValue(DoubleValue d) {
-    return d;
+  public Double visitBlank(Blank b) {
+    return b.defaultValue;
   }
 
   @Override
-  public Value visitStringValue(StringValue s) {
-    throw new IllegalArgumentException("Argument has to be a Number");
+  public Double visitReference(Reference r) {
+    return r.evaluate().accept(this);
   }
 
   @Override
-  public Value visitBooleanValue(BooleanValue b) {
-    throw new IllegalArgumentException("Argument has to be a Number");
+  public Double visitFunction(Function func) {
+    return func.evaluate().accept(this);
+  }
+
+  @Override
+  public Double visitDoubleValue(DoubleValue d) {
+    return d.value;
+  }
+
+  @Override
+  public Double visitStringValue(StringValue s) throws UnsupportedOperationException {
+    throw new UnsupportedOperationException("Argument has to be a Number");
+  }
+
+  @Override
+  public Double visitBooleanValue(BooleanValue b) throws UnsupportedOperationException {
+    throw new UnsupportedOperationException("Argument has to be a Number");
   }
 }

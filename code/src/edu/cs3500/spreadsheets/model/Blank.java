@@ -14,6 +14,11 @@ public class Blank implements CellContent {
 
   @Override
   public Value evaluate() {
-    return null;
+    return new DoubleValue(0);
+  }
+
+  @Override
+  public <T> T accept(CellContentVisitor<T> visitor) {
+    return visitor.visitBlank(this);
   }
 }

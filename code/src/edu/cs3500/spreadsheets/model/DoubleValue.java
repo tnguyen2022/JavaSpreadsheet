@@ -1,39 +1,24 @@
 package edu.cs3500.spreadsheets.model;
 
 public class DoubleValue implements Value{
-  private double dValue;
+  double value;
 
-  public DoubleValue (double dValue){
-    this.dValue = dValue;
+  public DoubleValue (double value){
+    this.value = value;
   }
 
   @Override
-  public Formula Sum() {
-    return new DoubleValue(this.dValue);
-  }
-
-  @Override
-  public Formula Product() {
-    return null;
-  }
-
-  @Override
-  public Formula LessThan() {
-    return null;
-  }
-
-  @Override
-  public Formula Left() {
-    return null;
-  }
-
-
-  public <T> T accept(ValueVisitor<T> visitor){
+  public <T> T accept(CellContentVisitor<T> visitor){
     return visitor.visitDoubleValue(this);
   }
 
   @Override
   public Value evaluate() {
-    return null;
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return "" + value;
   }
 }

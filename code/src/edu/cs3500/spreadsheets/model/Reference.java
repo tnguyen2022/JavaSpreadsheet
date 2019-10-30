@@ -3,7 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 
 public class Reference implements Formula {
-  private ArrayList<CellContent> region;
+  ArrayList<CellContent> region;
 
   public Reference(ArrayList<CellContent> region){
     this.region = region;
@@ -20,27 +20,17 @@ public class Reference implements Formula {
   }
 
   @Override
-  public Formula Sum() {
-    return this;
-  }
-
-  @Override
-  public Formula Product() {
-    return this;
-  }
-
-  @Override
-  public Formula LessThan() {
-    return this;
-  }
-
-  @Override
-  public Formula Left() {
-    return this;
-  }
-
-  @Override
   public Value evaluate() {
-    return null;
+    if (region.size() == 1)
+      return region.get(0).evaluate();
+    else{
+      throw new IllegalArgumentException("Cannot evaluate a reference of more than one cell");
+
+    }
+  }
+
+  @Override
+  public <T> T accept(CellContentVisitor<T> visitor) {
+    return visitor.visitReference(this);
   }
 }

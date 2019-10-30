@@ -1,21 +1,34 @@
 package edu.cs3500.spreadsheets.model;
 
-import java.util.ArrayList;
-
-public class Left implements ValueVisitor<Value> {
+public class Left implements CellContentVisitor<String> {
 
   @Override
-  public Value visitDoubleValue(DoubleValue d) {
-    throw new IllegalArgumentException("Argument has to be a String");
+  public String visitBlank(Blank b) {
+    return b.toString();
   }
 
   @Override
-  public Value visitStringValue(StringValue s) {
-    return s;
+  public String visitReference(Reference r) {
+    return r.evaluate().accept(this);
   }
 
   @Override
-  public Value visitBooleanValue(BooleanValue b) {
-    throw new IllegalArgumentException("Argument has to be a String");
+  public String visitFunction(Function func) {
+    return func.evaluate().accept(this);
+  }
+
+  @Override
+  public String visitDoubleValue(DoubleValue d) throws UnsupportedOperationException {
+    return d.toString();
+  }
+
+  @Override
+  public String visitStringValue(StringValue s) {
+    return s.value;
+  }
+
+  @Override
+  public String visitBooleanValue(BooleanValue b) throws UnsupportedOperationException{
+    throw new UnsupportedOperationException("Argument has to be a String or Double");
   }
 }
