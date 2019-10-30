@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Reference implements Formula {
   ArrayList<CellContent> region;
 
+  public Reference (String s){
+
+  }
+
   public Reference(ArrayList<CellContent> region){
     this.region = region;
   }

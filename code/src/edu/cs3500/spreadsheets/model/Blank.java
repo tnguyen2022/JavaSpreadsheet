@@ -3,7 +3,7 @@ package edu.cs3500.spreadsheets.model;
 public class Blank implements CellContent {
   double defaultValue;
 
-  public Blank (){
+  Blank(){
     defaultValue = 0;
   }
 

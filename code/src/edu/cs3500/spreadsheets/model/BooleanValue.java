@@ -1,7 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
 public class BooleanValue implements Value{
-  boolean value;
+  private boolean value;
   public BooleanValue(boolean value){
     this.value = value;
   }
