@@ -1,5 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
-public interface Formula extends CellContent {
+import java.util.ArrayList;
 
+public interface Formula extends CellContent {
+  public boolean checkCycles (Cell c, ArrayList<Cell> acc);
 }

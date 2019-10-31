@@ -1,5 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.ArrayList;
+
 public class DoubleValue implements Value{
   double value;
 
@@ -20,5 +22,10 @@ public class DoubleValue implements Value{
   @Override
   public String toString() {
     return "" + value;
+  }
+
+  @Override
+  public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
+    return false;
   }
 }

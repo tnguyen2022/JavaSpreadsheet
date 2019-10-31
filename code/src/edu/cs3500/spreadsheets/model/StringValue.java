@@ -1,5 +1,7 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.ArrayList;
+
 public class StringValue implements Value{
   String value;
   public StringValue(String value){
@@ -14,5 +16,10 @@ public class StringValue implements Value{
   @Override
   public Value evaluate() {
     return this;
+  }
+
+  @Override
+  public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
+    return false;
   }
 }

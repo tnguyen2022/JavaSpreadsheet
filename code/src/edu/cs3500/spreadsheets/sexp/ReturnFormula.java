@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cs3500.spreadsheets.model.BooleanValue;
-import edu.cs3500.spreadsheets.model.CellContent;
 import edu.cs3500.spreadsheets.model.DoubleValue;
 import edu.cs3500.spreadsheets.model.Formula;
 import edu.cs3500.spreadsheets.model.LeftFunction;
@@ -14,19 +13,19 @@ import edu.cs3500.spreadsheets.model.Reference;
 import edu.cs3500.spreadsheets.model.StringValue;
 import edu.cs3500.spreadsheets.model.SumFunction;
 
-public class CreateCell implements SexpVisitor<CellContent> {
+public class ReturnFormula implements SexpVisitor<Formula> {
   @Override
-  public CellContent visitBoolean(boolean b) {
+  public Formula visitBoolean(boolean b) {
     return new BooleanValue(b);
   }
 
   @Override
-  public CellContent visitNumber(double d) {
+  public Formula visitNumber(double d) {
     return new DoubleValue(d);
   }
 
   @Override
-  public CellContent visitSList(List<Sexp> l) {
+  public Formula visitSList(List<Sexp> l) {
     String funcName = "";
 
     try{
@@ -39,12 +38,12 @@ public class CreateCell implements SexpVisitor<CellContent> {
     ArrayList<Formula> args = new ArrayList<>();
     try{
       for (int i = 1; i < l.size(); i++) {
-       args.add(l.get(i).accept(new ReturnFormula()));
+        args.add(l.get(i).accept(new ReturnFormula()));
       }
     }
     catch (NullPointerException e){
-        throw new IllegalArgumentException("Function needs at least 1 argument");
-      }
+      throw new IllegalArgumentException("Function needs at least 1 argument");
+    }
 
     switch (funcName){
       case "SUM":
@@ -61,12 +60,12 @@ public class CreateCell implements SexpVisitor<CellContent> {
   }
 
   @Override
-  public CellContent visitSymbol(String s) {
-       return new Reference(s);
+  public Formula visitSymbol(String s) {
+    return new Reference(s);
   }
 
   @Override
-  public CellContent visitString(String s) {
+  public Formula visitString(String s) {
     return new StringValue(s);
   }
 }

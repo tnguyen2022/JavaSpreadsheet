@@ -5,13 +5,16 @@ package edu.cs3500.spreadsheets.model;
  */
 
 public class Cell {
+  Coord cellReference;
   CellContent content;
 
-  public Cell () {
+  public Cell (Coord cellReference) {
     this.content = new Blank();
+    this.cellReference = cellReference;
   }
 
-  public Cell (CellContent content) {
+  public Cell (CellContent content, Coord cellReference) {
     this.content = content;
+    this.cellReference = cellReference;
   }
 }

@@ -5,41 +5,36 @@ import java.util.HashMap;
 import edu.cs3500.spreadsheets.sexp.CreateCell;
 import edu.cs3500.spreadsheets.sexp.Parser;
 
-public class Worksheet implements WorksheetReader.WorksheetBuilder<Worksheet> {
-  HashMap<Coord, Cell> worksheet = new HashMap<>();
+public class Worksheet implements GeneralWorksheet {
+  static HashMap<Coord, Cell> ws;
 
-  Worksheet(HashMap<Coord, Cell> worksheet){
-    this.worksheet = worksheet;
+  Worksheet() {
+    ws = new HashMap<>();
   }
 
   @Override
-  public WorksheetReader.WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
-    this.worksheet.put(new Coord(col, row), Parser.parse(contents).accept(new CreateCell()));
-
-    return this;
+  public void modifyOrAdd(int col, int row, String contents) {
+    if ((0 <= col && col <= 16000) && (0 <= row && row <= 1000000)){
+      ws.put(new Coord(col, row),
+              new Cell (Parser.parse(contents).accept(new CreateCell()), new Coord (col, row)));
+    }
+    else{
+      throw new IllegalArgumentException("Row or columns inputs are not within 1000000 x 16000.");
+    }
   }
 
   @Override
-  public Worksheet createWorksheet() {
-    int maxRow = 0;
-    int maxCol = 0;
-
-    for (Coord c : worksheet.keySet()) {
-      if (c.col > maxCol) {
-        maxCol = c.col;
-      }
-      if (c.row > maxRow) {
-        maxRow = c.row;
-      }
-    }
-
-    for (int i = 0; i < maxCol; i++) {
-      for (int j = 0; j < maxRow; j++) {
-        if (!this.worksheet.containsKey(new Coord(i, j))) {
-          this.worksheet.put(new Coord(i,j), new Cell());
-        }
-      }
-    }
-    return this;
+  public Value evaluateCell(Cell c) throws IllegalArgumentException {
+    return c.content.evaluate();
   }
+
+  public static Cell getCell(int col, int row) throws IllegalArgumentException {
+    if (ws.get(new Coord (col, row)) == null){
+      return new Cell(new Coord (col, row));
+    }
+    else{
+      return ws.get(new Coord (col, row));
+    }
+  }
+
 }
