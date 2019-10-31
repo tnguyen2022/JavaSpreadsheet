@@ -8,7 +8,7 @@ import edu.cs3500.spreadsheets.sexp.Parser;
 public class Worksheet implements GeneralWorksheet {
   static HashMap<Coord, Cell> ws;
 
-  Worksheet() {
+  public Worksheet() {
     ws = new HashMap<>();
   }
 

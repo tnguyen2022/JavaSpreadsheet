@@ -22,4 +22,21 @@ public class StringValue implements Value{
   public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
     return false;
   }
+
+  @Override
+  public String toString(){
+    String print = "";
+    for (int i = 0; i < value.length(); i++){
+      if (this.value.charAt(i) == '"'){
+        print += "\\\"";
+      }
+      else if (this.value.charAt(i) == '\\'){
+        print += "\\\\";
+      }
+      else{
+        print += Character.toString(this.value.charAt(i));
+      }
+    }
+    return "\"" + print + "\"";
+  }
 }

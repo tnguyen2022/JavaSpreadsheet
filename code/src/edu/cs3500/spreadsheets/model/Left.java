@@ -18,7 +18,7 @@ public class Left implements CellContentVisitor<String> {
   }
 
   @Override
-  public String visitDoubleValue(DoubleValue d) throws UnsupportedOperationException {
+  public String visitDoubleValue(DoubleValue d) {
     return d.toString();
   }
 

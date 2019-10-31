@@ -21,11 +21,12 @@ public class DoubleValue implements Value{
 
   @Override
   public String toString() {
-    return "" + value;
+    return String.format("%f", value);
   }
 
   @Override
   public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
     return false;
   }
+
 }

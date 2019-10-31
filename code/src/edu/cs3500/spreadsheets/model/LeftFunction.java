@@ -38,6 +38,7 @@ public class LeftFunction implements Function{
     return new StringValue(firstArg.substring(0, secArgInt));
   }
 
+
   @Override
   public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitFunction(this);
@@ -45,7 +46,9 @@ public class LeftFunction implements Function{
 
   @Override
   public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
-    for (int i = 0; i < this.args.size()
+    for (int i = 0; i < this.args.size(); i++){
+
+    }
     return false;
   }
 }

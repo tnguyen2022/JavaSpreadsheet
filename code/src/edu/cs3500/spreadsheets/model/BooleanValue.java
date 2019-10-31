@@ -22,5 +22,10 @@ public class BooleanValue implements Value{
   public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
     return false;
   }
+
+  @Override
+  public String toString(){
+    return ("" + this).toUpperCase();
+  }
 }
 
