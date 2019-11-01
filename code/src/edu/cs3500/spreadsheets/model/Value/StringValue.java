@@ -1,12 +1,16 @@
-package edu.cs3500.spreadsheets.model;
+package edu.cs3500.spreadsheets.model.Value;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import edu.cs3500.spreadsheets.model.CellContentVisitor;
+import edu.cs3500.spreadsheets.model.Coord;
 
 /**
  * Represents a string value in a worksheet.
  */
-public class StringValue implements Value{
-  String value;
+public class StringValue implements Value {
+  public String value;
 
   /**
    * The string value in a string value.
@@ -32,7 +36,7 @@ public class StringValue implements Value{
   }
 
   @Override
-  public boolean checkCycle(Coord c, ArrayList<Coord> acc) {
+  public boolean checkCycle(ArrayList<Coord> acc) {
     return false;
   }
 
@@ -52,5 +56,30 @@ public class StringValue implements Value{
       }
     }
     return "\"" + print + "\"";
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o instanceof StringValue) {
+      StringValue that = (StringValue) o;
+      return this.value.equals(that.value);
+    }
+    else{
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value);
+  }
+
+  @Override
+  public boolean checkCycleHelper(ArrayList<Coord> acc) {
+    return false;
   }
 }

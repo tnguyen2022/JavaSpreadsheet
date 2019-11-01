@@ -1,18 +1,19 @@
-package edu.cs3500.spreadsheets.sexp;
+package edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.cs3500.spreadsheets.model.BooleanValue;
-import edu.cs3500.spreadsheets.model.CellContent;
-import edu.cs3500.spreadsheets.model.DoubleValue;
-import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.LeftFunction;
-import edu.cs3500.spreadsheets.model.LessThanFunction;
-import edu.cs3500.spreadsheets.model.ProductFunction;
 import edu.cs3500.spreadsheets.model.Reference;
-import edu.cs3500.spreadsheets.model.StringValue;
-import edu.cs3500.spreadsheets.model.SumFunction;
+import edu.cs3500.spreadsheets.model.Value.BooleanValue;
+import edu.cs3500.spreadsheets.model.Value.DoubleValue;
+import edu.cs3500.spreadsheets.model.Formula;
+import edu.cs3500.spreadsheets.model.Function.LeftFunction;
+import edu.cs3500.spreadsheets.model.Function.LessThanFunction;
+import edu.cs3500.spreadsheets.model.Function.ProductFunction;
+import edu.cs3500.spreadsheets.model.Value.StringValue;
+import edu.cs3500.spreadsheets.model.Function.SumFunction;
+import edu.cs3500.spreadsheets.sexp.Sexp;
+import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 
 /**
  * Creates the Formula for a cell.
@@ -30,7 +31,7 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
 
   @Override
   public Formula visitSList(List<Sexp> l) {
-    String funcName = "";
+    String funcName;
 
     try{
       funcName = l.get(0).accept(new FunctionName());

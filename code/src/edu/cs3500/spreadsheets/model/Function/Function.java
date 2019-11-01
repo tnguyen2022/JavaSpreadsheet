@@ -1,7 +1,9 @@
-package edu.cs3500.spreadsheets.model;
+package edu.cs3500.spreadsheets.model.Function;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+
+import edu.cs3500.spreadsheets.model.Formula;
+import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
  * Representation of a Function.

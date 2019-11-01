@@ -1,5 +1,10 @@
 package edu.cs3500.spreadsheets.model;
 
+import edu.cs3500.spreadsheets.model.Function.Function;
+import edu.cs3500.spreadsheets.model.Value.BooleanValue;
+import edu.cs3500.spreadsheets.model.Value.DoubleValue;
+import edu.cs3500.spreadsheets.model.Value.StringValue;
+
 /**
  * An abstracted function object for processing any {@link CellContent}.
  * @param <T> The return type of this function

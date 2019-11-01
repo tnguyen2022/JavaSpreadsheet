@@ -1,4 +1,14 @@
-package edu.cs3500.spreadsheets.model;
+package edu.cs3500.spreadsheets.model.CellContentVisitorFunctions;
+
+import edu.cs3500.spreadsheets.model.Blank;
+import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.model.CellContentVisitor;
+import edu.cs3500.spreadsheets.model.Function.Function;
+import edu.cs3500.spreadsheets.model.Reference;
+import edu.cs3500.spreadsheets.model.Value.BooleanValue;
+import edu.cs3500.spreadsheets.model.Value.DoubleValue;
+import edu.cs3500.spreadsheets.model.Value.StringValue;
+import edu.cs3500.spreadsheets.model.Worksheet;
 
 /**
  * Represents the sum function.
@@ -13,8 +23,9 @@ public class Sum implements CellContentVisitor<Double> {
   @Override
   public Double visitReference(Reference r) {
     double sumReference = 0;
-    for (CellContent c: r.region) {
-      sumReference += c.accept(this);
+    for (Cell c: r.region) {
+      sumReference += Worksheet.getCell(c.cellReference.col,
+              c.cellReference.row).content.accept(this);
     }
     return sumReference;
   }

@@ -1,17 +1,19 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
-import edu.cs3500.spreadsheets.sexp.CreateCellFormula;
-import edu.cs3500.spreadsheets.sexp.CreateCellValue;
+import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions.CreateCellFormula;
+import edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions.CreateCellValue;
 import edu.cs3500.spreadsheets.sexp.Parser;
 
 /**
  * Representation of a worksheet spreadsheet.
  */
 public class Worksheet implements GeneralWorksheet {
-  static HashMap<Coord, Cell> ws;
+  private static HashMap<Coord, Cell> ws;
 
   /**
    * A worksheet is a blank Hashmap until cells are added into the worksheet.
@@ -48,9 +50,9 @@ public class Worksheet implements GeneralWorksheet {
 
   @Override
   public Value evaluateCell(Cell c) throws IllegalArgumentException {
-//    if (c.content.checkCycle(c.cellReference, new ArrayList<>())){
-//      throw new IllegalArgumentException("Cell should not contain cyclical self-references");
-//    }
+    if (c.content.checkCycle(new ArrayList<>(Collections.singletonList(c.cellReference)))){
+      throw new IllegalArgumentException("Cell should not contain cyclical self-references");
+    }
     return c.content.canEvaluate(c.cellReference);
   }
 

@@ -7,7 +7,7 @@ import edu.cs3500.spreadsheets.model.BuildWorksheet;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
-import edu.cs3500.spreadsheets.model.Value;
+import edu.cs3500.spreadsheets.model.Value.Value;
 import edu.cs3500.spreadsheets.model.Worksheet;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 
@@ -35,12 +35,12 @@ public class BeyondGood {
       if (args[0].equals("-in")) {
         try {
           FileReader readable = new FileReader(args[1]);
-          //try {
+          try {
             gw = WorksheetReader.read(new BuildWorksheet(),
                     readable);
-          //} catch (IllegalArgumentException e) {
-            //System.out.println("Unable to create worksheet");
-          //}
+          } catch (IllegalArgumentException e) {
+            System.out.println("Unable to create worksheet");
+          }
         } catch (FileNotFoundException e) {
           throw new IllegalStateException("Unable to access .txt file");
         }
@@ -48,7 +48,7 @@ public class BeyondGood {
         for (int i = 2; i < args.length; i += 2) {
           if (args[i].equals("-eval")) {
             int index = 0;
-            //try {
+            try {
               try {
                 index = Cell.getIndexOfSplit(args[i + 1]);
               } catch (IllegalArgumentException e) {
@@ -57,11 +57,10 @@ public class BeyondGood {
               int col = Coord.colNameToIndex(args[i+1].substring(0, index));
               int row = Integer.parseInt(args[i+1].substring(index));
               Value v = gw.evaluateCell(Worksheet.getCell(col, row));
-              System.out.print(args[i + 1] + " = " +
-                      v.toString());
-            //} catch (IllegalArgumentException | UnsupportedOperationException e) {
-             // System.out.println("Error in cell " + args[i + 1] + ":" + e);
-            //}
+              System.out.print(v.toString());
+            } catch (IllegalArgumentException | UnsupportedOperationException e) {
+              System.out.println("Error in cell " + args[i + 1] + ":" + e);
+            }
           }
           else{
             throw new IllegalStateException("Not proper -eval command");

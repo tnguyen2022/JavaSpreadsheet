@@ -1,21 +1,26 @@
-package edu.cs3500.spreadsheets.model;
+package edu.cs3500.spreadsheets.model.Function;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Objects;
+
+import edu.cs3500.spreadsheets.model.CellContentVisitor;
+import edu.cs3500.spreadsheets.model.Coord;
+import edu.cs3500.spreadsheets.model.Formula;
+import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.Left;
+import edu.cs3500.spreadsheets.model.Value.StringValue;
+import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
  * A left function that returns contents starting from the left from a given number.
  */
-public class LeftFunction implements Function{
+public class LeftFunction implements Function {
   private ArrayList<Formula> args;
-  String funcName;
 
   /**
    * The left function and what it is evaluating.
    * @param args The arguments being used for the function
    */
   public LeftFunction(ArrayList<Formula> args) {
-    funcName = "LEFT";
     this.args = args;
   }
 
@@ -28,6 +33,11 @@ public class LeftFunction implements Function{
   public Value evaluate() {
     if (args.size() != 2) {
       throw new IllegalArgumentException("Needs exactly two arguments");
+    }
+    for (Function f : memoizeFunction.keySet()){
+      if(this.equals(f)){
+        return memoizeFunction.get(f);
+      }
     }
     String firstArg;
     String secondArg;
@@ -43,18 +53,28 @@ public class LeftFunction implements Function{
     // converts String into index as an integer
     try {
       secondArg = this.args.get(1).accept(new Left());
-      secArgInt = Integer.parseInt(secondArg.split(".")[0]);
+      secArgInt= (int) Double.parseDouble(secondArg);
     }
     // if the second argument was not a number
     catch (UnsupportedOperationException | NumberFormatException e) {
       throw new UnsupportedOperationException("Second argument must be a number/integer");
     }
+    memoizeFunction.put(this, new StringValue(firstArg.substring(0, secArgInt)));
     return new StringValue(firstArg.substring(0, secArgInt));
   }
 
   @Override
-  public boolean checkCycle(Coord c, ArrayList<Coord> acc) {
-return false;
+  public boolean checkCycle(ArrayList<Coord> acc) {
+    for (Formula f : args) {
+      if (f.checkCycle(acc)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean checkCycleHelper(ArrayList<Coord> acc){
+    return checkCycle(acc);
   }
 
   @Override
@@ -80,6 +100,11 @@ return false;
         return false;
       }
     }
-    return true;
+      return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(args);
   }
 }

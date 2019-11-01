@@ -1,13 +1,15 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
  * Represents a reference in a worksheet.
  */
 public class Reference implements Formula {
-  ArrayList<CellContent> region = new ArrayList<CellContent>();
-  ArrayList<Coord> regionCoords = new ArrayList<>();
+  public ArrayList<Cell> region = new ArrayList<>();
 
   /**
    * A reference with the string representation of the reference.
@@ -22,8 +24,7 @@ public class Reference implements Formula {
         Cell currentCell = Worksheet.getCell(Coord.colNameToIndex(s.split(":")[0].substring(0,
                 Cell.getIndexOfSplit(s))),
                 Integer.parseInt(s.substring(Cell.getIndexOfSplit(s))));
-        regionCoords.add(currentCell.cellReference);
-        region.add(currentCell.content);
+        region.add(currentCell);
       }
       else {
         int col1 = (Coord.colNameToIndex(s.split(":")[0].substring(0,
@@ -48,8 +49,7 @@ public class Reference implements Formula {
 
         for (int i = col1; i <= col2; i++) {
           for (int j = row1; j <= row2; j++) {
-            regionCoords.add(new Coord(i ,j));
-            region.add(Worksheet.getCell(i, j).content);
+            region.add(Worksheet.getCell(i, j));
           }
         }
       }
@@ -57,8 +57,7 @@ public class Reference implements Formula {
       Cell currentCell = Worksheet.getCell(Coord.colNameToIndex(s.substring(0,
               Cell.getIndexOfSplit(s))),
               Integer.parseInt(s.substring(Cell.getIndexOfSplit(s))));
-      regionCoords.add(currentCell.cellReference);
-      region.add(currentCell.content);
+      region.add(currentCell);
     }
   }
 
@@ -78,8 +77,12 @@ public class Reference implements Formula {
 
   @Override
   public Value evaluate() {
-    if (region.size() == 1)
-      return region.get(0).evaluate();
+    if (region.size() == 1) {
+
+      return //region.get(0).content.evaluate();
+              Worksheet.getCell(region.get(0).cellReference.col,
+                      region.get(0).cellReference.row).content.evaluate();
+    }
     else {
       throw new IllegalArgumentException("Cannot evaluate a reference of more than one cell");
 
@@ -87,18 +90,23 @@ public class Reference implements Formula {
   }
 
   @Override
-  public boolean checkCycle(Coord c, ArrayList<Coord> acc) {
-//    boolean check = acc.contains(c);
-//    if (!check) {
-//      acc.add(c);
-//      for (int i = 0; i < regionCoords.size(); i++) {
-//          if(Worksheet.getCell(regionCoords.get(i).col,
-//                  regionCoords.get(i).row).content.checkCycle(regionCoords.get(i), acc)) {
-//            return true;
-//          }
-//        }
-//      }
-    return false;
+  public boolean checkCycle(ArrayList<Coord> acc) {
+    for (Cell c : region) {
+      if (acc.contains(c.cellReference)) {
+        return true;
+      }
+      //if (!c.isVisited) {
+        //c.isVisited = true;
+        acc.add(c.cellReference);
+        return Worksheet.getCell(region.get(0).cellReference.col,
+                region.get(0).cellReference.row).content.checkCycle(acc);
+      //}
+    }
+    throw new IllegalArgumentException("Reference call must reference at least 1 cell");
+  }
+
+  public boolean checkCycleHelper(ArrayList<Coord> acc){
+    return checkCycle(acc);
   }
 
   @Override
@@ -106,5 +114,33 @@ public class Reference implements Formula {
     return visitor.visitReference(this);
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
 
+    if(o instanceof Reference) {
+      Reference that = (Reference) o;
+      if (this.region.size() == that.region.size()){
+        for (int i = 0; i < this.region.size(); i++){
+          if (!(this.region.get(i).equals(that.region.get(i)))){
+            return false;
+          }
+        }
+      }
+      else{
+        return false;
+      }
+    }
+    else{
+      return false;
+    }
+    return true;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(region);
+  }
 }

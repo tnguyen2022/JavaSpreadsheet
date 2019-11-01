@@ -1,19 +1,17 @@
 package edu.cs3500.spreadsheets.model;
 
-import java.util.ArrayList;
-
 /**
  * Represents the possible representations of a Cell.
  */
 public class Cell {
-  Coord cellReference;
-  CellContent content;
+  public Coord cellReference;
+  public CellContent content;
 
   /**
    * Creates a blank cell that is placed in a given coordinate.
    * @param cellReference the coordinate of the cell
    */
-  public Cell (Coord cellReference) {
+  Cell(Coord cellReference) {
     this.content = new Blank();
     this.cellReference = cellReference;
   }
@@ -23,7 +21,7 @@ public class Cell {
    * @param content the content of the cell
    * @param cellReference the coordinate of the cell
    */
-  public Cell (CellContent content, Coord cellReference) {
+  Cell(CellContent content, Coord cellReference) {
     this.content = content;
     this.cellReference = cellReference;
   }
@@ -42,7 +40,6 @@ public class Cell {
     if (!Character.isDigit(split.charAt(split.length() - 1))) {
       throw new IllegalArgumentException("Row reference has to be a Integer number");
     }
-    String row = Character.toString(split.charAt(0));
     for (int i = 1; i < split.length(); i++) {
       if (!isRestInteger) {
         if (Character.isDigit(split.charAt(i))) {

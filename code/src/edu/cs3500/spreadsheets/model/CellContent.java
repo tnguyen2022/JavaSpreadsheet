@@ -2,6 +2,8 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+import edu.cs3500.spreadsheets.model.Value.Value;
+
 /**
  * Represents the possible contents to be placed into a cell.
  */
@@ -10,7 +12,7 @@ public interface CellContent {
 
   Value evaluate() throws IllegalArgumentException;
 
-  boolean checkCycle(Coord c, ArrayList<Coord> acc);
+  boolean checkCycle(ArrayList<Coord> acc);
 
   /**
    * <p>Represents an Cell</p>
@@ -19,7 +21,7 @@ public interface CellContent {
    * @return the desired result
    * @throws UnsupportedOperationException when the visitor is not a valid cell content
    */
-  <T> T accept(CellContentVisitor<T> visitor) throws UnsupportedOperationException;
+  public <T> T accept(CellContentVisitor<T> visitor) throws UnsupportedOperationException;
 
   //public String toString();
 

@@ -1,6 +1,9 @@
-package edu.cs3500.spreadsheets.sexp;
+package edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions;
 
 import java.util.List;
+
+import edu.cs3500.spreadsheets.sexp.Sexp;
+import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 
 /**
  * Represents the to string method for a cell value.
@@ -19,8 +22,8 @@ public class CreateCellValueToString implements SexpVisitor<String> {
   @Override
   public String visitSList(List<Sexp> l) {
     String str = "";
-    for(int i = 0; i < l.size(); i++){
-      str += l.get(i).accept(new CreateCellValueToString());
+    for (Sexp sexp : l) {
+      str += sexp.accept(new CreateCellValueToString());
     }
     return str;
   }

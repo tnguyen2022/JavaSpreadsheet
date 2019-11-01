@@ -1,12 +1,16 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
+import java.util.Objects;
+
+import edu.cs3500.spreadsheets.model.Value.DoubleValue;
+import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
  * Represents an empty cell in a spreadsheet. Will either be a 0 or an empty string.
  */
 public class Blank implements CellContent {
-  double defaultValue;
+  public double defaultValue;
 
   /**
    * A blank cell will have a default value of int 0.
@@ -31,12 +35,25 @@ public class Blank implements CellContent {
   }
 
   @Override
-  public boolean checkCycle(Coord c, ArrayList<Coord> acc) {
-    return false;
+  public boolean checkCycle(ArrayList<Coord> acc) {
+      return false;
   }
 
   @Override
   public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitBlank(this);
+  }
+
+  @Override
+  public boolean equals (Object o){
+    if (this == o) {
+      return true;
+    }
+    return o instanceof Blank;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(defaultValue);
   }
 }
