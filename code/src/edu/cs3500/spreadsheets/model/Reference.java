@@ -2,57 +2,64 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a reference in a worksheet.
+ */
 public class Reference implements Formula {
   ArrayList<CellContent> region = new ArrayList<CellContent>();
+  ArrayList<Coord> regionCoords = new ArrayList<>();
 
+  /**
+   * A reference with the string representation of the reference.
+   * @param s the range of coordinates in string form.
+   */
   public Reference(String s) {
     if (s.length() < 2) {
       throw new IllegalArgumentException("Need a valid reference");
     }
-
     if (s.contains(":")) {
-      int col1 = (Coord.colNameToIndex(s.split(":")[0].substring(0,
-              Cell.getIndexOfSplit(s.split(":")[0]))));
-      int row1 =  Integer.parseInt(s.split(":")[0].substring(
-              Cell.getIndexOfSplit(s.split(":")[0])));
-      int col2 = (Coord.colNameToIndex(s.split(":")[1].substring(0,
-              Cell.getIndexOfSplit(s.split(":")[1]))));
-      int row2 =  Integer.parseInt(s.split(":")[1].substring(
-              Cell.getIndexOfSplit(s.split(":")[1])));
-
-      if (col1 > col2){
-        int temp = col1;
-        col1 = col2;
-        col2 = temp;
+      if (s.split(":")[0].equals(s.split(":")[1])){
+        Cell currentCell = Worksheet.getCell(Coord.colNameToIndex(s.split(":")[0].substring(0,
+                Cell.getIndexOfSplit(s))),
+                Integer.parseInt(s.substring(Cell.getIndexOfSplit(s))));
+        regionCoords.add(currentCell.cellReference);
+        region.add(currentCell.content);
       }
-      if (row1 > row2){
-        int temp = row1;
-        row1 = row2;
-        row2 = temp;
-      }
+      else {
+        int col1 = (Coord.colNameToIndex(s.split(":")[0].substring(0,
+                Cell.getIndexOfSplit(s.split(":")[0]))));
+        int row1 = Integer.parseInt(s.split(":")[0].substring(
+                Cell.getIndexOfSplit(s.split(":")[0])));
+        int col2 = (Coord.colNameToIndex(s.split(":")[1].substring(0,
+                Cell.getIndexOfSplit(s.split(":")[1]))));
+        int row2 = Integer.parseInt(s.split(":")[1].substring(
+                Cell.getIndexOfSplit(s.split(":")[1])));
 
-      for (int i = col1; i <= col2; i++){
-        for (int j = row1; j <= row2; j++){
-          region.add(Worksheet.getCell(i, j).content);
+        if (col1 > col2) {
+          int temp = col1;
+          col1 = col2;
+          col2 = temp;
+        }
+        if (row1 > row2) {
+          int temp = row1;
+          row1 = row2;
+          row2 = temp;
+        }
+
+        for (int i = col1; i <= col2; i++) {
+          for (int j = row1; j <= row2; j++) {
+            regionCoords.add(new Coord(i ,j));
+            region.add(Worksheet.getCell(i, j).content);
+          }
         }
       }
     } else {
       Cell currentCell = Worksheet.getCell(Coord.colNameToIndex(s.substring(0,
               Cell.getIndexOfSplit(s))),
               Integer.parseInt(s.substring(Cell.getIndexOfSplit(s))));
-      if (checkCycles(currentCell, new ArrayList<Cell>())){
-
-      }
-      else{
-        throw new IllegalArgumentException("Reference contains cycles: Can't reference itself");
-      }
-
+      regionCoords.add(currentCell.cellReference);
       region.add(currentCell.content);
     }
-  }
-
-  public Reference(ArrayList<CellContent> region) {
-    this.region = region;
   }
 
   @Override
@@ -62,6 +69,11 @@ public class Reference implements Formula {
     } else {
       return region.get(0).toString() + ":" + region.get(region.size() - 1).toString();
     }
+  }
+
+  @Override
+  public Value canEvaluate(Coord c) throws IllegalArgumentException {
+    return evaluate();
   }
 
   @Override
@@ -75,13 +87,24 @@ public class Reference implements Formula {
   }
 
   @Override
+  public boolean checkCycle(Coord c, ArrayList<Coord> acc) {
+//    boolean check = acc.contains(c);
+//    if (!check) {
+//      acc.add(c);
+//      for (int i = 0; i < regionCoords.size(); i++) {
+//          if(Worksheet.getCell(regionCoords.get(i).col,
+//                  regionCoords.get(i).row).content.checkCycle(regionCoords.get(i), acc)) {
+//            return true;
+//          }
+//        }
+//      }
+    return false;
+  }
+
+  @Override
   public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitReference(this);
   }
 
 
-  @Override
-  public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
-    return false;
-  }
 }

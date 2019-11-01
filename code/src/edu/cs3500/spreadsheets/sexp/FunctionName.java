@@ -2,6 +2,9 @@ package edu.cs3500.spreadsheets.sexp;
 
 import java.util.List;
 
+/**
+ * Represents the function name for a function.
+ */
 public class FunctionName implements SexpVisitor<String> {
   @Override
   public String visitBoolean(boolean b) {

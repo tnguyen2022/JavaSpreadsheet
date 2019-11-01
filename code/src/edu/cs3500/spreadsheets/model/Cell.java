@@ -1,30 +1,45 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.ArrayList;
+
 /**
  * Represents the possible representations of a Cell.
  */
-
 public class Cell {
   Coord cellReference;
   CellContent content;
 
+  /**
+   * Creates a blank cell that is placed in a given coordinate.
+   * @param cellReference the coordinate of the cell
+   */
   public Cell (Coord cellReference) {
     this.content = new Blank();
     this.cellReference = cellReference;
   }
 
+  /**
+   * Creates a non-blank cell that is placed in a given content and coordinate.
+   * @param content the content of the cell
+   * @param cellReference the coordinate of the cell
+   */
   public Cell (CellContent content, Coord cellReference) {
     this.content = content;
     this.cellReference = cellReference;
   }
 
+  /**
+   * Determines the index of reference.
+   * @param split the string to split
+   * @return the index of the reference
+   */
   public static int getIndexOfSplit(String split) {
     int index = 0;
     boolean isRestInteger = false;
     if (!Character.isLetter(split.charAt(0))) {
       throw new IllegalArgumentException("Column reference has to be a Letter");
     }
-    if (!Character.isLetter(split.charAt(split.length() - 1))) {
+    if (!Character.isDigit(split.charAt(split.length() - 1))) {
       throw new IllegalArgumentException("Row reference has to be a Integer number");
     }
     String row = Character.toString(split.charAt(0));
@@ -43,4 +58,5 @@ public class Cell {
 
     return index;
   }
+
 }

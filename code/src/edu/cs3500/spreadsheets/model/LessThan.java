@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+/**
+ * Representation of less than function.
+ */
 public class LessThan implements CellContentVisitor<Double> {
 
   @Override

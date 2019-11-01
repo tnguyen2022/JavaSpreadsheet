@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+/**
+ * Represents the sum function.
+ */
 public class Sum implements CellContentVisitor<Double> {
 
   @Override

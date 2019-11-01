@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.cs3500.spreadsheets.model.BooleanValue;
+import edu.cs3500.spreadsheets.model.CellContent;
 import edu.cs3500.spreadsheets.model.DoubleValue;
 import edu.cs3500.spreadsheets.model.Formula;
 import edu.cs3500.spreadsheets.model.LeftFunction;
@@ -13,7 +14,10 @@ import edu.cs3500.spreadsheets.model.Reference;
 import edu.cs3500.spreadsheets.model.StringValue;
 import edu.cs3500.spreadsheets.model.SumFunction;
 
-public class ReturnFormula implements SexpVisitor<Formula> {
+/**
+ * Creates the Formula for a cell.
+ */
+public class CreateCellFormula implements SexpVisitor<Formula> {
   @Override
   public Formula visitBoolean(boolean b) {
     return new BooleanValue(b);
@@ -36,13 +40,10 @@ public class ReturnFormula implements SexpVisitor<Formula> {
     }
 
     ArrayList<Formula> args = new ArrayList<>();
-    try{
+    if (l.size() > 1) {
       for (int i = 1; i < l.size(); i++) {
-        args.add(l.get(i).accept(new ReturnFormula()));
+        args.add(l.get(i).accept(new CreateCellFormula()));
       }
-    }
-    catch (NullPointerException e){
-      throw new IllegalArgumentException("Function needs at least 1 argument");
     }
 
     switch (funcName){
@@ -61,11 +62,29 @@ public class ReturnFormula implements SexpVisitor<Formula> {
 
   @Override
   public Formula visitSymbol(String s) {
-    return new Reference(s);
+       return new Reference(s);
   }
 
   @Override
   public Formula visitString(String s) {
-    return new StringValue(s);
+//    boolean isValidString = true;
+//    for(int i = 0; i < s.length(); i++){
+//      if (i == 0 || i == s.length()-1){
+//        if (!(s.charAt(i) == '"')){
+//          isValidString = false;
+//        }
+//      }
+//      else{
+//        if ((s.charAt(i) == '"')){
+//          isValidString = false;
+//        }
+//      }
+//    }
+//    if (isValidString) {
+      return new StringValue(s);
+//    }
+//    else{
+//      throw new IllegalArgumentException("Must denote Strings within quotation marks");
+//    }
   }
 }

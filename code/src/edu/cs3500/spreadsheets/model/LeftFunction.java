@@ -1,13 +1,27 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * A left function that returns contents starting from the left from a given number.
+ */
 public class LeftFunction implements Function{
   private ArrayList<Formula> args;
+  String funcName;
 
+  /**
+   * The left function and what it is evaluating.
+   * @param args The arguments being used for the function
+   */
   public LeftFunction(ArrayList<Formula> args) {
-    String funcName = "LEFT";
+    funcName = "LEFT";
     this.args = args;
+  }
+
+  @Override
+  public Value canEvaluate(Coord c) {
+    return evaluate();
   }
 
   @Override
@@ -38,6 +52,10 @@ public class LeftFunction implements Function{
     return new StringValue(firstArg.substring(0, secArgInt));
   }
 
+  @Override
+  public boolean checkCycle(Coord c, ArrayList<Coord> acc) {
+return false;
+  }
 
   @Override
   public <T> T accept(CellContentVisitor<T> visitor) {
@@ -45,10 +63,23 @@ public class LeftFunction implements Function{
   }
 
   @Override
-  public boolean checkCycles(Cell c, ArrayList<Cell> acc) {
-    for (int i = 0; i < this.args.size(); i++){
-
+  public boolean equals (Object o){
+    if (this == o) {
+      return true;
     }
-    return false;
+    if(o instanceof LeftFunction) {
+      LeftFunction that = (LeftFunction) o;
+      if (this.args.size() == that.args.size()){
+        for (int i = 0; i < this.args.size(); i++){
+          if(!this.args.get(i).equals(that.args.get(i))){
+            return false;
+          }
+        }
+      }
+      else{
+        return false;
+      }
+    }
+    return true;
   }
 }

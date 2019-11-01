@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+/**
+ * A left function that returns contents starting from the left from a given number.
+ */
 public class Left implements CellContentVisitor<String> {
 
   @Override

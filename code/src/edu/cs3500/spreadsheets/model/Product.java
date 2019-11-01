@@ -1,5 +1,8 @@
 package edu.cs3500.spreadsheets.model;
 
+/**
+ *  Representation of a product function.
+ */
 public class Product implements CellContentVisitor<Double> {
   @Override
   public Double visitBlank(Blank b) {
@@ -8,7 +11,7 @@ public class Product implements CellContentVisitor<Double> {
 
   @Override
   public Double visitReference(Reference r) {
-    double sumReference = 0;
+    double sumReference = 1;
     for (CellContent c: r.region) {
       sumReference *= c.accept(this);
     }
