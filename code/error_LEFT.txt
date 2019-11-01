@@ -1,0 +1,2 @@
+A1 = "IT'S A ME MARIO"
+A2 = (LEFT A1)

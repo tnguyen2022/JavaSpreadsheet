@@ -1,0 +1,3 @@
+A1 = 2.0
+A2 = 3
+A3 = (PRODUCT 2.0 "String")

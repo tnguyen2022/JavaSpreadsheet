@@ -1,0 +1,5 @@
+A1 = 10
+A2 = 1
+A3 = "String"
+A4 = true
+A5 = false
