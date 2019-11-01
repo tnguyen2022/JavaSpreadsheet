@@ -77,11 +77,6 @@ public class Reference implements Formula {
   }
 
   @Override
-  public Value canEvaluate(Coord c) throws IllegalArgumentException {
-    return evaluate();
-  }
-
-  @Override
   public Value evaluate() {
     if (region.size() == 1) {
       return Worksheet.getCell(region.get(0).cellReference.col,
@@ -101,10 +96,6 @@ public class Reference implements Formula {
       }
     }
     return false;
-  }
-
-  public boolean checkCycleHelper(ArrayList<Coord> acc){
-    return checkCycle(acc);
   }
 
   @Override

@@ -25,11 +25,6 @@ public class LeftFunction implements Function {
   }
 
   @Override
-  public Value canEvaluate(Coord c) {
-    return evaluate();
-  }
-
-  @Override
   public Value evaluate() {
     if (args.size() != 2) {
       throw new IllegalArgumentException("Needs exactly two arguments");
@@ -68,21 +63,16 @@ public class LeftFunction implements Function {
 
   @Override
   public boolean checkCycle(ArrayList<Coord> acc) {
+    if (memoizeCycle.containsKey(this)) {
+      return memoizeCycle.get(this);
+    }
     for (Formula f : args) {
       if (f.checkCycle(acc)){
         return true;
       }
     }
+    memoizeCycle.put(this, false);
     return false;
-  }
-
-  /**
-   * checks if there is a circular reference when using a function.
-   * @param acc the coordinated being referenced
-   * @return whether or not there is a circular reference
-   */
-  public boolean checkCycleHelper(ArrayList<Coord> acc){
-    return checkCycle(acc);
   }
 
   @Override

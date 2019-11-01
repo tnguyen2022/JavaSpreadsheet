@@ -26,11 +26,6 @@ public class DoubleValue implements Value {
   }
 
   @Override
-  public Value canEvaluate(Coord c) {
-    return evaluate();
-  }
-
-  @Override
   public Value evaluate() {
     return this;
   }
@@ -64,8 +59,4 @@ public class DoubleValue implements Value {
     return Objects.hash(value);
   }
 
-  @Override
-  public boolean checkCycleHelper(ArrayList<Coord> acc) {
-    return false;
-  }
 }

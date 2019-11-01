@@ -32,12 +32,6 @@ public class BooleanValue implements Value {
     return visitor.visitBooleanValue(this);
   }
 
-
-  @Override
-  public Value canEvaluate(Coord c) {
-    return evaluate();
-  }
-
   @Override
   public Value evaluate() {
     return this;
@@ -72,9 +66,5 @@ public class BooleanValue implements Value {
     return Objects.hash(value);
   }
 
-  @Override
-  public boolean checkCycleHelper(ArrayList<Coord> acc) {
-    return false;
-  }
 }
 

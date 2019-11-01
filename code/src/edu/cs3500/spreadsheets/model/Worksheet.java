@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
+import edu.cs3500.spreadsheets.model.Function.Function;
 import edu.cs3500.spreadsheets.model.Value.Value;
 import edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions.CreateCellFormula;
 import edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions.CreateCellValue;
@@ -56,6 +57,7 @@ public class Worksheet implements GeneralWorksheet {
     if (c.content.checkCycle(new ArrayList<>(Collections.singletonList(c.cellReference)))) {
       throw new IllegalArgumentException("Cell should not contain cyclical self-references");
     }
+    Function.memoizeCycle.clear();
     return c.content.evaluate();
   }
 

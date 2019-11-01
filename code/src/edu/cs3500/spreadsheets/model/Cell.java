@@ -60,7 +60,7 @@ public class Cell {
     return index;
   }
 
-  public boolean checkCellForCycle (ArrayList<Coord> acc){
+  boolean checkCellForCycle(ArrayList<Coord> acc){
     if (acc.contains(this.cellReference)) {
       return true;
     } else {

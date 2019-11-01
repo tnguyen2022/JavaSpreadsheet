@@ -8,13 +8,6 @@ import edu.cs3500.spreadsheets.model.Value.Value;
  * Represents the possible contents to be placed into a cell.
  */
 public interface CellContent {
-  /**
-   * produces the value that can be evaluated in a given cell.
-   * @param c the coordinate of the cell
-   * @return a value
-   * @throws IllegalArgumentException
-   */
-  Value canEvaluate(Coord c) throws IllegalArgumentException;
 
   /**
    * evaluates the contents in the cell.

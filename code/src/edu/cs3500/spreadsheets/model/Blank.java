@@ -16,11 +16,6 @@ public class Blank implements CellContent {
   }
 
   @Override
-  public Value canEvaluate(Coord c) throws IllegalArgumentException {
-    return evaluate();
-  }
-
-  @Override
   public Value evaluate() {
     return new DoubleValue(0);
   }

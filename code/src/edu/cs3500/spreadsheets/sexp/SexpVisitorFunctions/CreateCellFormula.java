@@ -68,24 +68,6 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
 
   @Override
   public Formula visitString(String s) {
-//    boolean isValidString = true;
-//    for(int i = 0; i < s.length(); i++){
-//      if (i == 0 || i == s.length()-1){
-//        if (!(s.charAt(i) == '"')){
-//          isValidString = false;
-//        }
-//      }
-//      else{
-//        if ((s.charAt(i) == '"')){
-//          isValidString = false;
-//        }
-//      }
-//    }
-//    if (isValidString) {
       return new StringValue(s);
-//    }
-//    else{
-//      throw new IllegalArgumentException("Must denote Strings within quotation marks");
-//    }
   }
 }
