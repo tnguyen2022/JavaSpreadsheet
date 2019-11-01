@@ -11,12 +11,12 @@ import edu.cs3500.spreadsheets.model.Value.StringValue;
 import edu.cs3500.spreadsheets.model.Worksheet;
 
 /**
- *  Representation of a product function.
+ * A PRODUCT visitor function that returns the product of a given reference or value.
  */
 public class Product implements CellContentVisitor<Double> {
   @Override
   public Double visitBlank(Blank b) {
-    return b.defaultValue;
+    return 0.0;
   }
 
   @Override

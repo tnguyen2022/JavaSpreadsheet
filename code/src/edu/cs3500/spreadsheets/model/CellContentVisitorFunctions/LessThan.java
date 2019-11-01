@@ -9,13 +9,14 @@ import edu.cs3500.spreadsheets.model.Value.DoubleValue;
 import edu.cs3500.spreadsheets.model.Value.StringValue;
 
 /**
- * Representation of less than function.
+ * A LESSTHAN visitor function that returns a boolean based on the less than evaluation of a
+ * given reference or value.
  */
 public class LessThan implements CellContentVisitor<Double> {
 
   @Override
   public Double visitBlank(Blank b) {
-    return b.defaultValue;
+    return 0.0;
   }
 
   @Override

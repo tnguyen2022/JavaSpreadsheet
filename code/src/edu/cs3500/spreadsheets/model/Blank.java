@@ -1,23 +1,14 @@
 package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import edu.cs3500.spreadsheets.model.Value.DoubleValue;
 import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
- * Represents an empty cell in a spreadsheet. Will either be a 0 or an empty string.
+ * Represents an empty cell in a spreadsheet that does ot contain any content.
  */
 public class Blank implements CellContent {
-  public double defaultValue;
-
-  /**
-   * A blank cell will have a default value of int 0.
-   */
-  Blank(){
-    defaultValue = 0;
-  }
 
   @Override
   public String toString(){
@@ -54,6 +45,6 @@ public class Blank implements CellContent {
 
   @Override
   public int hashCode() {
-    return Objects.hash(defaultValue);
+    return super.hashCode();
   }
 }

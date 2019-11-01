@@ -10,7 +10,7 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 
 /**
- * Creates the value for the cell.
+ * Visitor function object that will creates the Value for a cell if not a Formula.
  */
 public class CreateCellValue implements SexpVisitor<Value> {
 

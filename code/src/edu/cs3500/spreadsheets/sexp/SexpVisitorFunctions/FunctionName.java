@@ -5,7 +5,7 @@ import java.util.List;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 
 /**
- * Represents the function name for a function.
+ * Visitor function object that returns the function name for a function.
  */
 public class FunctionName implements SexpVisitor<String> {
   @Override

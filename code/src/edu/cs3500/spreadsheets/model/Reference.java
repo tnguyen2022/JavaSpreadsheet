@@ -6,13 +6,13 @@ import java.util.Objects;
 import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
- * Represents a reference in a worksheet.
+ * Represents a reference of cells in a worksheet.
  */
 public class Reference implements Formula {
   public ArrayList<Cell> region = new ArrayList<>();
 
   /**
-   * A reference with the string representation of the reference.
+   * Parses a given string to rectangular region of cells that represents a reference.
    * @param s the range of coordinates in string form.
    */
   public Reference(String s) {
@@ -21,9 +21,10 @@ public class Reference implements Formula {
     }
     if (s.contains(":")) {
       if (s.split(":")[0].equals(s.split(":")[1])){
-        Cell currentCell = Worksheet.getCell(Coord.colNameToIndex(s.split(":")[0].substring(0,
-                Cell.getIndexOfSplit(s))),
-                Integer.parseInt(s.substring(Cell.getIndexOfSplit(s))));
+        int col = Coord.colNameToIndex(s.split(":")[0].substring(0,
+                Cell.getIndexOfSplit(s)));
+        int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
+        Cell currentCell = Worksheet.getCell(col, row);
         region.add(currentCell);
       }
       else {
@@ -54,11 +55,16 @@ public class Reference implements Formula {
         }
       }
     } else {
-      Cell currentCell = Worksheet.getCell(Coord.colNameToIndex(s.substring(0,
-              Cell.getIndexOfSplit(s))),
-              Integer.parseInt(s.substring(Cell.getIndexOfSplit(s))));
+      int col = Coord.colNameToIndex(s.split(":")[0].substring(0,
+              Cell.getIndexOfSplit(s)));
+      int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
+      Cell currentCell = Worksheet.getCell(col, row);
       region.add(currentCell);
     }
+  }
+
+  public Reference(ArrayList<Cell> r) {
+    this.region = r;
   }
 
   @Override
@@ -78,9 +84,7 @@ public class Reference implements Formula {
   @Override
   public Value evaluate() {
     if (region.size() == 1) {
-
-      return //region.get(0).content.evaluate();
-              Worksheet.getCell(region.get(0).cellReference.col,
+      return Worksheet.getCell(region.get(0).cellReference.col,
                       region.get(0).cellReference.row).content.evaluate();
     }
     else {
@@ -91,18 +95,12 @@ public class Reference implements Formula {
 
   @Override
   public boolean checkCycle(ArrayList<Coord> acc) {
-    for (Cell c : region) {
-      if (acc.contains(c.cellReference)) {
+    for (int i = 0; i < region.size(); i++) {
+      if (region.get(i).checkCellForCycle(acc)) {
         return true;
       }
-      //if (!c.isVisited) {
-        //c.isVisited = true;
-        acc.add(c.cellReference);
-        return Worksheet.getCell(region.get(0).cellReference.col,
-                region.get(0).cellReference.row).content.checkCycle(acc);
-      //}
     }
-    throw new IllegalArgumentException("Reference call must reference at least 1 cell");
+    return false;
   }
 
   public boolean checkCycleHelper(ArrayList<Coord> acc){

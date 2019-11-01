@@ -11,13 +11,13 @@ import edu.cs3500.spreadsheets.model.Value.StringValue;
 import edu.cs3500.spreadsheets.model.Worksheet;
 
 /**
- * Represents the sum function.
+ * A SUM visitor function that returns the sum of a given reference or value.
  */
 public class Sum implements CellContentVisitor<Double> {
 
   @Override
   public Double visitBlank(Blank b) {
-    return b.defaultValue;
+    return 0.0;
   }
 
   @Override

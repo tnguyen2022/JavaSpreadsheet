@@ -1,9 +1,9 @@
-A1 = A2
-A2 = (SUM A5 A5)
-A3 = (SUM A5 A5)
+A1 = 69
+A2 = 69
+A3 = (SUM A2 A1)
 A5 = 69
-A6 = A7
-A7 = A3
+A6 = 31
+A3 = A2
 
 
 

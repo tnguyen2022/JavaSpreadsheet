@@ -9,13 +9,14 @@ import edu.cs3500.spreadsheets.model.Value.DoubleValue;
 import edu.cs3500.spreadsheets.model.Value.StringValue;
 
 /**
- * A left function that returns contents starting from the left from a given number.
+ * A LEFT visitor function that returns a substring of a String or Number,
+ * starting from the left-most character.
  */
 public class Left implements CellContentVisitor<String> {
 
   @Override
   public String visitBlank(Blank b) {
-    return b.toString();
+    return "";
   }
 
   @Override

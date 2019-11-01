@@ -39,7 +39,7 @@ public class BeyondGood {
             gw = WorksheetReader.read(new BuildWorksheet(),
                     readable);
           } catch (IllegalArgumentException e) {
-            System.out.println("Unable to create worksheet");
+            System.err.println("Unable to create worksheet: " + e);
           }
         } catch (FileNotFoundException e) {
           throw new IllegalStateException("Unable to access .txt file");

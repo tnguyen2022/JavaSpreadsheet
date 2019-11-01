@@ -11,7 +11,8 @@ import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.Sum;
 import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
- * Function class that represents the sum function.
+ * Function class that represents the sum function that computes the total sum of its given
+ * arguments.
  */
 public class SumFunction implements Function {
   private ArrayList<Formula> args;
@@ -50,8 +51,8 @@ public class SumFunction implements Function {
 
   @Override
   public boolean checkCycle(ArrayList<Coord> acc) {
-    for (Formula f : args) {
-      if (f.checkCycle(acc)){
+    for (int i  = 0; i < args.size(); i++){
+      if (args.get(i).checkCycle(acc)){
         return true;
       }
     }

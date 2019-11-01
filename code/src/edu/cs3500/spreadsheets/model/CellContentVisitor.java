@@ -11,28 +11,28 @@ import edu.cs3500.spreadsheets.model.Value.StringValue;
  */
 public interface CellContentVisitor<T>{
   /**
-   * Process a blank value.
+   * Visits and process a blank value according to the visitor function specifications.
    * @param b the value
    * @return the desired result
    */
   T visitBlank (Blank b);
 
   /**
-   * Process a reference.
+   * Visits and process a reference according to the visitor function specifications.
    * @param r the reference
    * @return the desired result
    */
   T visitReference (Reference r);
 
   /**
-   * Process a function.
+   * Visits and process a function according to the visitor function specifications.
    * @param func the function
    * @return the desired result
    */
   T visitFunction (Function func);
 
   /**
-   * Process a function.
+   * Visits and process a DoubleValue according to the visitor function specifications.
    * @param d the value
    * @return the desired result
    * @throws UnsupportedOperationException when the the value is not a double value
@@ -40,7 +40,7 @@ public interface CellContentVisitor<T>{
   T visitDoubleValue(DoubleValue d) throws UnsupportedOperationException;
 
   /**
-   * Process a string value.
+   * Visits and process a StringValue according to the visitor function specifications.
    * @param s the value
    * @return the desired result
    * @throws UnsupportedOperationException when the value is not a string
@@ -48,7 +48,7 @@ public interface CellContentVisitor<T>{
   T visitStringValue(StringValue s) throws UnsupportedOperationException;
 
   /**
-   * Process a boolean value.
+   * Visits and process a BooleanValue according to the visitor function specifications.
    * @param b the value
    * @return the desired result
    * @throws UnsupportedOperationException when the value is not a boolean

@@ -11,7 +11,7 @@ import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.Product;
 import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
- * Representation of a product function in a cell.
+ * Representation of a product function that computes the total product of its given arguments.
  */
 public class ProductFunction implements Function {
   private ArrayList<Formula> args;

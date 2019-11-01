@@ -16,7 +16,7 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 
 /**
- * Creates the Formula for a cell.
+ * Visitor function object that creates the Formula for a Cell.
  */
 public class CreateCellFormula implements SexpVisitor<Formula> {
   @Override

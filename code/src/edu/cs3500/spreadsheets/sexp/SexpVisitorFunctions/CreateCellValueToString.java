@@ -6,7 +6,7 @@ import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 
 /**
- * Represents the to string method for a cell value.
+ * Visitor function object that returns the string representation of a Sexp.
  */
 public class CreateCellValueToString implements SexpVisitor<String> {
   @Override

@@ -11,7 +11,7 @@ import edu.cs3500.spreadsheets.model.Value.StringValue;
 import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
- * A left function that returns contents starting from the left from a given number.
+ * A left function that substrings a value starting from the left of a given number.
  */
 public class LeftFunction implements Function {
   private ArrayList<Formula> args;
@@ -59,8 +59,11 @@ public class LeftFunction implements Function {
     catch (UnsupportedOperationException | NumberFormatException e) {
       throw new UnsupportedOperationException("Second argument must be a number/integer");
     }
-    memoizeFunction.put(this, new StringValue(firstArg.substring(0, secArgInt)));
-    return new StringValue(firstArg.substring(0, secArgInt));
+    //even if the given substring index is greater than the current length of the String/Number of
+    //which to be substring, default returns the original String/Number argument
+    StringValue s = new StringValue(firstArg.substring(0, Math.min(secArgInt, firstArg.length())));
+    memoizeFunction.put(this, s);
+    return s;
   }
 
   @Override

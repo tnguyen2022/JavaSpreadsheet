@@ -1,27 +1,31 @@
 package edu.cs3500.spreadsheets.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * Represents the possible representations of a Cell.
  */
 public class Cell {
+  static HashMap<Coord, ArrayList<Coord>> memoizeCell = new HashMap<>();
   public Coord cellReference;
   public CellContent content;
 
   /**
-   * Creates a blank cell that is placed in a given coordinate.
+   * Creates a blank cell that is constructed in a given coordinate.
    * @param cellReference the coordinate of the cell
    */
-  Cell(Coord cellReference) {
+  public Cell(Coord cellReference) {
     this.content = new Blank();
     this.cellReference = cellReference;
   }
 
   /**
-   * Creates a non-blank cell that is placed in a given content and coordinate.
+   * Creates a non-blank cell that is constructed with its given content and coordinate.
    * @param content the content of the cell
    * @param cellReference the coordinate of the cell
    */
-  Cell(CellContent content, Coord cellReference) {
+  public Cell(CellContent content, Coord cellReference) {
     this.content = content;
     this.cellReference = cellReference;
   }
@@ -56,4 +60,31 @@ public class Cell {
     return index;
   }
 
+  public boolean checkCellForCycle (ArrayList<Coord> acc){
+    if (acc.contains(this.cellReference)) {
+      return true;
+    } else {
+      acc.add(this.cellReference);
+      boolean result = this.content.checkCycle(acc);
+      acc.remove(this.cellReference);
+      return result;
+    }
+  }
+
+  @Override
+  public boolean equals (Object o){
+    if (this == o) {
+      return true;
+    }
+    if(o instanceof Cell) {
+      Cell that = (Cell) o;
+      return this.content.equals(that.content) && this.cellReference.equals(that.cellReference);
+    }
+    return false;
+  }
+
+  public Cell setContent (CellContent c){
+    this.content = c;
+    return this;
+  }
 }

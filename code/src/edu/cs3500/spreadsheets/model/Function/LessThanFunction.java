@@ -11,7 +11,8 @@ import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.LessThan;
 import edu.cs3500.spreadsheets.model.Value.Value;
 
 /**
- * Function class for less than function.
+ * Function class for less than function that compares two numbers and outputs if with first number
+ * is less than the second number.
  */
 public class LessThanFunction implements Function {
   private ArrayList<Formula> args;
@@ -32,6 +33,7 @@ public class LessThanFunction implements Function {
   @Override
   public Value evaluate() {
     boolean lessThan;
+    //can only evaluate if there are exactly two arguments
     if (args.size() != 2) {
       throw new IllegalArgumentException("Needs exactly two arguments");
     }
@@ -49,7 +51,7 @@ public class LessThanFunction implements Function {
   @Override
   public boolean checkCycle(ArrayList<Coord> acc) {
     for (Formula f : args) {
-      if (f.checkCycleHelper(acc)) {
+      if (f.checkCycle(acc)) {
         return true;
       }
     }
