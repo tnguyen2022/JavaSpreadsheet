@@ -56,6 +56,11 @@ public class LessThanFunction implements Function {
     return false;
   }
 
+  /**
+   * checks if there is a circular reference when using a function.
+   * @param acc the coordinated being referenced
+   * @return whether or not there is a circular reference
+   */
   public boolean checkCycleHelper(ArrayList<Coord> acc){
     return checkCycle(acc);
   }

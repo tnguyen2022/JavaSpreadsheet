@@ -58,10 +58,21 @@ public class SumFunction implements Function {
     return false;
   }
 
+  /**
+   * checks if there is a circular reference when using a function.
+   * @param acc the coordinated being referenced
+   * @return whether or not there is a circular reference
+   */
   public boolean checkCycleHelper(ArrayList<Coord> acc){
     return checkCycle(acc);
   }
 
+  /**
+   * Accepts the CellContentVisitor to allow for function objects to exist.
+   * @param visitor the visiting cell content
+   * @param <T> the value type
+   * @return The desired result
+   */
   public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitFunction(this);
   }
