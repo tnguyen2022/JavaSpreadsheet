@@ -3,7 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.model.value.Value;
 
 /**
  * Represents a reference of cells in a worksheet.
@@ -13,6 +13,7 @@ public class Reference implements Formula {
 
   /**
    * Parses a given string to rectangular region of cells that represents a reference.
+   *
    * @param s the range of coordinates in string form.
    */
   public Reference(String s) {
@@ -20,14 +21,13 @@ public class Reference implements Formula {
       throw new IllegalArgumentException("Need a valid reference");
     }
     if (s.contains(":")) {
-      if (s.split(":")[0].equals(s.split(":")[1])){
+      if (s.split(":")[0].equals(s.split(":")[1])) {
         int col = Coord.colNameToIndex(s.split(":")[0].substring(0,
                 Cell.getIndexOfSplit(s)));
         int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
-        Cell currentCell = Worksheet.getCell(col, row);
+        Cell currentCell = BasicWorksheet.getCell(col, row);
         region.add(currentCell);
-      }
-      else {
+      } else {
         int col1 = (Coord.colNameToIndex(s.split(":")[0].substring(0,
                 Cell.getIndexOfSplit(s.split(":")[0]))));
         int row1 = Integer.parseInt(s.split(":")[0].substring(
@@ -50,7 +50,7 @@ public class Reference implements Formula {
 
         for (int i = col1; i <= col2; i++) {
           for (int j = row1; j <= row2; j++) {
-            region.add(Worksheet.getCell(i, j));
+            region.add(BasicWorksheet.getCell(i, j));
           }
         }
       }
@@ -58,7 +58,7 @@ public class Reference implements Formula {
       int col = Coord.colNameToIndex(s.split(":")[0].substring(0,
               Cell.getIndexOfSplit(s)));
       int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
-      Cell currentCell = Worksheet.getCell(col, row);
+      Cell currentCell = BasicWorksheet.getCell(col, row);
       region.add(currentCell);
     }
   }
@@ -79,10 +79,9 @@ public class Reference implements Formula {
   @Override
   public Value evaluate() {
     if (region.size() == 1) {
-      return Worksheet.getCell(region.get(0).cellReference.col,
-                      region.get(0).cellReference.row).content.evaluate();
-    }
-    else {
+      return BasicWorksheet.getCell(region.get(0).cellReference.col,
+              region.get(0).cellReference.row).content.evaluate();
+    } else {
       throw new IllegalArgumentException("Cannot evaluate a reference of more than one cell");
 
     }
@@ -109,20 +108,18 @@ public class Reference implements Formula {
       return true;
     }
 
-    if(o instanceof Reference) {
+    if (o instanceof Reference) {
       Reference that = (Reference) o;
-      if (this.region.size() == that.region.size()){
-        for (int i = 0; i < this.region.size(); i++){
-          if (!(this.region.get(i).equals(that.region.get(i)))){
+      if (this.region.size() == that.region.size()) {
+        for (int i = 0; i < this.region.size(); i++) {
+          if (!(this.region.get(i).equals(that.region.get(i)))) {
             return false;
           }
         }
-      }
-      else{
+      } else {
         return false;
       }
-    }
-    else{
+    } else {
       return false;
     }
     return true;

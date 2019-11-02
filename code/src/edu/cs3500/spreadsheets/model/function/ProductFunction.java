@@ -1,14 +1,14 @@
-package edu.cs3500.spreadsheets.model.Function;
+package edu.cs3500.spreadsheets.model.function;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import edu.cs3500.spreadsheets.model.CellContentVisitor;
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.Value.DoubleValue;
+import edu.cs3500.spreadsheets.model.value.DoubleValue;
 import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.Product;
-import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.model.cellcontentvisitfunc.Product;
+import edu.cs3500.spreadsheets.model.value.Value;
 
 /**
  * Representation of a product function that computes the total product of its given arguments.
@@ -18,6 +18,7 @@ public class ProductFunction implements Function {
 
   /**
    * The product function and the arguments it is being multiplied.
+   *
    * @param args the arguments being evaluated
    */
   public ProductFunction(ArrayList<Formula> args) {
@@ -29,8 +30,8 @@ public class ProductFunction implements Function {
     if (args.size() == 0) {
       throw new IllegalArgumentException("Needs at least one argument.");
     }
-    for (Function f : memoizeFunction.keySet()){
-      if(this.equals(f)){
+    for (Function f : memoizeFunction.keySet()) {
+      if (this.equals(f)) {
         return memoizeFunction.get(f);
       }
     }
@@ -49,7 +50,7 @@ public class ProductFunction implements Function {
       return memoizeCycle.get(this);
     }
     for (Formula f : args) {
-      if (f.checkCycle(acc)){
+      if (f.checkCycle(acc)) {
         return true;
       }
     }
@@ -63,24 +64,23 @@ public class ProductFunction implements Function {
   }
 
   @Override
-  public boolean equals (Object o){
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if(o instanceof ProductFunction) {
+    if (o instanceof ProductFunction) {
       ProductFunction that = (ProductFunction) o;
-      if (this.args.size() == that.args.size()){
-        for (int i = 0; i < this.args.size(); i++){
-          if(!this.args.get(i).equals(that.args.get(i))){
+      if (this.args.size() == that.args.size()) {
+        for (int i = 0; i < this.args.size(); i++) {
+          if (!this.args.get(i).equals(that.args.get(i))) {
             return false;
           }
         }
-      }
-      else{
+      } else {
         return false;
       }
     }
-      return false;
+    return false;
   }
 
   @Override

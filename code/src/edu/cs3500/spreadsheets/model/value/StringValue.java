@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets.model.Value;
+package edu.cs3500.spreadsheets.model.value;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -14,14 +14,15 @@ public class StringValue implements Value {
 
   /**
    * The string value in a string value.
+   *
    * @param value the strinb
    */
-  public StringValue(String value){
+  public StringValue(String value) {
     this.value = value;
   }
 
   @Override
-  public <T> T accept(CellContentVisitor<T> visitor){
+  public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitStringValue(this);
   }
 
@@ -37,16 +38,14 @@ public class StringValue implements Value {
 
 
   @Override
-  public String toString(){
+  public String toString() {
     String print = "";
-    for (int i = 0; i < value.length(); i++){
-      if (this.value.charAt(i) == '"'){
+    for (int i = 0; i < value.length(); i++) {
+      if (this.value.charAt(i) == '"') {
         print += "\\\"";
-      }
-      else if (this.value.charAt(i) == '\\'){
+      } else if (this.value.charAt(i) == '\\') {
         print += "\\\\";
-      }
-      else{
+      } else {
         print += Character.toString(this.value.charAt(i));
       }
     }
@@ -62,8 +61,7 @@ public class StringValue implements Value {
     if (o instanceof StringValue) {
       StringValue that = (StringValue) o;
       return this.value.equals(that.value);
-    }
-    else{
+    } else {
       return false;
     }
   }

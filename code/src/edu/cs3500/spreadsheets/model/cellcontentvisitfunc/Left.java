@@ -1,16 +1,16 @@
-package edu.cs3500.spreadsheets.model.CellContentVisitorFunctions;
+package edu.cs3500.spreadsheets.model.cellcontentvisitfunc;
 
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.CellContentVisitor;
-import edu.cs3500.spreadsheets.model.Function.Function;
+import edu.cs3500.spreadsheets.model.function.Function;
 import edu.cs3500.spreadsheets.model.Reference;
-import edu.cs3500.spreadsheets.model.Value.BooleanValue;
-import edu.cs3500.spreadsheets.model.Value.DoubleValue;
-import edu.cs3500.spreadsheets.model.Value.StringValue;
+import edu.cs3500.spreadsheets.model.value.BooleanValue;
+import edu.cs3500.spreadsheets.model.value.DoubleValue;
+import edu.cs3500.spreadsheets.model.value.StringValue;
 
 /**
- * A LEFT visitor function that returns a substring of a String or Number,
- * starting from the left-most character.
+ * A LEFT visitor function that returns a substring of a String or Number, starting from the
+ * left-most character.
  */
 public class Left implements CellContentVisitor<String> {
 
@@ -40,7 +40,7 @@ public class Left implements CellContentVisitor<String> {
   }
 
   @Override
-  public String visitBooleanValue(BooleanValue b) throws UnsupportedOperationException{
+  public String visitBooleanValue(BooleanValue b) throws UnsupportedOperationException {
     throw new UnsupportedOperationException("Argument has to be a String or Double");
   }
 }

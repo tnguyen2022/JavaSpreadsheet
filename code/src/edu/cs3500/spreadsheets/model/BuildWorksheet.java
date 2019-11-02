@@ -1,26 +1,27 @@
 package edu.cs3500.spreadsheets.model;
 
 /**
- * Builds a representation of the worksheet.
+ * Builds a representation of a Worksheet.
  */
-public class BuildWorksheet implements WorksheetReader.WorksheetBuilder<Worksheet> {
-  private final Worksheet w;
+public class BuildWorksheet implements WorksheetReader.WorksheetBuilder<BasicWorksheet> {
+  private final BasicWorksheet w;
 
   /**
-   * Creates the Worksheet.
+   * Constructs an instance of a BasicWorksheet.
    */
   public BuildWorksheet() {
-    w = new Worksheet();
+    w = new BasicWorksheet();
   }
 
   @Override
-  public WorksheetReader.WorksheetBuilder<Worksheet> createCell(int col, int row, String contents) {
+  public WorksheetReader.WorksheetBuilder<BasicWorksheet>
+      createCell(int col, int row, String contents) {
     w.modifyOrAdd(col, row, contents);
     return this;
   }
 
   @Override
-  public Worksheet createWorksheet() {
+  public BasicWorksheet createWorksheet() {
     return w;
   }
 }

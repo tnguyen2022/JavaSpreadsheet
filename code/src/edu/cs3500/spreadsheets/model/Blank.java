@@ -2,8 +2,8 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
-import edu.cs3500.spreadsheets.model.Value.DoubleValue;
-import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.model.value.DoubleValue;
+import edu.cs3500.spreadsheets.model.value.Value;
 
 /**
  * Represents an empty cell in a spreadsheet that does ot contain any content.
@@ -11,7 +11,7 @@ import edu.cs3500.spreadsheets.model.Value.Value;
 public class Blank implements CellContent {
 
   @Override
-  public String toString(){
+  public String toString() {
     return "";
   }
 
@@ -22,7 +22,7 @@ public class Blank implements CellContent {
 
   @Override
   public boolean checkCycle(ArrayList<Coord> acc) {
-      return false;
+    return false;
   }
 
   @Override
@@ -31,7 +31,7 @@ public class Blank implements CellContent {
   }
 
   @Override
-  public boolean equals (Object o){
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }

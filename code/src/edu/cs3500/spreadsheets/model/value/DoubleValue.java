@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets.model.Value;
+package edu.cs3500.spreadsheets.model.value;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -14,14 +14,15 @@ public class DoubleValue implements Value {
 
   /**
    * Creates a double value with the given value.
+   *
    * @param value the double value.
    */
-  public DoubleValue(double value){
+  public DoubleValue(double value) {
     this.value = value;
   }
 
   @Override
-  public <T> T accept(CellContentVisitor<T> visitor){
+  public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitDoubleValue(this);
   }
 

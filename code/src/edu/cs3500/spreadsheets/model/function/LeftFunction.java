@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets.model.Function;
+package edu.cs3500.spreadsheets.model.function;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -6,9 +6,9 @@ import java.util.Objects;
 import edu.cs3500.spreadsheets.model.CellContentVisitor;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.Left;
-import edu.cs3500.spreadsheets.model.Value.StringValue;
-import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.model.cellcontentvisitfunc.Left;
+import edu.cs3500.spreadsheets.model.value.StringValue;
+import edu.cs3500.spreadsheets.model.value.Value;
 
 /**
  * A left function that substrings a value starting from the left of a given number.
@@ -18,6 +18,7 @@ public class LeftFunction implements Function {
 
   /**
    * The left function and what it is evaluating.
+   *
    * @param args The arguments being used for the function
    */
   public LeftFunction(ArrayList<Formula> args) {
@@ -29,8 +30,8 @@ public class LeftFunction implements Function {
     if (args.size() != 2) {
       throw new IllegalArgumentException("Needs exactly two arguments");
     }
-    for (Function f : memoizeFunction.keySet()){
-      if(this.equals(f)){
+    for (Function f : memoizeFunction.keySet()) {
+      if (this.equals(f)) {
         return memoizeFunction.get(f);
       }
     }
@@ -48,7 +49,7 @@ public class LeftFunction implements Function {
     // converts String into index as an integer
     try {
       secondArg = this.args.get(1).accept(new Left());
-      secArgInt= (int) Double.parseDouble(secondArg);
+      secArgInt = (int) Double.parseDouble(secondArg);
     }
     // if the second argument was not a number
     catch (UnsupportedOperationException | NumberFormatException e) {
@@ -67,7 +68,7 @@ public class LeftFunction implements Function {
       return memoizeCycle.get(this);
     }
     for (Formula f : args) {
-      if (f.checkCycle(acc)){
+      if (f.checkCycle(acc)) {
         return true;
       }
     }
@@ -81,24 +82,23 @@ public class LeftFunction implements Function {
   }
 
   @Override
-  public boolean equals (Object o){
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if(o instanceof LeftFunction) {
+    if (o instanceof LeftFunction) {
       LeftFunction that = (LeftFunction) o;
-      if (this.args.size() == that.args.size()){
-        for (int i = 0; i < this.args.size(); i++){
-          if(!this.args.get(i).equals(that.args.get(i))){
+      if (this.args.size() == that.args.size()) {
+        for (int i = 0; i < this.args.size(); i++) {
+          if (!this.args.get(i).equals(that.args.get(i))) {
             return false;
           }
         }
-      }
-      else{
+      } else {
         return false;
       }
     }
-      return false;
+    return false;
   }
 
   @Override

@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions;
+package edu.cs3500.spreadsheets.sexp.sexpvisitfunc;
 
 import java.util.List;
 

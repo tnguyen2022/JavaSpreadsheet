@@ -4,23 +4,24 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-import edu.cs3500.spreadsheets.model.Function.Function;
-import edu.cs3500.spreadsheets.model.Value.Value;
-import edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions.CreateCellFormula;
-import edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions.CreateCellValue;
+import edu.cs3500.spreadsheets.model.function.Function;
+import edu.cs3500.spreadsheets.model.value.Value;
+import edu.cs3500.spreadsheets.sexp.sexpvisitfunc.CreateCellFormula;
+import edu.cs3500.spreadsheets.sexp.sexpvisitfunc.CreateCellValue;
 import edu.cs3500.spreadsheets.sexp.Parser;
 
 /**
- * Representation of a worksheet spreadsheet.
+ * Representation of a basic worksheet spreadsheet defined by a Hashmap of existing Coords mapped to
+ * a specified Cell.
  */
-public class Worksheet implements GeneralWorksheet {
-  public static HashMap<Coord, Cell> ws;
+public class BasicWorksheet implements GeneralWorksheet {
+  public static HashMap<Coord, Cell> WS;
 
   /**
-   * A worksheet is a blank Hashmap until cells are added into the worksheet.
+   * Constructs a a blank worksheet represented by an empty HashMap of Key Coord mapped to a Cell.
    */
-  public Worksheet() {
-    ws = new HashMap<>();
+  public BasicWorksheet() {
+    WS = new HashMap<>();
   }
 
   @Override
@@ -28,22 +29,22 @@ public class Worksheet implements GeneralWorksheet {
     if ((0 <= col && col <= 16000) && (0 <= row && row <= 1000000)) {
       if (contents.length() > 2) {
         if (contents.charAt(0) == '=') {
-          if (ws.containsKey(new Coord(col, row))) {
-            ws.get(new Coord(col, row))
+          if (WS.containsKey(new Coord(col, row))) {
+            WS.get(new Coord(col, row))
                     .setContent(Parser.parse(contents.substring(1))
                             .accept(new CreateCellFormula()));
           } else {
-            ws.put(new Coord(col, row),
+            WS.put(new Coord(col, row),
                     new Cell(Parser.parse(contents.substring(1)).accept(new CreateCellFormula()),
                             new Coord(col, row)));
           }
         } else {
-          ws.put(new Coord(col, row),
+          WS.put(new Coord(col, row),
                   new Cell(Parser.parse(contents).accept(new CreateCellValue()),
                           new Coord(col, row)));
         }
       } else {
-        ws.put(new Coord(col, row),
+        WS.put(new Coord(col, row),
                 new Cell(Parser.parse(contents).accept(new CreateCellValue()),
                         new Coord(col, row)));
       }
@@ -70,12 +71,12 @@ public class Worksheet implements GeneralWorksheet {
    * @throws IllegalArgumentException if the given coordinate is out of set bounds
    */
   public static Cell getCell(int col, int row) throws IllegalArgumentException {
-    if (ws.get(new Coord(col, row)) == null) {
+    if (WS.get(new Coord(col, row)) == null) {
       Cell newCell = new Cell(new Coord(col, row));
-      ws.put(new Coord(col, row), newCell);
-      return ws.get(new Coord(col, row));
+      WS.put(new Coord(col, row), newCell);
+      return WS.get(new Coord(col, row));
     } else {
-      return ws.get(new Coord(col, row));
+      return WS.get(new Coord(col, row));
     }
   }
 }

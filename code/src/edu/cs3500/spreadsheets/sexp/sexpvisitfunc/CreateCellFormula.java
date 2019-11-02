@@ -1,22 +1,22 @@
-package edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions;
+package edu.cs3500.spreadsheets.sexp.sexpvisitfunc;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.cs3500.spreadsheets.model.Reference;
-import edu.cs3500.spreadsheets.model.Value.BooleanValue;
-import edu.cs3500.spreadsheets.model.Value.DoubleValue;
+import edu.cs3500.spreadsheets.model.value.BooleanValue;
+import edu.cs3500.spreadsheets.model.value.DoubleValue;
 import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.Function.LeftFunction;
-import edu.cs3500.spreadsheets.model.Function.LessThanFunction;
-import edu.cs3500.spreadsheets.model.Function.ProductFunction;
-import edu.cs3500.spreadsheets.model.Value.StringValue;
-import edu.cs3500.spreadsheets.model.Function.SumFunction;
+import edu.cs3500.spreadsheets.model.function.LeftFunction;
+import edu.cs3500.spreadsheets.model.function.LessThanFunction;
+import edu.cs3500.spreadsheets.model.function.ProductFunction;
+import edu.cs3500.spreadsheets.model.value.StringValue;
+import edu.cs3500.spreadsheets.model.function.SumFunction;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 
 /**
- * Visitor function object that creates the Formula for a Cell.
+ * Visitor function object that creates the Formula for a Cell from a Sexp.
  */
 public class CreateCellFormula implements SexpVisitor<Formula> {
   @Override
@@ -33,10 +33,9 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
   public Formula visitSList(List<Sexp> l) {
     String funcName;
 
-    try{
+    try {
       funcName = l.get(0).accept(new FunctionName());
-    }
-    catch (IllegalArgumentException | NullPointerException e){
+    } catch (IllegalArgumentException | NullPointerException e) {
       throw new IllegalArgumentException("Not a valid Function Name");
     }
 
@@ -47,7 +46,7 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
       }
     }
 
-    switch (funcName){
+    switch (funcName) {
       case "SUM":
         return new SumFunction(args);
       case "PRODUCT":
@@ -63,11 +62,11 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
 
   @Override
   public Formula visitSymbol(String s) {
-       return new Reference(s);
+    return new Reference(s);
   }
 
   @Override
   public Formula visitString(String s) {
-      return new StringValue(s);
+    return new StringValue(s);
   }
 }

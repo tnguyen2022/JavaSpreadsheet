@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets.model.Value;
+package edu.cs3500.spreadsheets.model.value;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -21,13 +21,6 @@ public class BooleanValue implements Value {
     this.value = value;
   }
 
-  /**
-   * Allows for the value to be evaluated by the cell container.
-   *
-   * @param visitor the visiting cell content
-   * @param <T>     the type of value
-   * @return the desired result
-   */
   public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitBooleanValue(this);
   }

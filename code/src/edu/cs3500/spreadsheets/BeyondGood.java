@@ -3,12 +3,12 @@ package edu.cs3500.spreadsheets;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
+import edu.cs3500.spreadsheets.model.BasicWorksheet;
 import edu.cs3500.spreadsheets.model.BuildWorksheet;
 import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
-import edu.cs3500.spreadsheets.model.Value.Value;
-import edu.cs3500.spreadsheets.model.Worksheet;
+import edu.cs3500.spreadsheets.model.value.Value;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 
 /**
@@ -28,10 +28,8 @@ public class BeyondGood {
       - report any errors, or print the evaluated value of the requested cell.
     */
 
-
-
     if (args.length > 0) {
-      GeneralWorksheet gw = new Worksheet();
+      GeneralWorksheet gw = new BasicWorksheet();
       if (args[0].equals("-in")) {
         try {
           FileReader readable = new FileReader(args[1]);
@@ -39,7 +37,7 @@ public class BeyondGood {
             gw = WorksheetReader.read(new BuildWorksheet(),
                     readable);
           } catch (IllegalArgumentException e) {
-            System.err.println("Unable to create worksheet: " + e);
+            throw new IllegalStateException("Unable to create worksheet: " + e);
           }
         } catch (FileNotFoundException e) {
           throw new IllegalStateException("Unable to access .txt file");
@@ -54,15 +52,15 @@ public class BeyondGood {
               } catch (IllegalArgumentException e) {
                 System.out.print("Not Valid Cell Name");
               }
-              int col = Coord.colNameToIndex(args[i+1].substring(0, index));
-              int row = Integer.parseInt(args[i+1].substring(index));
-              Value v = gw.evaluateCell(Worksheet.getCell(col, row));
+              int col = Coord.colNameToIndex(args[i + 1].substring(0, index));
+              int row = Integer.parseInt(args[i + 1].substring(index));
+              Value v = gw.evaluateCell(BasicWorksheet.getCell(col, row));
               System.out.print(v.toString());
             } catch (IllegalArgumentException | UnsupportedOperationException e) {
               System.out.println("Error in cell " + args[i + 1] + ":" + e);
             }
           }
-          else{
+          else {
             throw new IllegalStateException("Not proper -eval command");
           }
         }

@@ -1,19 +1,19 @@
-package edu.cs3500.spreadsheets.model.CellContentVisitorFunctions;
+package edu.cs3500.spreadsheets.model.cellcontentvisitfunc;
 
+import edu.cs3500.spreadsheets.model.BasicWorksheet;
 import edu.cs3500.spreadsheets.model.Blank;
+import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.CellContentVisitor;
-import edu.cs3500.spreadsheets.model.Function.Function;
+import edu.cs3500.spreadsheets.model.function.Function;
 import edu.cs3500.spreadsheets.model.Reference;
-import edu.cs3500.spreadsheets.model.Value.BooleanValue;
-import edu.cs3500.spreadsheets.model.Value.DoubleValue;
-import edu.cs3500.spreadsheets.model.Value.StringValue;
+import edu.cs3500.spreadsheets.model.value.BooleanValue;
+import edu.cs3500.spreadsheets.model.value.DoubleValue;
+import edu.cs3500.spreadsheets.model.value.StringValue;
 
 /**
- * A LESSTHAN visitor function that returns a boolean based on the less than evaluation of a
- * given reference or value.
+ * A PRODUCT visitor function that returns the product of a given reference or value.
  */
-public class LessThan implements CellContentVisitor<Double> {
-
+public class Product implements CellContentVisitor<Double> {
   @Override
   public Double visitBlank(Blank b) {
     return 0.0;
@@ -21,7 +21,12 @@ public class LessThan implements CellContentVisitor<Double> {
 
   @Override
   public Double visitReference(Reference r) {
-    return r.evaluate().accept(this);
+    double sumReference = 1;
+    for (Cell c : r.region) {
+      sumReference *= BasicWorksheet.getCell(c.cellReference.col,
+              c.cellReference.row).content.accept(this);
+    }
+    return sumReference;
   }
 
   @Override

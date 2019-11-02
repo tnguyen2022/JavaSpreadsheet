@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets.model.Value;
+package edu.cs3500.spreadsheets.model.value;
 
 import edu.cs3500.spreadsheets.model.CellContent;
 import edu.cs3500.spreadsheets.model.Formula;

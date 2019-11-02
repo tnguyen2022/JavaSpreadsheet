@@ -2,6 +2,7 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Represents the possible representations of a Cell.
@@ -13,6 +14,7 @@ public class Cell {
 
   /**
    * Creates a blank cell that is constructed in a given coordinate.
+   *
    * @param cellReference the coordinate of the cell
    */
   public Cell(Coord cellReference) {
@@ -22,7 +24,8 @@ public class Cell {
 
   /**
    * Creates a non-blank cell that is constructed with its given content and coordinate.
-   * @param content the content of the cell
+   *
+   * @param content       the content of the cell
    * @param cellReference the coordinate of the cell
    */
   public Cell(CellContent content, Coord cellReference) {
@@ -32,6 +35,7 @@ public class Cell {
 
   /**
    * Determines the index of reference.
+   *
    * @param split the string to split
    * @return the index of the reference
    */
@@ -39,10 +43,10 @@ public class Cell {
     int index = 0;
     boolean isRestInteger = false;
     if (!Character.isLetter(split.charAt(0))) {
-      throw new IllegalArgumentException("Column reference has to be a Letter");
+      throw new IllegalArgumentException("Invalid Formula Argument");
     }
     if (!Character.isDigit(split.charAt(split.length() - 1))) {
-      throw new IllegalArgumentException("Row reference has to be a Integer number");
+      throw new IllegalArgumentException("Invalid Formula Argument");
     }
     for (int i = 1; i < split.length(); i++) {
       if (!isRestInteger) {
@@ -52,7 +56,7 @@ public class Cell {
         }
       } else {
         if (Character.isLetter(split.charAt(i))) {
-          throw new IllegalArgumentException("Row reference has to be a Integer number");
+          throw new IllegalArgumentException("Invalid Formula Argument");
         }
       }
     }
@@ -60,7 +64,13 @@ public class Cell {
     return index;
   }
 
-  boolean checkCellForCycle(ArrayList<Coord> acc){
+  /**
+   * Checks whether or not this cell is part of a cycle.
+   *
+   * @param acc the accumlator of visited Cell Coord
+   * @return whether or not the cell is part of a cycle
+   */
+  public boolean checkCellForCycle(ArrayList<Coord> acc) {
     if (acc.contains(this.cellReference)) {
       return true;
     } else {
@@ -72,19 +82,30 @@ public class Cell {
   }
 
   @Override
-  public boolean equals (Object o){
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if(o instanceof Cell) {
+    if (o instanceof Cell) {
       Cell that = (Cell) o;
       return this.content.equals(that.content) && this.cellReference.equals(that.cellReference);
     }
     return false;
   }
 
-  public Cell setContent (CellContent c){
+  /**
+   * Sets a Cell contents to the given cell contents.
+   *
+   * @param c the given cell content
+   * @return the Cell with its new set cell contents
+   */
+  public Cell setContent(CellContent c) {
     this.content = c;
     return this;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(cellReference);
   }
 }

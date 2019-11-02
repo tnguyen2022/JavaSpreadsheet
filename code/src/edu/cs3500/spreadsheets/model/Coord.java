@@ -3,7 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import java.util.Objects;
 
 /**
- * A value type representing coordinates in a {@link Worksheet}.
+ * A value type representing coordinates in a {@link BasicWorksheet}.
  */
 public class Coord {
   public final int row;
@@ -11,6 +11,7 @@ public class Coord {
 
   /**
    * The coordinate of a cell.
+   *
    * @param col the column number of the cell
    * @param row the row number of the cell
    */
@@ -24,6 +25,7 @@ public class Coord {
 
   /**
    * Converts from the A-Z column naming system to a 1-indexed numeric value.
+   *
    * @param name the column name
    * @return the corresponding column index
    */
@@ -39,6 +41,7 @@ public class Coord {
 
   /**
    * Converts a 1-based column index into the A-Z column naming system.
+   *
    * @param index the column index
    * @return the corresponding column name
    */
@@ -67,7 +70,7 @@ public class Coord {
     }
     Coord coord = (Coord) o;
     return row == coord.row
-        && col == coord.col;
+            && col == coord.col;
   }
 
   @Override

@@ -1,4 +1,4 @@
-package edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions;
+package edu.cs3500.spreadsheets.sexp.sexpvisitfunc;
 
 import java.util.List;
 
@@ -21,10 +21,9 @@ public class FunctionName implements SexpVisitor<String> {
   @Override
   public String visitSymbol(String s) {
     if (s.equalsIgnoreCase("SUM") || s.equalsIgnoreCase("PRODUCT") ||
-            s.equals("<") || s.equalsIgnoreCase("LEFT")){
+            s.equals("<") || s.equalsIgnoreCase("LEFT")) {
       return s.toUpperCase();
-    }
-    else {
+    } else {
       throw new IllegalArgumentException("Has to be a valid function");
     }
   }

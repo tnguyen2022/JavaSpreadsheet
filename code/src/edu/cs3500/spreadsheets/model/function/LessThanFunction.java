@@ -1,14 +1,14 @@
-package edu.cs3500.spreadsheets.model.Function;
+package edu.cs3500.spreadsheets.model.function;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import edu.cs3500.spreadsheets.model.Value.BooleanValue;
+import edu.cs3500.spreadsheets.model.value.BooleanValue;
 import edu.cs3500.spreadsheets.model.CellContentVisitor;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.LessThan;
-import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.model.cellcontentvisitfunc.LessThan;
+import edu.cs3500.spreadsheets.model.value.Value;
 
 /**
  * Function class for less than function that compares two numbers and outputs if with first number
@@ -19,6 +19,7 @@ public class LessThanFunction implements Function {
 
   /**
    * The less than function and the arguments that are being compared.
+   *
    * @param args the arguments that are being evaluated
    */
   public LessThanFunction(ArrayList<Formula> args) {
@@ -33,8 +34,8 @@ public class LessThanFunction implements Function {
     if (args.size() != 2) {
       throw new IllegalArgumentException("Needs exactly two arguments");
     }
-    for (Function f : memoizeFunction.keySet()){
-      if(this.equals(f)){
+    for (Function f : memoizeFunction.keySet()) {
+      if (this.equals(f)) {
         return memoizeFunction.get(f);
       }
     }
@@ -64,24 +65,23 @@ public class LessThanFunction implements Function {
   }
 
   @Override
-  public boolean equals (Object o){
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if(o instanceof LessThanFunction) {
+    if (o instanceof LessThanFunction) {
       LessThanFunction that = (LessThanFunction) o;
-      if (this.args.size() == that.args.size()){
-        for (int i = 0; i < this.args.size(); i++){
-          if(!this.args.get(i).equals(that.args.get(i))){
+      if (this.args.size() == that.args.size()) {
+        for (int i = 0; i < this.args.size(); i++) {
+          if (!this.args.get(i).equals(that.args.get(i))) {
             return false;
           }
         }
-      }
-      else{
+      } else {
         return false;
       }
     }
-      return false;
+    return false;
   }
 
   @Override

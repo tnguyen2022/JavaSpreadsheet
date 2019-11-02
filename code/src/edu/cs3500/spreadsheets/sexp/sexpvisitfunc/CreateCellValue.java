@@ -1,11 +1,11 @@
-package edu.cs3500.spreadsheets.sexp.SexpVisitorFunctions;
+package edu.cs3500.spreadsheets.sexp.sexpvisitfunc;
 
 import java.util.List;
 
-import edu.cs3500.spreadsheets.model.Value.BooleanValue;
-import edu.cs3500.spreadsheets.model.Value.DoubleValue;
-import edu.cs3500.spreadsheets.model.Value.StringValue;
-import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.model.value.BooleanValue;
+import edu.cs3500.spreadsheets.model.value.DoubleValue;
+import edu.cs3500.spreadsheets.model.value.StringValue;
+import edu.cs3500.spreadsheets.model.value.Value;
 import edu.cs3500.spreadsheets.sexp.Sexp;
 import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 

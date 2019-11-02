@@ -1,14 +1,14 @@
-package edu.cs3500.spreadsheets.model.Function;
+package edu.cs3500.spreadsheets.model.function;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 import edu.cs3500.spreadsheets.model.CellContentVisitor;
 import edu.cs3500.spreadsheets.model.Coord;
-import edu.cs3500.spreadsheets.model.Value.DoubleValue;
+import edu.cs3500.spreadsheets.model.value.DoubleValue;
 import edu.cs3500.spreadsheets.model.Formula;
-import edu.cs3500.spreadsheets.model.CellContentVisitorFunctions.Sum;
-import edu.cs3500.spreadsheets.model.Value.Value;
+import edu.cs3500.spreadsheets.model.cellcontentvisitfunc.Sum;
+import edu.cs3500.spreadsheets.model.value.Value;
 
 /**
  * Function class that represents the sum function that computes the total sum of its given
@@ -18,7 +18,8 @@ public class SumFunction implements Function {
   private ArrayList<Formula> args;
 
   /**
-   * The sum function and the arguments it is adding together
+   * The sum function and the arguments it is adding together.
+   *
    * @param args the array list of arguments
    */
   public SumFunction(ArrayList<Formula> args) {
@@ -49,8 +50,8 @@ public class SumFunction implements Function {
     if (memoizeCycle.containsKey(this)) {
       return memoizeCycle.get(this);
     }
-    for (int i  = 0; i < args.size(); i++){
-      if (args.get(i).checkCycle(acc)){
+    for (int i = 0; i < args.size(); i++) {
+      if (args.get(i).checkCycle(acc)) {
         return true;
       }
     }
@@ -58,35 +59,28 @@ public class SumFunction implements Function {
     return false;
   }
 
-  /**
-   * Accepts the CellContentVisitor to allow for function objects to exist.
-   * @param visitor the visiting cell content
-   * @param <T> the value type
-   * @return The desired result
-   */
   public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitFunction(this);
   }
 
   @Override
-  public boolean equals (Object o){
+  public boolean equals(Object o) {
     if (this == o) {
       return true;
     }
-    if( o instanceof SumFunction) {
+    if (o instanceof SumFunction) {
       SumFunction that = (SumFunction) o;
-      if (this.args.size() == that.args.size()){
-        for (int i = 0; i < this.args.size(); i++){
-          if(!this.args.get(i).equals(that.args.get(i))){
+      if (this.args.size() == that.args.size()) {
+        for (int i = 0; i < this.args.size(); i++) {
+          if (!this.args.get(i).equals(that.args.get(i))) {
             return false;
           }
         }
-      }
-      else{
+      } else {
         return false;
       }
     }
-      return false;
+    return false;
   }
 
   @Override
