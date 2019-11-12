@@ -88,4 +88,14 @@ public class LessThanFunction implements Function {
   public int hashCode() {
     return Objects.hash(args);
   }
+
+  @Override
+  public String toString(){
+    String output = "(<";
+    for (int i = 0; i < this.args.size(); i++){
+      output += " " + args.get(i).toString();
+    }
+    output += ")";
+    return output;
+  }
 }

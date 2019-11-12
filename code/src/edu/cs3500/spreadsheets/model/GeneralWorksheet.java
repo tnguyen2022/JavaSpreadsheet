@@ -24,4 +24,8 @@ public interface GeneralWorksheet {
    * @throws IllegalArgumentException when the cell has contents that cannot be evaluated
    */
   public Value evaluateCell(Cell c) throws IllegalArgumentException;
+
+  public int getMaxWidth();
+
+  public int getMaxHeight();
 }

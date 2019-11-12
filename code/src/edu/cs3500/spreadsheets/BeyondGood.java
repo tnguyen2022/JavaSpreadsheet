@@ -1,7 +1,10 @@
 package edu.cs3500.spreadsheets;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 import edu.cs3500.spreadsheets.model.BasicWorksheet;
 import edu.cs3500.spreadsheets.model.BuildWorksheet;
@@ -10,6 +13,8 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 import edu.cs3500.spreadsheets.model.value.Value;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
+import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
+import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
 /**
  * The main class for our program.
@@ -60,8 +65,34 @@ public class BeyondGood {
               System.out.println("Error in cell " + args[i + 1] + ":" + e);
             }
           }
+
+          else if (args[i].equals("-save")) {
+            try {
+              PrintWriter saveFile = new PrintWriter (args[i+1]);
+              try {
+                SpreadsheetView saveView = new SpreadsheetTextualView(gw, saveFile);
+                saveView.save();
+                saveFile.close();
+
+                FileReader testFile =  new FileReader(args[i+1]);
+                GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(),
+                        testFile);
+                BasicWorksheet boi = (BasicWorksheet) gwTest;
+                BasicWorksheet boi2 = (BasicWorksheet) gw;
+                System.out.println(boi.WS.values());
+                System.out.println(boi2.WS.keySet());
+//                System.out.println(gwTest.equals(gw));
+              } catch (IOException e) {
+                throw new IllegalStateException("Unable to save worksheet: " + e);
+              }
+            } catch (FileNotFoundException e) {
+              throw new IllegalStateException("Unable to access .txt file");
+            }
+          }
+
           else {
-            throw new IllegalStateException("Not proper -eval command");
+            throw new IllegalStateException("Not proper command-line style (needs to specify" +
+                    "-eval, -save, or -gui");
           }
         }
       } else {

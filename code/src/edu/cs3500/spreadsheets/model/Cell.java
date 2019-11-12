@@ -108,4 +108,9 @@ public class Cell {
   public int hashCode() {
     return Objects.hash(cellReference);
   }
+
+  @Override
+  public String toString(){
+    return Coord.colIndexToName(this.cellReference.col) + this.cellReference.row;
+  }
 }
