@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.view;
 
-import javax.swing.*;
+import javax.swing.JScrollPane;
+import javax.swing.JFrame;
 
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;

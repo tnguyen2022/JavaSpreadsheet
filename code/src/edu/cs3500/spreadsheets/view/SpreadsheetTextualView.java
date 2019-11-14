@@ -2,11 +2,9 @@ package edu.cs3500.spreadsheets.view;
 
 import java.io.IOException;
 
-import edu.cs3500.spreadsheets.model.BasicWorksheet;
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
-import edu.cs3500.spreadsheets.model.value.DoubleValue;
 
 public class SpreadsheetTextualView implements SpreadsheetView {
   /**

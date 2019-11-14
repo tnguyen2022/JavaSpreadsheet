@@ -74,12 +74,12 @@ public class BeyondGood {
                 saveView.render();
                 saveFile.close();
 
-                FileReader testFile =  new FileReader(args[i+1]);
-                GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(),
-                        testFile);
-                BasicWorksheet boi = (BasicWorksheet) gwTest;
-                BasicWorksheet boi2 = (BasicWorksheet) gw;
-                System.out.println(gwTest.equals(gw));
+//                FileReader testFile =  new FileReader(args[i+1]);
+//                GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(),
+//                        testFile);
+//                BasicWorksheet boi = (BasicWorksheet) gwTest;
+//                BasicWorksheet boi2 = (BasicWorksheet) gw;
+//                System.out.println(gwTest.equals(gw));
               } catch (IOException e) {
                 throw new IllegalStateException("Unable to save worksheet: " + e);
               }
