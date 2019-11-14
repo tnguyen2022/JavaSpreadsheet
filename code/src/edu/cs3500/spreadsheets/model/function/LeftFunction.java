@@ -94,6 +94,7 @@ public class LeftFunction implements Function {
             return false;
           }
         }
+        return true;
       } else {
         return false;
       }

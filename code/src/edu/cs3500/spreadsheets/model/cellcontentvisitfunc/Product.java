@@ -23,8 +23,7 @@ public class Product implements CellContentVisitor<Double> {
   public Double visitReference(Reference r) {
     double sumReference = 1;
     for (Cell c : r.region) {
-      sumReference *= BasicWorksheet.getCell(c.cellReference.col,
-              c.cellReference.row).content.accept(this);
+      sumReference *= c.content.accept(this);
     }
     return sumReference;
   }

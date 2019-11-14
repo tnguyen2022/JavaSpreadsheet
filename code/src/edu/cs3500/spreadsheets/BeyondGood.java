@@ -1,6 +1,5 @@
 package edu.cs3500.spreadsheets;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -59,7 +58,7 @@ public class BeyondGood {
               }
               int col = Coord.colNameToIndex(args[i + 1].substring(0, index));
               int row = Integer.parseInt(args[i + 1].substring(index));
-              Value v = gw.evaluateCell(BasicWorksheet.getCell(col, row));
+              Value v = gw.evaluateCell(gw.getCell(col, row));
               System.out.print(v.toString());
             } catch (IllegalArgumentException | UnsupportedOperationException e) {
               System.out.println("Error in cell " + args[i + 1] + ":" + e);
@@ -79,9 +78,7 @@ public class BeyondGood {
                         testFile);
                 BasicWorksheet boi = (BasicWorksheet) gwTest;
                 BasicWorksheet boi2 = (BasicWorksheet) gw;
-                System.out.println(boi.WS.values());
-                System.out.println(boi2.WS.keySet());
-//                System.out.println(gwTest.equals(gw));
+                System.out.println(gwTest.equals(gw));
               } catch (IOException e) {
                 throw new IllegalStateException("Unable to save worksheet: " + e);
               }

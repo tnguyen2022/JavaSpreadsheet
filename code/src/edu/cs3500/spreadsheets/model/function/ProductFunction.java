@@ -76,6 +76,7 @@ public class ProductFunction implements Function {
             return false;
           }
         }
+        return true;
       } else {
         return false;
       }

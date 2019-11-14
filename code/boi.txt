@@ -1,5 +1,5 @@
 A1 = 69
-A2 = A3
+A2 = 31
 A3 = (SUM A2 A1)
 A5 = 69
 A6 = (PRODUCT A1 A5)

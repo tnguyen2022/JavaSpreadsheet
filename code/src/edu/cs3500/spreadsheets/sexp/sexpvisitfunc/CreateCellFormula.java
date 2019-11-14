@@ -1,8 +1,11 @@
 package edu.cs3500.spreadsheets.sexp.sexpvisitfunc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Reference;
 import edu.cs3500.spreadsheets.model.value.BooleanValue;
 import edu.cs3500.spreadsheets.model.value.DoubleValue;
@@ -19,6 +22,12 @@ import edu.cs3500.spreadsheets.sexp.SexpVisitor;
  * Visitor function object that creates the Formula for a Cell from a Sexp.
  */
 public class CreateCellFormula implements SexpVisitor<Formula> {
+  private HashMap<Coord, Cell> ws;
+
+  public CreateCellFormula (HashMap<Coord, Cell> ws){
+    this.ws = ws;
+  }
+
   @Override
   public Formula visitBoolean(boolean b) {
     return new BooleanValue(b);
@@ -42,7 +51,7 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
     ArrayList<Formula> args = new ArrayList<>();
     if (l.size() > 1) {
       for (int i = 1; i < l.size(); i++) {
-        args.add(l.get(i).accept(new CreateCellFormula()));
+        args.add(l.get(i).accept(new CreateCellFormula(ws)));
       }
     }
 
@@ -62,11 +71,66 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
 
   @Override
   public Formula visitSymbol(String s) {
-    return new Reference(s);
+    ArrayList<Cell> region = new ArrayList<>();
+    if (s.length() < 2) {
+      throw new IllegalArgumentException("Need a valid reference");
+    }
+    if (s.contains(":")) {
+      if (s.split(":")[0].equals(s.split(":")[1])) {
+        int col = Coord.colNameToIndex(s.split(":")[0].substring(0,
+                Cell.getIndexOfSplit(s)));
+        int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
+        Cell currentCell = retrieveCell(col, row);
+        region.add(currentCell);
+      } else {
+        int col1 = (Coord.colNameToIndex(s.split(":")[0].substring(0,
+                Cell.getIndexOfSplit(s.split(":")[0]))));
+        int row1 = Integer.parseInt(s.split(":")[0].substring(
+                Cell.getIndexOfSplit(s.split(":")[0])));
+        int col2 = (Coord.colNameToIndex(s.split(":")[1].substring(0,
+                Cell.getIndexOfSplit(s.split(":")[1]))));
+        int row2 = Integer.parseInt(s.split(":")[1].substring(
+                Cell.getIndexOfSplit(s.split(":")[1])));
+
+        if (col1 > col2) {
+          int temp = col1;
+          col1 = col2;
+          col2 = temp;
+        }
+        if (row1 > row2) {
+          int temp = row1;
+          row1 = row2;
+          row2 = temp;
+        }
+
+        for (int i = col1; i <= col2; i++) {
+          for (int j = row1; j <= row2; j++) {
+            region.add(retrieveCell(i, j));
+          }
+        }
+      }
+    } else {
+      int col = Coord.colNameToIndex(s.split(":")[0].substring(0,
+              Cell.getIndexOfSplit(s)));
+      int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
+      Cell currentCell = retrieveCell(col, row);
+      region.add(currentCell);
+    }
+    return new Reference(region);
   }
 
   @Override
   public Formula visitString(String s) {
     return new StringValue(s);
+  }
+
+  private Cell retrieveCell(int col, int row) throws IllegalArgumentException {
+    if (this.ws.get(new Coord(col, row)) == null) {
+      Cell newCell = new Cell(new Coord(col, row));
+      this.ws.put(new Coord(col, row), newCell);
+      return this.ws.get(new Coord(col, row));
+    } else {
+      return this.ws.get(new Coord(col, row));
+    }
   }
 }

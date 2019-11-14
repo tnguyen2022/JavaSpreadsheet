@@ -25,6 +25,8 @@ public interface GeneralWorksheet {
    */
   public Value evaluateCell(Cell c) throws IllegalArgumentException;
 
+  public Cell getCell(int col, int row) throws IllegalArgumentException;
+
   public int getMaxWidth();
 
   public int getMaxHeight();

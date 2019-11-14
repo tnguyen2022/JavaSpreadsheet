@@ -19,7 +19,7 @@ public class TestCell {
   public void testCellDirectCycle() {
     BasicWorksheet basicWorksheet = new BasicWorksheet();
     basicWorksheet.modifyOrAdd(1, 1, "= (SUM A1 1)");
-    assertEquals(basicWorksheet.evaluateCell(basicWorksheet.WS.get(new Coord(1, 1))),
+    assertEquals(basicWorksheet.evaluateCell(basicWorksheet.getCell(1, 1)),
             new Cell(new BooleanValue(true), new Coord(1, 1)));
   }
 
@@ -29,7 +29,7 @@ public class TestCell {
     basicWorksheet.modifyOrAdd(1, 1, "= (SUM A2 A3)");
     basicWorksheet.modifyOrAdd(1, 2, "= A3");
     basicWorksheet.modifyOrAdd(1, 3, "= A2");
-    assertEquals(basicWorksheet.evaluateCell(basicWorksheet.WS.get(new Coord(1, 1))),
+    assertEquals(basicWorksheet.evaluateCell(basicWorksheet.getCell(1, 1)),
             new Cell(new BooleanValue(true), new Coord(1, 1)));
   }
 
@@ -39,7 +39,7 @@ public class TestCell {
     basicWorksheet.modifyOrAdd(1, 1, "= (SUM A2 A3)");
     basicWorksheet.modifyOrAdd(1, 2, "= A3");
     basicWorksheet.modifyOrAdd(1, 3, "= 5");
-    assertTrue(basicWorksheet.WS.get(new Coord(1, 1))
+    assertTrue(basicWorksheet.getCell(1, 1)
                     .checkCellForCycle(new ArrayList<Coord>(Collections
                             .singletonList(new Coord(1, 1)))));
   }

@@ -49,7 +49,7 @@ public class DoubleValue implements Value {
 
     if (o instanceof DoubleValue) {
       DoubleValue that = (DoubleValue) o;
-      return this.value == that.value;
+      return Math.abs(this.value - that.value) < .00001;
     }
 
     return false;

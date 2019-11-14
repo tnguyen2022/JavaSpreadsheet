@@ -77,6 +77,7 @@ public class LessThanFunction implements Function {
             return false;
           }
         }
+        return true;
       } else {
         return false;
       }

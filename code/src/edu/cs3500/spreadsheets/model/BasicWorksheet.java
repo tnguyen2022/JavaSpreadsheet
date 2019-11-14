@@ -3,6 +3,7 @@ package edu.cs3500.spreadsheets.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
 
 import edu.cs3500.spreadsheets.model.function.Function;
 import edu.cs3500.spreadsheets.model.value.Value;
@@ -15,35 +16,35 @@ import edu.cs3500.spreadsheets.sexp.Parser;
  * a specified Cell.
  */
 public class BasicWorksheet implements GeneralWorksheet {
-  public HashMap<Coord, Cell> WS;
+  private HashMap<Coord, Cell> ws;
 
   /**
    * Constructs a a blank worksheet represented by an empty HashMap of Key Coord mapped to a Cell.
    */
   public BasicWorksheet() {
-    WS = new HashMap<>();
+    ws = new HashMap<>();
   }
 
   @Override
   public void modifyOrAdd(int col, int row, String contents) {
       if (contents.length() > 2) {
         if (contents.charAt(0) == '=') {
-          if (WS.containsKey(new Coord(col, row))) {
-            WS.get(new Coord(col, row))
+          if (ws.containsKey(new Coord(col, row))) {
+            ws.get(new Coord(col, row))
                     .setContent(Parser.parse(contents.substring(1))
-                            .accept(new CreateCellFormula()));
+                            .accept(new CreateCellFormula(ws)));
           } else {
-            WS.put(new Coord(col, row),
-                    new Cell(Parser.parse(contents.substring(1)).accept(new CreateCellFormula()),
+            ws.put(new Coord(col, row),
+                    new Cell(Parser.parse(contents.substring(1)).accept(new CreateCellFormula(ws)),
                             new Coord(col, row)));
           }
         } else {
-          WS.put(new Coord(col, row),
+          ws.put(new Coord(col, row),
                   new Cell(Parser.parse(contents).accept(new CreateCellValue()),
                           new Coord(col, row)));
         }
       } else {
-        WS.put(new Coord(col, row),
+        ws.put(new Coord(col, row),
                 new Cell(Parser.parse(contents).accept(new CreateCellValue()),
                         new Coord(col, row)));
       }
@@ -66,19 +67,20 @@ public class BasicWorksheet implements GeneralWorksheet {
    * @return the cell from given arguments
    * @throws IllegalArgumentException if the given coordinate is out of set bounds
    */
-  public static Cell getCell(int col, int row) throws IllegalArgumentException {
-    if (this.WS.get(new Coord(col, row)) == null) {
+  public Cell getCell(int col, int row) throws IllegalArgumentException {
+    if (this.ws.get(new Coord(col, row)) == null) {
       Cell newCell = new Cell(new Coord(col, row));
-      WS.put(new Coord(col, row), newCell);
-      return WS.get(new Coord(col, row));
+      //this.ws.put(new Coord(col, row), newCell);
+      //return this.ws.get(new Coord(col, row));
+      return new Cell(new Coord(col, row));
     } else {
-      return WS.get(new Coord(col, row));
+      return this.ws.get(new Coord(col, row));
     }
   }
 
   public int getMaxWidth(){
     int maxWidth = 0;
-    for (Coord c : WS.keySet()){
+    for (Coord c : this.ws.keySet()){
       if (c.col > maxWidth){
         maxWidth = c.col;
       }
@@ -88,7 +90,7 @@ public class BasicWorksheet implements GeneralWorksheet {
 
   public int getMaxHeight(){
     int maxHeight = 0;
-    for (Coord c : WS.keySet()){
+    for (Coord c : ws.keySet()){
       if (c.row > maxHeight){
         maxHeight = c.row;
       }
@@ -101,29 +103,31 @@ public class BasicWorksheet implements GeneralWorksheet {
     return super.hashCode();
   }
 
-//  @Override
-//  public boolean equals(Object o) {
-//    if (this == o) {
-//      return true;
-//    }
-//    if (o instanceof BasicWorksheet) {
-//      BasicWorksheet that = (BasicWorksheet) o;
-//      HashMap<Coord,Cell> filteredThis = new HashMap<>();
-//      HashMap<Coord,Cell> filteredThat = new HashMap<>();
-//      if (that.WS.size()  this.WS.size()){
-//
-//      }
-//      if (this.args.size() == that.args.size()) {
-//        for (int i = 0; i < this.args.size(); i++) {
-//          if (!this.args.get(i).equals(that.args.get(i))) {
-//            return false;
-//          }
-//        }
-//      } else {
-//        return false;
-//      }
-//    }
-//    return false;
-//  }
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o instanceof BasicWorksheet) {
+      BasicWorksheet that = (BasicWorksheet) o;
+      HashMap<Coord,Cell> filteredThis = new HashMap<>();
+      HashMap<Coord,Cell> filteredThat = new HashMap<>();
+      for (Map.Entry<Coord,Cell> entry : this.ws.entrySet()){
+        if(!entry.getValue().content.equals(new Blank())){
+          filteredThis.put(entry.getKey(), entry.getValue());
+        }
+      }
+
+      for (Map.Entry<Coord,Cell> entry : that.ws.entrySet()){
+        if(!entry.getValue().content.equals(new Blank())){
+          filteredThat.put(entry.getKey(), entry.getValue());
+        }
+      }
+      return filteredThis.equals(filteredThat);
+    }
+    else {
+      return false;
+    }
+  }
 }
 

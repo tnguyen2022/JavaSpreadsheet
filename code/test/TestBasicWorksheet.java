@@ -17,7 +17,7 @@ public class TestBasicWorksheet {
   @Test
   public void testEmptyWorksheet() {
     BasicWorksheet basicWorksheet = new BasicWorksheet();
-    assertTrue(basicWorksheet.WS.isEmpty());
+    assertTrue(basicWorksheet.getMaxHeight() == 0 && basicWorksheet.getMaxWidth() == 0);
   }
 
   @Test
@@ -25,12 +25,12 @@ public class TestBasicWorksheet {
     BasicWorksheet basicWorksheet = new BasicWorksheet();
     basicWorksheet.modifyOrAdd(1, 1, "69");
     basicWorksheet.modifyOrAdd(1, 2, "boi");
-    assertEquals(basicWorksheet.WS.get(new Coord(1, 1)),
+    assertEquals(basicWorksheet.getCell(1, 1),
             new Cell(new DoubleValue(69), new Coord(1, 1)));
-    assertEquals(basicWorksheet.WS.get(new Coord(1, 2)),
+    assertEquals(basicWorksheet.getCell(1, 2),
             new Cell(new StringValue("boi"), new Coord(1, 2)));
     basicWorksheet.modifyOrAdd(1, 1, "true");
-    assertEquals(basicWorksheet.WS.get(new Coord(1, 1)),
+    assertEquals(basicWorksheet.getCell(1, 1),
             new Cell(new BooleanValue(true), new Coord(1, 1)));
   }
 }

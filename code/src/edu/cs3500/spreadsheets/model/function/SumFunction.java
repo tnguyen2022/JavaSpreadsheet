@@ -76,6 +76,7 @@ public class SumFunction implements Function {
             return false;
           }
         }
+        return true;
       } else {
         return false;
       }

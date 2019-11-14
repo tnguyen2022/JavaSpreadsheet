@@ -40,14 +40,11 @@ public class SpreadsheetTextualView implements SpreadsheetView {
 
     for (int i = 1; i <= viewHeight; i++) {
       for (int j = 1; j <= viewWidth; j++) {
-        if (!BasicWorksheet.getCell(j, i).content.equals(new Blank())) {
+        if (!model.getCell(j, i).content.equals(new Blank())) {
 
           this.in.append(Coord.colIndexToName(j)).append(String.valueOf(i)).append(" = ").append
-                  (BasicWorksheet.getCell(j, i).content.toString()).append("\n");
+                  (model.getCell(j, i).content.toString()).append("\n");
         }
-
-        this.in.append(Coord.colIndexToName(5)).append(String.valueOf(i)).append(" = ").append
-                (new DoubleValue(5).toString()).append("\n");
 
 //       if (i == 0){
 //          if (j == 0){
