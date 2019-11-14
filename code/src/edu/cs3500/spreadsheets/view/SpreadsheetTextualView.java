@@ -34,7 +34,7 @@ public class SpreadsheetTextualView implements SpreadsheetView {
    * Outputs a visual representation of the model.
    */
   @Override
-  public void save() throws IOException {
+  public void render() throws IOException {
     int viewHeight = model.getMaxHeight();
     int viewWidth = model.getMaxWidth();
 
@@ -45,23 +45,6 @@ public class SpreadsheetTextualView implements SpreadsheetView {
           this.in.append(Coord.colIndexToName(j)).append(String.valueOf(i)).append(" = ").append
                   (model.getCell(j, i).content.toString()).append("\n");
         }
-
-//       if (i == 0){
-//          if (j == 0){
-//            output += (" ");
-//          }
-//          else{
-//            output += " " + Coord.colIndexToName(j);
-//          }
-//       }
-//        else if (j == 0){
-//           output += "" + j;
-//        }
-//       else{
-//         output += " " + model.evaluateCell(BasicWorksheet.getCell(i, j)).toString();
-//       }
-//       }
-//     output += "\n";
       }
     }
   }

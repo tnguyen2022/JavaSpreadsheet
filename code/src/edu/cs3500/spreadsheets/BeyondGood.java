@@ -12,6 +12,7 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 import edu.cs3500.spreadsheets.model.value.Value;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
+import edu.cs3500.spreadsheets.view.SpreadsheetGraphicalView;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
@@ -70,7 +71,7 @@ public class BeyondGood {
               PrintWriter saveFile = new PrintWriter (args[i+1]);
               try {
                 SpreadsheetView saveView = new SpreadsheetTextualView(gw, saveFile);
-                saveView.save();
+                saveView.render();
                 saveFile.close();
 
                 FileReader testFile =  new FileReader(args[i+1]);
@@ -87,12 +88,23 @@ public class BeyondGood {
             }
           }
 
+          else if (args[i].equals("-gui")){
+            SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(gw);
+            view.render();
+          }
+
           else {
             throw new IllegalStateException("Not proper command-line style (needs to specify" +
                     "-eval, -save, or -gui");
           }
         }
-      } else {
+      }
+      else if (args[0].equals("-gui")){
+        SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(new BasicWorksheet());
+        view.render();
+      }
+
+      else {
         throw new IllegalStateException("Not proper -in command");
       }
     }

@@ -39,6 +39,9 @@ public class StringValue implements Value {
 
   @Override
   public String toString() {
+    if (value.equals("")){
+      return "";
+    }
     String print = "";
     for (int i = 0; i < value.length(); i++) {
       if (this.value.charAt(i) == '"') {
