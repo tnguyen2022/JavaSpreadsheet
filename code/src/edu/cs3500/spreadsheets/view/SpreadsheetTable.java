@@ -27,7 +27,7 @@ public class SpreadsheetTable extends JTable {
     this.model = model;
 
     /**
-     * Creates a default tahle model where teh first column is immutable.
+     * Creates a default table model where teh first column is immutable.
      */
     DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
       @Override
