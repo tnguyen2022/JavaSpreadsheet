@@ -1,3 +1,18 @@
+|DESIGN CHANGES FROM LAST HOMEWORK|
+> added a method, getMaxHeight(), in BasicWorksheet. Added this to make it easier to get the max height in our view.
+> added a method, getMaxWidth(), in BasicWorksheet. Added this to make it easier to get the max width in our view.
+> Made worksheet non-static 
+> Made equals method for Basic worksheet to make sure to check if one worksheet was equal when they should be.
+
+|THINGS ADDED RELATED TO ASSIGNMENT 6| 
+NOTE: Descriptions has been added accordingly on the bottom 
+> SpreadsheetGraphicalView (class)
+> SpreadsheetTable (class)
+> SpreadsheetTextualView (class)
+> SpreadsheetView (Interface)
+
+
+
 Assumptions: 
 > Each Function args field value cannot be empty (that is,
 each function needs at least 1 argument in order to be evaluated)
@@ -19,14 +34,18 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - sexp 					starter code
 
+- sexpVistfunc				Where visitor methods stay 
 
--------------------------------------- INTERFACES -----------------------------------------
+- view 					Code for the View
+
+
+-------------------------------------- INTERFACES ----------------------------------------
 
 - Function 				Represents the Functions that can be used in a 
 					spreadsheet, extends CellContent
 
 - Value					Represents a Value representation in a Cell,
-                    extends Formula and CellContent
+                    			extends Formula and CellContent
 
 - CellContent				Represents the possible contents to be placed into 
 					a Cell
@@ -42,32 +61,34 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - SexpVisitor				An abstracted visitor function object for processing any Sexp
 
+- SpreadsheetView			Represents a spreadsheet 
+
 
 ---------------------------------------- CLASSES ------------------------------------------
 
 - Left					Function object for Left function in a spreadsheet,
-                    Implements CellContentVisitor
+                    			Implements CellContentVisitor
 
 - LessThan				Function object for Less Than function in a spreadsheet,
-                    Implements CellContentVisitor
+                    			Implements CellContentVisitor
 
 - Product				Function object for Product function in a spreadsheet,
-                    Implements CellContentVisitor
+                    			Implements CellContentVisitor
 
 - Sum					Function object for Sum function in a spreadsheet,
-                    Implements CellContentVisitor
+                    			Implements CellContentVisitor
 
 - LeftFunction				Function that returns the contents starting from the 
 					left from a given number, Implements Function
 
 - LessThanFunction			Represents the less than function
-                    (Strictly compares two numeric values), Implements Function
+                    			(Strictly compares two numeric values), Implements Function
 
 - ProductFunction			Represents the product function that finds the total product given
-                    a number of arguments, Implements Function
+                   			a number of arguments, Implements Function
 		
 - SumFunction				Represents the sum function that finds the total sum given a number of
-                    arguments, Implements Function
+                    			arguments, Implements Function
 	
 - BooleanValue				Represents a boolean value, Implements Value
 
@@ -78,7 +99,7 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 - Blank					Represents a blank class, Implements CellContent
 
 - BuildWorksheet			Creates a representation of the worksheet,
-                        Implements WorksheetBuilder<BasicWorksheet>
+                       			Implements WorksheetBuilder<BasicWorksheet>
 
 - Cell					Represents a cell in a spreadsheet
 
@@ -86,9 +107,9 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - Reference				Represents a references in a spreadsheet, Implements Formula
 
-- BasicWorksheet		Represents a worksheet spreadsheet, Implements GeneralWorksheet
+- BasicWorksheet			Represents a worksheet spreadsheet, Implements GeneralWorksheet
 
-- WorksheetReader		Factory for reading inputs and producing worksheets
+- WorksheetReader			Factory for reading inputs and producing worksheets
 
 - Parser				Starter code (a simple parser for Sexps),
 
@@ -102,11 +123,18 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - SSymbol				Starter code (an arbitrary symbol), implements Sexp
 
-- BeyondGood			Main method that initializes the spreadsheet
+- BeyondGood				Main method that initializes the spreadsheet
+
+- SpreadsheetGraphicalView		Graphical representation of the spreadsheet
+
+- SpreadsheetTable			uses JSwing to create a table for the spreadsheet
+
+- SpreadsheetTextualView		Textual view of the a spreadsheet
 
 
-
-
+> SpreadsheetGraphical view (class)
+> SpreadsheetTable (class)
+> SpreadsheetTextualView (class)
 
 
 
