@@ -25,6 +25,13 @@ public interface GeneralWorksheet {
    */
   public Value evaluateCell(Cell c) throws IllegalArgumentException;
 
+  /**
+   * Gets the cell in the spreadsheet from a given column and row.
+   * @param col spreadsheet column
+   * @param row spreadsheet row
+   * @return the cell
+   * @throws IllegalArgumentException
+   */
   public Cell getCell(int col, int row) throws IllegalArgumentException;
 
   public int getMaxWidth();

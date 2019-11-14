@@ -6,6 +6,9 @@ import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
+/**
+ * Textual view of a Spreadsheet
+ */
 public class SpreadsheetTextualView implements SpreadsheetView {
   /**
    * Creates an example of a worksheet model.

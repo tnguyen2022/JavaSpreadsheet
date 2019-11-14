@@ -10,14 +10,25 @@ import javax.swing.table.DefaultTableModel;
 
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
+/**
+ * Creates a graphical spreadsheet table
+ */
 public class SpreadsheetTable extends JTable {
   private GeneralWorksheet model;
 
+  /**
+   * Creates Spreadsheet table.
+   * @param data of the Spreadsheet.
+   * @param columnNames the Column names of the spreadsheet.
+   * @param model the specific model of the spreadsheet.
+   */
   public SpreadsheetTable(String[][] data, String[] columnNames, GeneralWorksheet model) {
     super(data, columnNames);
     this.model = model;
 
-    //instance table model
+    /**
+     * Creates a default tahle model where teh first column is immutable.
+     */
     DefaultTableModel tableModel = new DefaultTableModel(data, columnNames) {
       @Override
       public boolean isCellEditable(int row, int column) {

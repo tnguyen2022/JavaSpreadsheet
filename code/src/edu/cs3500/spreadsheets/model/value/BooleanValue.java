@@ -21,6 +21,7 @@ public class BooleanValue implements Value {
     this.value = value;
   }
 
+  @Override
   public <T> T accept(CellContentVisitor<T> visitor) {
     return visitor.visitBooleanValue(this);
   }

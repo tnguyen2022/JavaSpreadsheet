@@ -7,13 +7,20 @@ import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
+/**
+ * Graphical view of a Spreadsheet.
+ */
 public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
   private int maxTableHeight;
   private int maxTableWidth;
 
   private SpreadsheetTable initTable;
 
-  // Constructor
+
+  /**
+   * Creates a graphical view based on given model.
+   * @param model the type of worksheet
+   */
   public SpreadsheetGraphicalView(GeneralWorksheet model) {
     super();
 
@@ -37,6 +44,11 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
     this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
   }
 
+  /**
+   * Gets the name of the columns of a spreadsheet
+   * @param columns the columns of a worksheet
+   * @return the String of column names
+   */
   private String[] getColumnNames (String[] columns){
     columns[0] = "";
     for (int i = 1; i < columns.length; i++){
@@ -46,6 +58,12 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
     return columns;
   }
 
+  /**
+   * Gets the data of a spreadsheet.
+   * @param table the given table/spreadsheet.
+   * @param model the model of the worksheet
+   * @return
+   */
   private String[][] getData (String[][] table, GeneralWorksheet model){
     for (int i = 0; i < table.length; i++){
       for (int j = 0; j < table[0].length; j++){
@@ -72,6 +90,9 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
     return table;
   }
 
+  /**
+   * Renders the graphical view.
+   */
   public void render (){
     // Frame Visible = true
     this.setVisible(true);

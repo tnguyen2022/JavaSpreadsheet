@@ -78,6 +78,10 @@ public class BasicWorksheet implements GeneralWorksheet {
     }
   }
 
+  /**
+   * Gets the maximum width of the spreadsheet.
+   * @return the maximum width
+   */
   public int getMaxWidth(){
     int maxWidth = 0;
     for (Coord c : this.ws.keySet()){
@@ -88,6 +92,10 @@ public class BasicWorksheet implements GeneralWorksheet {
     return maxWidth;
   }
 
+  /**
+   * Gets the maximum height of the spreadsheet.
+   * @return the maximum height
+   */
   public int getMaxHeight(){
     int maxHeight = 0;
     for (Coord c : ws.keySet()){
