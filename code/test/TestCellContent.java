@@ -6,8 +6,6 @@ import java.util.Collections;
 
 import edu.cs3500.spreadsheets.model.BasicWorksheet;
 import edu.cs3500.spreadsheets.model.Blank;
-import edu.cs3500.spreadsheets.model.Cell;
-import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.function.LeftFunction;
 import edu.cs3500.spreadsheets.model.function.LessThanFunction;
 import edu.cs3500.spreadsheets.model.function.ProductFunction;
@@ -65,8 +63,8 @@ public class TestCellContent {
     basicWorksheet.modifyOrAdd(1, 1, "= A2");
 
     String s2 = (basicWorksheet.getCell(1, 1).content).toString();
-    String s1 = new Reference(new ArrayList<>(Collections.singletonList
-            (basicWorksheet.getCell(1, 1)))).toString();
+    String s1 = new Reference(new ArrayList<>(Collections.singletonList(basicWorksheet
+            .getCell(1, 2)))).toString();
     assertEquals(s1, s2);
 
     assertEquals(new DoubleValue(0),
@@ -181,11 +179,11 @@ public class TestCellContent {
     basicWorksheet.modifyOrAdd(1, 2, "= (SUM A1 A1)");
 
     String s2 = (basicWorksheet.getCell(1, 2).content).toString();
-    String s1 = (new SumFunction(new ArrayList<>(Arrays.asList(
-            new Reference(new ArrayList<>(Collections.singletonList
-                    (basicWorksheet.getCell(1, 1)))),
-            new Reference(new ArrayList<>(Collections.singletonList
-                    (basicWorksheet.getCell(1, 1)))))))).toString();
+    String s1 = (new SumFunction(new ArrayList<>(Arrays
+            .asList(new Reference(new ArrayList<>(Collections
+                            .singletonList(basicWorksheet.getCell(1, 1)))),
+                    new Reference(new ArrayList<>(Collections
+                            .singletonList(basicWorksheet.getCell(1, 1)))))))).toString();
     assertEquals(s1, s2);
 
     assertEquals(new DoubleValue(10),
@@ -201,9 +199,11 @@ public class TestCellContent {
     basicWorksheet.modifyOrAdd(1, 4, "= (SUM A1:A3)");
 
     String s2 = (basicWorksheet.getCell(1, 4).content).toString();
-    String s1 = (new SumFunction(new ArrayList<>(Arrays.asList(new Reference(new ArrayList<>(Arrays.asList(
-            (basicWorksheet.getCell(1, 1)), (basicWorksheet.getCell(1, 2)),
-            (basicWorksheet.getCell(1, 3)))))))))
+    String s1 = (new SumFunction(new ArrayList<>(Arrays
+            .asList(new Reference(new ArrayList<>(Arrays.asList(
+                    (basicWorksheet.getCell(1, 1)), (basicWorksheet
+                            .getCell(1, 2)),
+                    (basicWorksheet.getCell(1, 3)))))))))
             .toString();
     assertEquals(s1, s2);
 

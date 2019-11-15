@@ -39,7 +39,7 @@ public class StringValue implements Value {
 
   @Override
   public String toString() {
-    if (value.equals("")){
+    if (value.equals("")) {
       return "";
     }
     String print = "";

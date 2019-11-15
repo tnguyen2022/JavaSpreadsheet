@@ -108,9 +108,9 @@ public class LeftFunction implements Function {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     String output = "(LEFT";
-    for (int i = 0; i < this.args.size(); i++){
+    for (int i = 0; i < this.args.size(); i++) {
       output += " " + args.get(i).toString();
     }
     output += ")";

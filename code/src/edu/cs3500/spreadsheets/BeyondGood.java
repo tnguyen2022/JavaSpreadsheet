@@ -64,47 +64,31 @@ public class BeyondGood {
             } catch (IllegalArgumentException | UnsupportedOperationException e) {
               System.out.println("Error in cell " + args[i + 1] + ":" + e);
             }
-          }
-
-          else if (args[i].equals("-save")) {
+          } else if (args[i].equals("-save")) {
             try {
-              PrintWriter saveFile = new PrintWriter (args[i+1]);
+              PrintWriter saveFile = new PrintWriter(args[i + 1]);
               try {
                 SpreadsheetView saveView = new SpreadsheetTextualView(gw, saveFile);
                 saveView.render();
                 saveFile.close();
-
-//                FileReader testFile =  new FileReader(args[i+1]);
-//                GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(),
-//                        testFile);
-//                BasicWorksheet boi = (BasicWorksheet) gwTest;
-//                BasicWorksheet boi2 = (BasicWorksheet) gw;
-//                System.out.println(gwTest.equals(gw));
               } catch (IOException e) {
                 throw new IllegalStateException("Unable to save worksheet: " + e);
               }
             } catch (FileNotFoundException e) {
               throw new IllegalStateException("Unable to access .txt file");
             }
-          }
-
-          else if (args[i].equals("-gui")){
+          } else if (args[i].equals("-gui")) {
             SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(gw);
             view.render();
-          }
-
-          else {
+          } else {
             throw new IllegalStateException("Not proper command-line style (needs to specify" +
                     "-eval, -save, or -gui");
           }
         }
-      }
-      else if (args[0].equals("-gui")){
+      } else if (args[0].equals("-gui")) {
         SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(new BasicWorksheet());
         view.render();
-      }
-
-      else {
+      } else {
         throw new IllegalStateException("Not proper -in command");
       }
     }

@@ -27,20 +27,15 @@ public class BasicWorksheet implements GeneralWorksheet {
 
   @Override
   public void modifyOrAdd(int col, int row, String contents) {
-      if (contents.length() > 2) {
-        if (contents.charAt(0) == '=') {
-          if (ws.containsKey(new Coord(col, row))) {
-            ws.get(new Coord(col, row))
-                    .setContent(Parser.parse(contents.substring(1))
-                            .accept(new CreateCellFormula(ws)));
-          } else {
-            ws.put(new Coord(col, row),
-                    new Cell(Parser.parse(contents.substring(1)).accept(new CreateCellFormula(ws)),
-                            new Coord(col, row)));
-          }
+    if (contents.length() > 2) {
+      if (contents.charAt(0) == '=') {
+        if (ws.containsKey(new Coord(col, row))) {
+          ws.get(new Coord(col, row))
+                  .setContent(Parser.parse(contents.substring(1))
+                          .accept(new CreateCellFormula(ws)));
         } else {
           ws.put(new Coord(col, row),
-                  new Cell(Parser.parse(contents).accept(new CreateCellValue()),
+                  new Cell(Parser.parse(contents.substring(1)).accept(new CreateCellFormula(ws)),
                           new Coord(col, row)));
         }
       } else {
@@ -48,6 +43,11 @@ public class BasicWorksheet implements GeneralWorksheet {
                 new Cell(Parser.parse(contents).accept(new CreateCellValue()),
                         new Coord(col, row)));
       }
+    } else {
+      ws.put(new Coord(col, row),
+              new Cell(Parser.parse(contents).accept(new CreateCellValue()),
+                      new Coord(col, row)));
+    }
   }
 
   @Override
@@ -69,7 +69,7 @@ public class BasicWorksheet implements GeneralWorksheet {
    */
   public Cell getCell(int col, int row) throws IllegalArgumentException {
     if (this.ws.get(new Coord(col, row)) == null) {
-      Cell newCell = new Cell(new Coord(col, row));
+      //Cell newCell = new Cell(new Coord(col, row));
       //this.ws.put(new Coord(col, row), newCell);
       //return this.ws.get(new Coord(col, row));
       return new Cell(new Coord(col, row));
@@ -80,12 +80,13 @@ public class BasicWorksheet implements GeneralWorksheet {
 
   /**
    * Gets the maximum width of the spreadsheet.
+   *
    * @return the maximum width
    */
-  public int getMaxWidth(){
+  public int getMaxWidth() {
     int maxWidth = 0;
-    for (Coord c : this.ws.keySet()){
-      if (c.col > maxWidth){
+    for (Coord c : this.ws.keySet()) {
+      if (c.col > maxWidth) {
         maxWidth = c.col;
       }
     }
@@ -94,12 +95,13 @@ public class BasicWorksheet implements GeneralWorksheet {
 
   /**
    * Gets the maximum height of the spreadsheet.
+   *
    * @return the maximum height
    */
-  public int getMaxHeight(){
+  public int getMaxHeight() {
     int maxHeight = 0;
-    for (Coord c : ws.keySet()){
-      if (c.row > maxHeight){
+    for (Coord c : ws.keySet()) {
+      if (c.row > maxHeight) {
         maxHeight = c.row;
       }
     }
@@ -118,22 +120,21 @@ public class BasicWorksheet implements GeneralWorksheet {
     }
     if (o instanceof BasicWorksheet) {
       BasicWorksheet that = (BasicWorksheet) o;
-      HashMap<Coord,Cell> filteredThis = new HashMap<>();
-      HashMap<Coord,Cell> filteredThat = new HashMap<>();
-      for (Map.Entry<Coord,Cell> entry : this.ws.entrySet()){
-        if(!entry.getValue().content.equals(new Blank())){
+      HashMap<Coord, Cell> filteredThis = new HashMap<>();
+      HashMap<Coord, Cell> filteredThat = new HashMap<>();
+      for (Map.Entry<Coord, Cell> entry : this.ws.entrySet()) {
+        if (!entry.getValue().content.equals(new Blank())) {
           filteredThis.put(entry.getKey(), entry.getValue());
         }
       }
 
-      for (Map.Entry<Coord,Cell> entry : that.ws.entrySet()){
-        if(!entry.getValue().content.equals(new Blank())){
+      for (Map.Entry<Coord, Cell> entry : that.ws.entrySet()) {
+        if (!entry.getValue().content.equals(new Blank())) {
           filteredThat.put(entry.getKey(), entry.getValue());
         }
       }
       return filteredThis.equals(filteredThat);
-    }
-    else {
+    } else {
       return false;
     }
   }

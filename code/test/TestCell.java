@@ -40,7 +40,7 @@ public class TestCell {
     basicWorksheet.modifyOrAdd(1, 2, "= A3");
     basicWorksheet.modifyOrAdd(1, 3, "= 5");
     assertTrue(basicWorksheet.getCell(1, 1)
-                    .checkCellForCycle(new ArrayList<Coord>(Collections
-                            .singletonList(new Coord(1, 1)))));
+            .checkCellForCycle(new ArrayList<Coord>(Collections
+                    .singletonList(new Coord(1, 1)))));
   }
 }

@@ -27,14 +27,25 @@ public interface GeneralWorksheet {
 
   /**
    * Gets the cell in the spreadsheet from a given column and row.
+   *
    * @param col spreadsheet column
    * @param row spreadsheet row
    * @return the cell
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException when the cell is invalid
    */
   public Cell getCell(int col, int row) throws IllegalArgumentException;
 
+  /**
+   * Gets the max column value from all of the cell coordinates in the HashMap.
+   *
+   * @return the max width dimension of the to be created worksheet
+   */
   public int getMaxWidth();
 
+  /**
+   * Gets the max row value from all of the cell coordinates in the HashMap.
+   *
+   * @return the max height dimension of the to be created worksheet
+   */
   public int getMaxHeight();
 }

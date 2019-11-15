@@ -1,0 +1,6 @@
+A1 = (PRODUCT true A3)
+B1 = (PRODUCT false A3)
+C1 = (< true A3)
+D1 = (LEFT true 1.000000)
+A2 = 31.000000
+A3 = 420.000000

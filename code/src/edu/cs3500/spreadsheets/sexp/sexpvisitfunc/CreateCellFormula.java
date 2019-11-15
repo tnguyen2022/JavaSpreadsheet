@@ -24,7 +24,7 @@ import edu.cs3500.spreadsheets.sexp.SexpVisitor;
 public class CreateCellFormula implements SexpVisitor<Formula> {
   private HashMap<Coord, Cell> ws;
 
-  public CreateCellFormula (HashMap<Coord, Cell> ws){
+  public CreateCellFormula(HashMap<Coord, Cell> ws) {
     this.ws = ws;
   }
 

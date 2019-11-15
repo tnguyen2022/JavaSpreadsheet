@@ -10,29 +10,27 @@ import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 /**
  * Graphical view of a Spreadsheet.
  */
-public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
-  private int maxTableHeight;
-  private int maxTableWidth;
-
-  private SpreadsheetTable initTable;
+public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView {
 
 
   /**
    * Creates a graphical view based on given model.
-   * @param model the type of worksheet
+   *
+   * @param model represents the given model of worksheet to be visualized
    */
   public SpreadsheetGraphicalView(GeneralWorksheet model) {
     super();
 
-    maxTableHeight = Math.max(100, model.getMaxHeight());
-    maxTableWidth = Math.max(52, model.getMaxWidth());
+    int maxTableHeight = Math.max(100, model.getMaxHeight());
+    int maxTableWidth = Math.max(52, model.getMaxWidth());
 
     // Frame Title
     this.setTitle("SpreadSheet Graphical View");
 
     // instance of our customizable table
-    initTable = new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth+1], model),
-            getColumnNames(new String [maxTableWidth + 1]), model);
+    SpreadsheetTable initTable =
+            new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth + 1], model),
+                    getColumnNames(new String[maxTableWidth + 1]));
 
     // adding it to JScrollPane
     JScrollPane sp = new JScrollPane(initTable);
@@ -45,13 +43,14 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
   }
 
   /**
-   * Gets the name of the columns of a spreadsheet
+   * Creates and gets the name of the columns of a spreadsheet from the given model.
+   *
    * @param columns the columns of a worksheet
    * @return the String of column names
    */
-  private String[] getColumnNames (String[] columns){
+  private String[] getColumnNames(String[] columns) {
     columns[0] = "";
-    for (int i = 1; i < columns.length; i++){
+    for (int i = 1; i < columns.length; i++) {
       columns[i] = Coord.colIndexToName(i);
     }
 
@@ -59,27 +58,25 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
   }
 
   /**
-   * Gets the data of a spreadsheet.
+   * Creates and gets the data of a spreadsheet from the given the model.
+   *
    * @param table the given table/spreadsheet.
    * @param model the model of the worksheet
    * @return
    */
-  private String[][] getData (String[][] table, GeneralWorksheet model){
-    for (int i = 0; i < table.length; i++){
-      for (int j = 0; j < table[0].length; j++){
-        if (j == 0){
-          int colNumber = i+1;
+  private String[][] getData(String[][] table, GeneralWorksheet model) {
+    for (int i = 0; i < table.length; i++) {
+      for (int j = 0; j < table[0].length; j++) {
+        if (j == 0) {
+          int colNumber = i + 1;
           table[i][j] = Integer.toString(colNumber);
-        }
-        else {
-          if (model.getCell(j, i+1).content.equals(new Blank())){
+        } else {
+          if (model.getCell(j, i + 1).content.equals(new Blank())) {
             table[i][j] = new Blank().toString();
-          }
-          else {
+          } else {
             try {
               table[i][j] = model.evaluateCell(model.getCell(j, i + 1)).toString();
-            }
-            catch (IllegalArgumentException | UnsupportedOperationException e){
+            } catch (IllegalArgumentException | UnsupportedOperationException e) {
               table[i][j] = "#VALUE";
             }
           }
@@ -91,9 +88,9 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView{
   }
 
   /**
-   * Renders the graphical view.
+   * Renders the graphical view to be visible.
    */
-  public void render (){
+  public void render() {
     // Frame Visible = true
     this.setVisible(true);
   }

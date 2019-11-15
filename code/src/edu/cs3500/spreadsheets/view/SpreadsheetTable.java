@@ -8,23 +8,22 @@ import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 /**
- * Creates a graphical spreadsheet table
+ * Creates a graphical spreadsheet table.
  */
 public class SpreadsheetTable extends JTable {
-  private GeneralWorksheet model;
+  //private GeneralWorksheet model;
 
   /**
    * Creates Spreadsheet table.
-   * @param data of the Spreadsheet.
-   * @param columnNames the Column names of the spreadsheet.
-   * @param model the specific model of the spreadsheet.
+   *
+   * @param data        represents the 2d array of cell data in the Spreadsheet.
+   * @param columnNames represents the Column names of the spreadsheet.
    */
-  public SpreadsheetTable(String[][] data, String[] columnNames, GeneralWorksheet model) {
+  public SpreadsheetTable(String[][] data, String[] columnNames) {
     super(data, columnNames);
-    this.model = model;
+    //this.model = model;
 
     /**
      * Creates a default table model where teh first column is immutable.
@@ -38,28 +37,25 @@ public class SpreadsheetTable extends JTable {
     };
     this.setModel(tableModel);
 
-    this.getColumn("").setCellRenderer(
-            new DefaultTableCellRenderer() {
-              public Component getTableCellRendererComponent(JTable table, Object value,
-                                                             boolean isSelected,
-                                                             boolean hasFocus,
-                                                             int row,
-                                                             int column) {
-                setText(value.toString());
-                //make first column different color
-                setBackground(Color.lightGray);
-                //make first column text centered
-                setHorizontalAlignment(JLabel.CENTER);
-                return this;
-              }
-            });
+    this.getColumn("").setCellRenderer(new DefaultTableCellRenderer() {
+      public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
+                                                     boolean hasFocus, int row, int column) {
+        setText(value.toString());
+        //make first column different color
+        setBackground(Color.lightGray);
+        //make first column text centered
+        setHorizontalAlignment(JLabel.CENTER);
+        return this;
+      }
+    });
 
     //Table column widths cannot be resized
     this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
   }
 
   @Override
-  public void setValueAt(Object aValue, int row, int column){
+  public void setValueAt(Object aValue, int row, int column) {
+    //to do for controller
   }
 
 }

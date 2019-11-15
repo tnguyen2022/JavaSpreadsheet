@@ -110,7 +110,7 @@ public class Cell {
   }
 
   @Override
-  public String toString(){
+  public String toString() {
     return Coord.colIndexToName(this.cellReference.col) + this.cellReference.row;
   }
 }

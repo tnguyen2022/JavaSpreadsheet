@@ -7,7 +7,7 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 /**
- * Textual view of a Spreadsheet
+ * Textual view of a Spreadsheet used to save a model into a file.
  */
 public class SpreadsheetTextualView implements SpreadsheetView {
   /**
@@ -32,21 +32,25 @@ public class SpreadsheetTextualView implements SpreadsheetView {
   }
 
   /**
-   * Outputs a visual representation of the model.
+   * Saves a textual representation of the model.
    */
   @Override
-  public void render() throws IOException {
+  public void render() throws IllegalArgumentException {
     int viewHeight = model.getMaxHeight();
     int viewWidth = model.getMaxWidth();
 
-    for (int i = 1; i <= viewHeight; i++) {
-      for (int j = 1; j <= viewWidth; j++) {
-        if (!model.getCell(j, i).content.equals(new Blank())) {
+    try {
+      for (int i = 1; i <= viewHeight; i++) {
+        for (int j = 1; j <= viewWidth; j++) {
+          if (!model.getCell(j, i).content.equals(new Blank())) {
 
-          this.in.append(Coord.colIndexToName(j)).append(String.valueOf(i)).append(" = ").append
-                  (model.getCell(j, i).content.toString()).append("\n");
+            this.in.append(Coord.colIndexToName(j)).append(String.valueOf(i)).append(" = ")
+                    .append(model.getCell(j, i).content.toString()).append("\n");
+          }
         }
       }
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Unable to save spreadsheet model");
     }
   }
 }
