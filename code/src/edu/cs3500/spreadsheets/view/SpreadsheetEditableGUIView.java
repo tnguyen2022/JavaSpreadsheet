@@ -81,17 +81,17 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     buttonPanel.add(cellSelection);
 
     //input textfield
-    input = new JTextField(85);
+    input = new JTextField(80);
     input.setText("= " + initTable.getValueAt(0,0).toString());
     buttonPanel.add(input);
 
     //save button
-    saveButton = new JButton("Save");
+    saveButton = new JButton("Save File");
     buttonPanel.add(saveButton);
     saveButton.setActionCommand("Save Button");
 //
     //Load button
-    loadButton = new JButton("Load");
+    loadButton = new JButton("Load File");
     buttonPanel.add(loadButton);
     loadButton.setActionCommand("Load Button");
 
