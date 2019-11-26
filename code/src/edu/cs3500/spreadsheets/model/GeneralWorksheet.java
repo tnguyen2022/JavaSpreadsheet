@@ -16,6 +16,8 @@ public interface GeneralWorksheet {
    */
   public void modifyOrAdd(int col, int row, String contents) throws IllegalArgumentException;
 
+  public void removeCell(int col, int row);
+
   /**
    * Evaluates the contents of a cell.
    *

@@ -14,6 +14,8 @@ import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
 import static org.junit.Assert.assertEquals;
 
+//delete tests that uses text strings
+
 /**
  * Tests for correct rendering of the textual view of the model.
  */
@@ -21,16 +23,16 @@ public class TestSpreadSheetTextualView {
   @Test
   public void testEmptyTextualView() {
     try {
-      PrintWriter saveFile =
-              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\save.txt");
+      PrintWriter saveFile = new
+              PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\resources\\save.txt");
       try {
         GeneralWorksheet gw = new BasicWorksheet();
         SpreadsheetView saveView = new SpreadsheetTextualView(gw, saveFile);
         saveView.render();
         saveFile.close();
 
-        FileReader testFile =
-                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\save.txt");
+        FileReader testFile = new
+                FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\resources\\save.txt");
         GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(), testFile);
         assertEquals(gw, gwTest);
       } catch (IOException e) {
@@ -101,37 +103,4 @@ public class TestSpreadSheetTextualView {
     }
   }
 
-  @Test
-  public void testCycleCellsSave() {
-    try {
-      PrintWriter saveFile =
-              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\save4.txt");
-      try {
-        GeneralWorksheet gw = new BasicWorksheet();
-        gw.modifyOrAdd(1, 1, "= (SUM A2 A3)");
-        gw.modifyOrAdd(1, 2, "= 66");
-        gw.modifyOrAdd(1, 3, "= A1");
-        gw.modifyOrAdd(2, 1, "= (PRODUCT A1 34)");
-        SpreadsheetView saveView = new SpreadsheetTextualView(gw, saveFile);
-        saveView.render();
-        saveFile.close();
-
-        FileReader testFile =
-                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\save4.txt");
-        GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(), testFile);
-        assertEquals(gw.getCell(1, 1).content.toString(),
-                gwTest.getCell(1, 1).content.toString());
-        assertEquals(gw.getCell(1, 2).content.toString(),
-                gwTest.getCell(1, 2).content.toString());
-        assertEquals(gw.getCell(1, 3).content.toString(),
-                gwTest.getCell(1, 3).content.toString());
-        assertEquals(gw.getCell(2, 1).content.toString(),
-                gwTest.getCell(2, 1).content.toString());
-      } catch (IOException e) {
-        throw new IllegalStateException("Unable to save worksheet: " + e);
-      }
-    } catch (FileNotFoundException e) {
-      throw new IllegalStateException("Unable to access .txt file");
-    }
-  }
 }

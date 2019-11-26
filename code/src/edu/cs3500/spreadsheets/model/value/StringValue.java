@@ -15,7 +15,7 @@ public class StringValue implements Value {
   /**
    * The string value in a string value.
    *
-   * @param value the strinb
+   * @param value the string
    */
   public StringValue(String value) {
     this.value = value;
@@ -40,7 +40,7 @@ public class StringValue implements Value {
   @Override
   public String toString() {
     if (value.equals("")) {
-      return "";
+      return "\"\"";
     }
     String print = "";
     for (int i = 0; i < value.length(); i++) {

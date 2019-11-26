@@ -1,4 +1,8 @@
-|DESIGN CHANGES FROM LAST HOMEWORK|
+EXTRA CREDIT FEATURES:
+LOADING FILES FROM GUI: opens and loads the file in a new seperate GUI JTable
+
+
+|DESIGN CHANGES FROM ASSIGNMENT 6
 > added a method, getMaxHeight(), in BasicWorksheet. Added this to make it easier to get the max height in our view.
 > added a method, getMaxWidth(), in BasicWorksheet. Added this to make it easier to get the max width in our view.
 > Made worksheet non-static so it does not leak any implementations

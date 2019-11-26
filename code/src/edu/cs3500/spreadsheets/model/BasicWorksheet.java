@@ -27,7 +27,7 @@ public class BasicWorksheet implements GeneralWorksheet {
 
   @Override
   public void modifyOrAdd(int col, int row, String contents) {
-    if (contents.length() > 2) {
+    if (contents.length() > 1) {
       if (contents.charAt(0) == '=') {
         if (ws.containsKey(new Coord(col, row))) {
           ws.get(new Coord(col, row))
@@ -51,11 +51,18 @@ public class BasicWorksheet implements GeneralWorksheet {
   }
 
   @Override
+  public void removeCell(int col, int row) {
+    ws.remove(new Coord(col, row));
+  }
+
+  @Override
   public Value evaluateCell(Cell c) throws IllegalArgumentException {
+    Function.memoizeFunction.clear();
+    Function.memoizeCycle.clear();
     if (c.content.checkCycle(new ArrayList<>(Collections.singletonList(c.cellReference)))) {
       throw new IllegalArgumentException("Cell should not contain cyclical self-references");
     }
-    Function.memoizeCycle.clear();
+
     return c.content.evaluate();
   }
 

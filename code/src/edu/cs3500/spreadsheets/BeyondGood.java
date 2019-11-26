@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import edu.cs3500.spreadsheets.controller.Controller;
+import edu.cs3500.spreadsheets.controller.SpreadsheetController;
 import edu.cs3500.spreadsheets.model.BasicWorksheet;
 import edu.cs3500.spreadsheets.model.BuildWorksheet;
 import edu.cs3500.spreadsheets.model.Cell;
@@ -12,6 +14,7 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 import edu.cs3500.spreadsheets.model.value.Value;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
+import edu.cs3500.spreadsheets.view.SpreadsheetEditableGUIView;
 import edu.cs3500.spreadsheets.view.SpreadsheetGraphicalView;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
@@ -80,15 +83,36 @@ public class BeyondGood {
           } else if (args[i].equals("-gui")) {
             SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(gw);
             view.render();
-          } else {
+          } else if (args[i].equals("-edit")) {
+            SpreadsheetEditableGUIView view = new SpreadsheetEditableGUIView(gw);
+            SpreadsheetController controller = new Controller(gw, view);
+            try{
+              controller.go();
+            }
+            catch (IOException e){
+              throw new IllegalStateException("Cannot create Spreadsheet view");
+            }
+          }
+          else {
             throw new IllegalStateException("Not proper command-line style (needs to specify" +
-                    "-eval, -save, or -gui");
+                    "-eval, -save, -gui, or -edit)");
           }
         }
       } else if (args[0].equals("-gui")) {
         SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(new BasicWorksheet());
         view.render();
-      } else {
+      }
+      else if (args[0].equals("-edit")) {
+        SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(new BasicWorksheet());
+        SpreadsheetController controller = new Controller(gw, view);
+        try{
+          controller.go();
+        }
+        catch (IOException e){
+          throw new IllegalStateException("Cannot create Spreadsheet view");
+        }
+      }
+      else {
         throw new IllegalStateException("Not proper -in command");
       }
     }

@@ -12,7 +12,7 @@ public class Blank implements CellContent {
 
   @Override
   public String toString() {
-    return " ";
+    return "";
   }
 
   @Override

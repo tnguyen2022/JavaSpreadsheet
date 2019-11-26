@@ -1,17 +1,18 @@
 package edu.cs3500.spreadsheets.view;
 
-import javax.swing.JScrollPane;
-import javax.swing.JFrame;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
 
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
+
 /**
- * Graphical view of a Spreadsheet.
+ * Represents a Graphical visual GUI of a Spreadsheet using JTables thats non-editable.
  */
 public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView {
-
 
   /**
    * Creates a graphical view based on given model.
@@ -27,13 +28,31 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView 
     // Frame Title
     this.setTitle("SpreadSheet Graphical View");
 
+    //instance of out rowHeaders table
+    SpreadsheetRowHeader rowHeaders =
+            new SpreadsheetRowHeader(getRowHeaders(maxTableHeight),
+                    new String[]{""});
+
     // instance of our customizable table
     SpreadsheetTable initTable =
-            new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth + 1], model),
-                    getColumnNames(new String[maxTableWidth + 1]));
+            new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth], model),
+                    getColumnNames(new String[maxTableWidth]), model);
+            //{
+//      //makes this view not editable
+//      @Override
+//      public boolean isCellEditable(int row, int col){
+//        return false;
+//      }};
+
+
+    //combines the two tables next to each other
+    ListSelectionModel rowHeaderModel = rowHeaders.getSelectionModel();
+    initTable.setSelectionModel(rowHeaderModel);
 
     // adding it to JScrollPane
-    JScrollPane sp = new JScrollPane(initTable);
+    SpreadsheetScroll sp = new SpreadsheetScroll(initTable , rowHeaders);
+
+    //adds JScrollPane Object into the ViewPort
     this.add(sp);
     // Frame Size
     this.setSize(1250, 750);
@@ -49,9 +68,8 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView 
    * @return the String of column names
    */
   private String[] getColumnNames(String[] columns) {
-    columns[0] = "";
-    for (int i = 1; i < columns.length; i++) {
-      columns[i] = Coord.colIndexToName(i);
+    for (int i = 0; i < columns.length; i++) {
+      columns[i] = Coord.colIndexToName(i+1);
     }
 
     return columns;
@@ -62,26 +80,37 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView 
    *
    * @param table the given table/spreadsheet.
    * @param model the model of the worksheet
-   * @return
+   * @return the data of the spreadsheet
    */
   private String[][] getData(String[][] table, GeneralWorksheet model) {
     for (int i = 0; i < table.length; i++) {
       for (int j = 0; j < table[0].length; j++) {
-        if (j == 0) {
-          int colNumber = i + 1;
-          table[i][j] = Integer.toString(colNumber);
-        } else {
-          if (model.getCell(j, i + 1).content.equals(new Blank())) {
+          if (model.getCell(j+1, i + 1).content.equals(new Blank())) {
             table[i][j] = new Blank().toString();
           } else {
             try {
-              table[i][j] = model.evaluateCell(model.getCell(j, i + 1)).toString();
+              table[i][j] = model.evaluateCell(model.getCell(j+1, i + 1)).toString();
             } catch (IllegalArgumentException | UnsupportedOperationException e) {
               table[i][j] = "#VALUE";
             }
           }
-        }
       }
+    }
+
+    return table;
+  }
+
+  /**
+   * Creates and gets the rowHeader column of a spreadsheet.
+   *
+   * @param maxHeight represents the max height of the Spreadsheet.
+   * @return the rowHeaders of the spreadsheet
+   */
+  private String[][] getRowHeaders(int maxHeight) {
+    String [][] table = new String [maxHeight][1];
+    for (int i = 0; i < maxHeight; i++) {
+          int colNumber = i + 1;
+          table[i][0] = Integer.toString(colNumber);
     }
 
     return table;
@@ -94,4 +123,40 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView 
     // Frame Visible = true
     this.setVisible(true);
   }
+
+  @Override
+  public void setJTextField(String s) {
+
+  }
+
+  @Override
+  public String getRawCellContent(int row, int col) {
+    return null;
+  }
+
+  @Override
+  public String getInputText() {
+    return null;
+  }
+
+  @Override
+  public Coord getSelectedCellCoord() {
+    return null;
+  }
+
+  @Override
+  public void setValueAt(int row, int col, String value) {
+
+  }
+
+  @Override
+  public void addActionListener(ActionListener al) {
+
+  }
+
+  @Override
+  public void setJLabel(int rowIndex, int columnIndex) {
+
+  }
+
 }
