@@ -81,8 +81,11 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     buttonPanel.add(cellSelection);
 
     //input textfield
-    input = new JTextField(80);
-    input.setText("= " + initTable.getValueAt(0,0).toString());
+    //input = new JTextField(80);
+    input = new JTextField(60);
+    if(!initTable.getValueAt(0,0).toString().equals("")){
+      input.setText("= " + initTable.getValueAt(0,0).toString());
+    }
     buttonPanel.add(input);
 
     //save button

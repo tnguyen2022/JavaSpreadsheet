@@ -80,26 +80,26 @@ public class SpreadsheetTextualView implements SpreadsheetView {
 
   @Override
   public void setValueAt(int row, int col, String value) {
-
+  // supposed to be empty.
   }
 
   @Override
   public void addMouseListener(MouseListener ml) {
-
+  // supposed to be empty.
   }
 
   @Override
   public void addActionListener(ActionListener al) {
-
+  // supposed to be empty.
   }
 
   @Override
   public void addKeyListener(KeyListener ak) {
-
+  // supposed to be empty.
   }
 
   @Override
   public void setJLabel(int rowIndex, int columnIndex) {
-
+  // supposed to be empty.
   }
 }

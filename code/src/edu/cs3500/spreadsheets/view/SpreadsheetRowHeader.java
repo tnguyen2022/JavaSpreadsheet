@@ -58,7 +58,10 @@ public class SpreadsheetRowHeader extends JTable {
     styleFirstColumnToRowValues();
   }
 
-  private void styleFirstColumnToRowValues(){
+  /**
+   * Creates the first column in the spreadsheet to be a non-editable column with row values.
+   */
+  private void styleFirstColumnToRowValues() {
     this.getColumn("").setCellRenderer(new DefaultTableCellRenderer() {
       public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                                                      boolean hasFocus, int row, int column) {

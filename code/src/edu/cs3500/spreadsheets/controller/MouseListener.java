@@ -5,6 +5,9 @@ import java.awt.event.MouseEvent;
 
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
+/**
+ * Waits for expected mouse event and performs desired actions on the view.
+ */
 public class MouseListener extends MouseAdapter implements java.awt.event.MouseListener{
   private SpreadsheetView view;
   MouseListener(SpreadsheetView view){

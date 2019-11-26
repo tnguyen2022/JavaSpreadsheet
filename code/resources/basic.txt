@@ -1,4 +1,4 @@
-A1 = 10
+A1 = 5
 A2 = 1
 A3 = "String"
 A4 = true

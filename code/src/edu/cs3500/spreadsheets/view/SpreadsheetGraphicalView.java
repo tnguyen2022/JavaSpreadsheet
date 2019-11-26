@@ -10,7 +10,7 @@ import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 
 /**
- * Represents a Graphical visual GUI of a Spreadsheet using JTables thats non-editable.
+ * Represents a Graphical visual GUI of a Spreadsheet using JTables that's non-editable.
  */
 public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView {
 
@@ -126,7 +126,7 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView 
 
   @Override
   public void setJTextField(String s) {
-
+  // Supposed to be empty.
   }
 
   @Override
@@ -146,17 +146,17 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView 
 
   @Override
   public void setValueAt(int row, int col, String value) {
-
+  // supposed to be empty.
   }
 
   @Override
   public void addActionListener(ActionListener al) {
-
+  // supposed to be empty.
   }
 
   @Override
   public void setJLabel(int rowIndex, int columnIndex) {
-
+  // supposed to be empty.
   }
 
 }

@@ -1,8 +1,10 @@
 EXTRA CREDIT FEATURES:
 LOADING FILES FROM GUI: opens and loads the file in a new seperate GUI JTable
 
+|DESIGN CHANGES FROM ASSIGNMENT 7|
 
-|DESIGN CHANGES FROM ASSIGNMENT 6
+
+|DESIGN CHANGES FROM ASSIGNMENT 6|
 > added a method, getMaxHeight(), in BasicWorksheet. Added this to make it easier to get the max height in our view.
 > added a method, getMaxWidth(), in BasicWorksheet. Added this to make it easier to get the max width in our view.
 > Made worksheet non-static so it does not leak any implementations
@@ -40,8 +42,11 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - sexpVistfunc				Where visitor methods stay 
 
-- view 					Code for the View
+- model					Code for the Spreadsheet Model
 
+- view 					Code for the Spreadsheet View
+
+- controller				Code for the Spreadsheet Controller
 
 -------------------------------------- INTERFACES ----------------------------------------
 
@@ -67,6 +72,7 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - SpreadsheetView			Represents a spreadsheet 
 
+- SpreadsheetController			Represents the controller for the Spreadsheet
 
 ---------------------------------------- CLASSES ------------------------------------------
 
@@ -135,14 +141,13 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - SpreadsheetTextualView		Textual view of the a spreadsheet
 
+- Button Listener			Waits for a button to be pressed and performs desired actions in the view
 
-> SpreadsheetGraphical view (class)
-> SpreadsheetTable (class)
-> SpreadsheetTextualView (class)
+- Controller 				Allows user to update model and view by allowing for cells to be edited and txt 					files to be loaded and saved
 
+- KeyboardListener			Waits for key press to occur and performs desired action in the view
 
-
-
+- MouseListener				Waits for expected mouse event and performs desired actions on the view
 
 
 

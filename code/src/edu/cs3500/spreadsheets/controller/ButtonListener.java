@@ -17,6 +17,9 @@ import edu.cs3500.spreadsheets.view.SpreadsheetEditableGUIView;
 import edu.cs3500.spreadsheets.view.SpreadsheetTextualView;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
+/**
+ * Waits for a button to be pressed and performs desired actions in the view.
+ */
 public class ButtonListener implements ActionListener {
   private GeneralWorksheet model;
   private SpreadsheetView view;

@@ -6,7 +6,7 @@ import edu.cs3500.spreadsheets.model.value.DoubleValue;
 import edu.cs3500.spreadsheets.model.value.Value;
 
 /**
- * Represents an empty cell in a spreadsheet that does ot contain any content.
+ * Represents an empty cell in a spreadsheet that does not contain any content.
  */
 public class Blank implements CellContent {
 

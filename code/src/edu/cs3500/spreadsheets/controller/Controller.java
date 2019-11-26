@@ -5,6 +5,10 @@ import java.io.IOException;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
+/**
+ * Allows user to update model and view by allowing for cells to be edited and txt files to be
+ * loaded and saved.
+ */
 public class Controller implements SpreadsheetController {
   private GeneralWorksheet model;
   private SpreadsheetView view;

@@ -104,12 +104,19 @@ public class SpreadsheetTable extends JTable {
 //    });
 //  }
 
+  /**
+   * Adds a column to the spreadsheet model.
+   * @param column the desired column.
+   */
   public void addColumn(String column) {
     tableModel.addColumn(column);
     this.setModel(tableModel);
 
   }
 
+  /**
+   * Adds a row to the spreadsheet model.
+   */
   public void addRow() {
     tableModel.insertRow(this.getRowCount(), new String[]{});
     this.setModel(tableModel);
