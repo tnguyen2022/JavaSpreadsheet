@@ -5,8 +5,6 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import javax.swing.event.ChangeEvent;
-
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
@@ -60,7 +58,7 @@ public class SpreadsheetTextualView implements SpreadsheetView {
 
   @Override
   public void setJTextField(String s) {
-
+    // supposed to be empty.
   }
 
   @Override
@@ -80,26 +78,41 @@ public class SpreadsheetTextualView implements SpreadsheetView {
 
   @Override
   public void setValueAt(int row, int col, String value) {
-  // supposed to be empty.
+    // supposed to be empty.
   }
 
   @Override
   public void addMouseListener(MouseListener ml) {
-  // supposed to be empty.
+    // supposed to be empty.
   }
 
   @Override
   public void addActionListener(ActionListener al) {
-  // supposed to be empty.
+    // supposed to be empty.
   }
 
   @Override
   public void addKeyListener(KeyListener ak) {
-  // supposed to be empty.
+    // supposed to be empty.
   }
 
   @Override
   public void setJLabel(int rowIndex, int columnIndex) {
-  // supposed to be empty.
+    // supposed to be empty.
+  }
+
+  @Override
+  public String[] getColumnNames(String[] columns) {
+    return new String[0];
+  }
+
+  @Override
+  public String[][] getData(String[][] table, GeneralWorksheet model) {
+    return new String[0][];
+  }
+
+  @Override
+  public String[][] getRowHeaders(int maxHeight) {
+    return new String[0][];
   }
 }

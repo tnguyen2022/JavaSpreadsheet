@@ -1,18 +1,13 @@
 package edu.cs3500.spreadsheets.view;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
+import java.awt.Color;
+import java.awt.Component;
 
-import javax.swing.*;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
-import edu.cs3500.spreadsheets.model.Reference;
-import edu.cs3500.spreadsheets.model.function.Function;
 
 
 /**
@@ -40,20 +35,19 @@ public class SpreadsheetTable extends JTable {
     //addKeyFeatures();
 
     //makes selection of cell noticeable
-    this.setDefaultRenderer(Object.class, new DefaultTableCellRenderer(){
+    this.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
       @Override
       public Component getTableCellRendererComponent(JTable table, Object obj, boolean isSelected,
                                                      boolean hasFocus, int row, int column) {
         Component cell =
                 super.getTableCellRendererComponent(table, obj, isSelected, hasFocus, row, column);
 
-        if (isSelected){
-          cell.setBackground(new Color (0xe9f5f9));
-          if (getSelectedColumn() == column && getSelectedRow() == row){
+        if (isSelected) {
+          cell.setBackground(new Color(0xe9f5f9));
+          if (getSelectedColumn() == column && getSelectedRow() == row) {
             cell.setBackground(new Color(0x8decec));
           }
-        }
-        else{
+        } else {
           cell.setBackground(new Color(0xFFFFFF));
         }
 
@@ -64,48 +58,9 @@ public class SpreadsheetTable extends JTable {
     //this.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()));
   }
 
-//  @Override
-//  public void setDefaultEditor(Class<?> columnClass, TableCellEditor editor){
-//    super.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()){
-//      @Override
-//      public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected,
-//                                                   int row, int column) {
-//        value = getRawCellContent(getSelectedColumn(), getSelectedRow());
-//        if (!value.equals("")){
-//          value = "= " + value;
-//        }
-//        return super.getTableCellEditorComponent(table, value, isSelected, row, column);
-//      }
-//    });
-//  }
-//
-//  private String getRawCellContent(int col, int row) {
-//    col = Math.max(0, col);
-//    row = Math.max(0, row);
-//    return model.getCell(col+1, row+1).content.toString();
-//  }
-
-//  private void addKeyFeatures(){
-//    InputMap inputMap = this.getInputMap(WHEN_FOCUSED);
-//    ActionMap actionMap = this.getActionMap();
-//
-//    //configures delete key to deleting the cell
-//    inputMap.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "delete");
-//    actionMap.put("delete", new AbstractAction() {
-//      public void actionPerformed(ActionEvent evt) {
-//        int row = getSelectedRow();
-//        int col = getSelectedColumn();
-//        if (row >= 0 && col >= 0) {
-//          row = convertRowIndexToModel(row);
-//          col = convertColumnIndexToModel(col);
-//          getModel().setValueAt(null, row, col);
-//        }
-//      }
-//    });
-//  }
-
   /**
    * Adds a column to the spreadsheet model.
+   *
    * @param column the desired column.
    */
   public void addColumn(String column) {
@@ -122,17 +77,17 @@ public class SpreadsheetTable extends JTable {
     this.setModel(tableModel);
 
   }
-//
+
+  //
   @Override
-  public Object getValueAt(int row, int col){
+  public Object getValueAt(int row, int col) {
     try {
       String result = model.getCell(col + 1, row + 1).content.toString();
-      if (result.equals("")){
+      if (result.equals("")) {
         return "";
       }
-      return  model.evaluateCell(model.getCell(col + 1, row + 1));
-    }
-    catch (IllegalArgumentException | UnsupportedOperationException e) {
+      return model.evaluateCell(model.getCell(col + 1, row + 1));
+    } catch (IllegalArgumentException | UnsupportedOperationException e) {
       return "#VALUE";
     }
   }
@@ -161,7 +116,7 @@ public class SpreadsheetTable extends JTable {
   }
 
   @Override
-  public boolean isCellEditable(int row, int col){
+  public boolean isCellEditable(int row, int col) {
     return false;
   }
 }

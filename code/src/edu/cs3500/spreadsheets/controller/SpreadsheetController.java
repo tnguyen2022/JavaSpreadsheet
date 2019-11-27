@@ -8,5 +8,9 @@ import java.io.IOException;
  */
 public interface SpreadsheetController {
 
-  void go() throws IOException;
+  /**
+   * Renders the view and instantiates all of the controller's lisenters, while adding components to
+   * their respective listeners.
+   */
+  void runController() throws IOException;
 }

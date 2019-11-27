@@ -1,10 +1,9 @@
-package edu.cs3500.spreadsheets.view;
-
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.util.Objects;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -16,27 +15,41 @@ import javax.swing.JFrame;
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
+import edu.cs3500.spreadsheets.view.SpreadsheetRowHeader;
+import edu.cs3500.spreadsheets.view.SpreadsheetScroll;
+import edu.cs3500.spreadsheets.view.SpreadsheetTable;
+import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
 /**
- * Represents a Graphical visual GUI of a Spreadsheet using JTables thats non-editable.
+ * Represents a Mock class of the SpreadsheetEditableGUIView for testing, returns logs when methods
+ * are called.
  */
-public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetView {
+public class SpreadsheetEditableGUIViewMock extends JFrame implements
+        SpreadsheetView {
+
+  /**
+   * Appendable that has outputs of all the inputs that comes into model.
+   */
+  private final StringBuilder log;
+
   private GeneralWorksheet model;
   private JButton confirmButton;
   private JButton cancelButton;
   private JButton saveButton;
-  private SpreadsheetTable initTable;
+  public SpreadsheetTable initTable;
   private JTextField input;
   private JLabel cellSelection;
   private JButton loadButton;
 
   /**
-   * Creates a graphical view based on given model.
+   * Constructs a BasicPyramidSolitaireMock.
    *
-   * @param model represents the given model of worksheet to be visualized
+   * @param log represents a log of all the inputs that comes into model
    */
-  public SpreadsheetEditableGUIView(GeneralWorksheet model) {
+  public SpreadsheetEditableGUIViewMock(StringBuilder log, GeneralWorksheet model) {
     super();
+    this.log = Objects.requireNonNull(log);
+
 
     this.model = model;
 
@@ -52,7 +65,7 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
                     new String[]{""});
 
     // instance of our customizable table
-    initTable = new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth], model),
+    this.initTable = new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth], model),
             getColumnNames(new String[maxTableWidth]), model);
 
     //combines the two tables next to each other
@@ -88,7 +101,6 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     //input textfield
     //input = new JTextField(80);
     input = new JTextField(60);
-    System.out.println(initTable);
     if (!initTable.getValueAt(0, 0).toString().equals("")) {
       input.setText("= " + initTable.getValueAt(0, 0).toString());
     }
@@ -111,12 +123,6 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     //System.out.println(initTable.getSelectionModel());
   }
 
-  /**
-   * Creates and gets the name of the columns of a spreadsheet from the given model.
-   *
-   * @param columns the columns of a worksheet
-   * @return the String of column names
-   */
   @Override
   public String[] getColumnNames(String[] columns) {
     for (int i = 0; i < columns.length; i++) {
@@ -126,13 +132,6 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     return columns;
   }
 
-  /**
-   * Creates and gets the data of a spreadsheet from the given the model.
-   *
-   * @param table the given table/spreadsheet.
-   * @param model the model of the worksheet
-   * @return the data of the spreadsheet
-   */
   @Override
   public String[][] getData(String[][] table, GeneralWorksheet model) {
     for (int i = 0; i < table.length; i++) {
@@ -169,62 +168,56 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     return table;
   }
 
-  /**
-   * Renders the graphical view to be visible.
-   */
+  @Override
   public void render() {
-    // Frame Visible = true
-    this.setVisible(true);
+    log.append("Called render method\n");
   }
 
   @Override
-  public void addActionListener(ActionListener actionEvent) {
-    cancelButton.addActionListener(actionEvent);
-    confirmButton.addActionListener(actionEvent);
-    saveButton.addActionListener(actionEvent);
-    loadButton.addActionListener(actionEvent);
-  }
-
-  @Override
-  public void addMouseListener(MouseListener actionMouse) {
-    initTable.addMouseListener(actionMouse);
-  }
-
-  @Override
-  public void addKeyListener(KeyListener actionKey) {
-    initTable.addKeyListener(actionKey);
-  }
-
   public void setJTextField(String s) {
-    input.setText(s);
+    log.append("Called setJTextField method\n");
   }
 
-  //to be added to interface
+  @Override
   public String getRawCellContent(int row, int col) {
-    return model.getCell(col, row).content.toString();
+    log.append("Called getRawCellContent method\n");
+    return "null";
   }
 
   @Override
   public String getInputText() {
-    return input.getText();
+    log.append("Called setJTextField method\n");
+    return "null";
   }
 
   @Override
   public Coord getSelectedCellCoord() {
-    final int row = Math.max(0, initTable.getSelectedRow());
-    final int col = Math.max(0, initTable.getSelectedColumn());
-    return new Coord(col + 1, row + 1);
+    log.append("Called getSelectedCoord method\n");
+    return new Coord(1, 1);
   }
 
   @Override
   public void setValueAt(int row, int col, String value) {
-    initTable.setValueAt(value, row, col);
+    log.append("Called setValueAt method\n");
+  }
+
+  @Override
+  public void addMouseListener(MouseListener ml) {
+    log.append("Called addMouseListener method\n");
+  }
+
+  @Override
+  public void addActionListener(ActionListener al) {
+    log.append("Called addActionListener method\n");
+  }
+
+  @Override
+  public void addKeyListener(KeyListener kl) {
+    log.append("Called addKeyListener method\n");
   }
 
   @Override
   public void setJLabel(int rowIndex, int columnIndex) {
-    String s = Coord.colIndexToName(columnIndex) + rowIndex;
-    cellSelection.setText(s);
+    log.append("Called setJLabel method\n");
   }
-
 }

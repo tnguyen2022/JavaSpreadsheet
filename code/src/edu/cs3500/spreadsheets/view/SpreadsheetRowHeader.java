@@ -1,6 +1,7 @@
 package edu.cs3500.spreadsheets.view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
 
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -52,8 +53,11 @@ public class SpreadsheetRowHeader extends JTable {
     //to do for controller
   }
 
-  public void addRow(String row){
-    tableModel.insertRow(this.getRowCount(), new Object[] { row });
+  /**
+   * Adds a another row to the table.
+   */
+  public void addRow(String row) {
+    tableModel.insertRow(this.getRowCount(), new Object[]{row});
     this.setModel(tableModel);
     styleFirstColumnToRowValues();
   }

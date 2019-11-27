@@ -1,7 +1,21 @@
 EXTRA CREDIT FEATURES:
 LOADING FILES FROM GUI: opens and loads the file in a new seperate GUI JTable
+SAVING FILES FROM GUI: saves a file to an existing .txt file or creates a new save file
+Added Deletetion with delete button and selection with arrow keys or Enter Key
 
 |DESIGN CHANGES FROM ASSIGNMENT 7|
+Added a custom JScrollPane class to refactor constructor (added infinite scrolling)
+Added another custom JTable class for Row Headers so they always stay visible in the viewport
+Changed the look of a selected cell
+
+|THINGS ADDED RELATED TO ASSIGNMENT 7| 
+NOTE: Descriptions has been added accordingly on the bottom 
+> SpreadsheetEditableGUIView (class)
+> ButtonListener (class)
+> Controller (class)
+> KeyboardListener (class)
+> MouseListener (class)
+> Spreadsheet Controller (Interface)
 
 
 |DESIGN CHANGES FROM ASSIGNMENT 6|
@@ -143,7 +157,7 @@ Ex. = (LEFT "hello" 4) -> "hell" or = (LEFT 123.45 4) -> "123." or (LEFT "hi" 4)
 
 - Button Listener			Waits for a button to be pressed and performs desired actions in the view
 
-- Controller 				Allows user to update model and view by allowing for cells to be edited and txt 					files to be loaded and saved
+- Controller 				Allows user to update/edit model and view by allowing for cells to be edited and txt 					files to be loaded and saved
 
 - KeyboardListener			Waits for key press to occur and performs desired action in the view
 

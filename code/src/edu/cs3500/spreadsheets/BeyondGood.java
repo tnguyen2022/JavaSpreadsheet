@@ -86,14 +86,12 @@ public class BeyondGood {
           } else if (args[i].equals("-edit")) {
             SpreadsheetEditableGUIView view = new SpreadsheetEditableGUIView(gw);
             SpreadsheetController controller = new Controller(gw, view);
-            try{
-              controller.go();
-            }
-            catch (IOException e){
+            try {
+              controller.runController();
+            } catch (IOException e) {
               throw new IllegalStateException("Cannot create Spreadsheet view");
             }
-          }
-          else {
+          } else {
             throw new IllegalStateException("Not proper command-line style (needs to specify" +
                     "-eval, -save, -gui, or -edit)");
           }
@@ -101,18 +99,15 @@ public class BeyondGood {
       } else if (args[0].equals("-gui")) {
         SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(new BasicWorksheet());
         view.render();
-      }
-      else if (args[0].equals("-edit")) {
+      } else if (args[0].equals("-edit")) {
         SpreadsheetGraphicalView view = new SpreadsheetGraphicalView(new BasicWorksheet());
         SpreadsheetController controller = new Controller(gw, view);
-        try{
-          controller.go();
-        }
-        catch (IOException e){
+        try {
+          controller.runController();
+        } catch (IOException e) {
           throw new IllegalStateException("Cannot create Spreadsheet view");
         }
-      }
-      else {
+      } else {
         throw new IllegalStateException("Not proper -in command");
       }
     }
