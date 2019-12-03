@@ -119,8 +119,6 @@ public class SpreadsheetEditableGUIViewMock extends JFrame implements
     //Application automatically closes if user exits out
     this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 
-
-    //System.out.println(initTable.getSelectionModel());
   }
 
   @Override

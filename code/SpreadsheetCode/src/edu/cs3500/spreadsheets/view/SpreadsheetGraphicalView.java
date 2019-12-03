@@ -1,15 +1,7 @@
 package edu.cs3500.spreadsheets.view;
 
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JFrame;
 
@@ -17,28 +9,19 @@ import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
+
 /**
- * Represents a Graphical visual GUI of a Spreadsheet using JTables thats non-editable.
+ * Represents a Graphical visual GUI of a Spreadsheet using JTables that's non-editable.
  */
-public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetView {
-  private GeneralWorksheet model;
-  private JButton confirmButton;
-  private JButton cancelButton;
-  private JButton saveButton;
-  private SpreadsheetTable initTable;
-  private JTextField input;
-  private JLabel cellSelection;
-  private JButton loadButton;
+public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView {
 
   /**
    * Creates a graphical view based on given model.
    *
    * @param model represents the given model of worksheet to be visualized
    */
-  public SpreadsheetEditableGUIView(GeneralWorksheet model) {
+  public SpreadsheetGraphicalView(GeneralWorksheet model) {
     super();
-
-    this.model = model;
 
     int maxTableHeight = Math.max(100, model.getMaxHeight());
     int maxTableWidth = Math.max(52, model.getMaxWidth());
@@ -47,12 +30,12 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     this.setTitle("SpreadSheet Graphical View");
 
     //instance of out rowHeaders table
-    SpreadsheetRowHeader rowHeaders =
-            new SpreadsheetRowHeader(getRowHeaders(maxTableHeight),
-                    new String[]{""});
+    SpreadsheetRowHeader rowHeaders = new SpreadsheetRowHeader(getRowHeaders(maxTableHeight),
+            new String[]{""});
 
     // instance of our customizable table
-    initTable = new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth], model),
+    SpreadsheetTable initTable = new
+            SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth], model),
             getColumnNames(new String[maxTableWidth]), model);
 
     //combines the two tables next to each other
@@ -66,42 +49,6 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     this.add(sp);
     // Frame Size
     this.setSize(1250, 750);
-
-    //button panel
-    JPanel buttonPanel = new JPanel();
-    buttonPanel.setLayout(new FlowLayout());
-    this.add(buttonPanel, BorderLayout.NORTH);
-
-    //Confirm and Cancel buttons
-    confirmButton = new JButton("Confirm");
-    buttonPanel.add(confirmButton);
-    confirmButton.setActionCommand("Confirm Button");
-    cancelButton = new JButton("Cancel");
-    buttonPanel.add(cancelButton);
-    cancelButton.setActionCommand("Cancel Button");
-
-    //Label denoting current cell selection
-    cellSelection = new JLabel();
-    cellSelection.setText("A1");
-    buttonPanel.add(cellSelection);
-
-    //input textfield
-    //input = new JTextField(80);
-    input = new JTextField(60);
-    if (!initTable.getValueAt(0, 0).toString().equals("")) {
-      input.setText("= " + initTable.getValueAt(0, 0).toString());
-    }
-    buttonPanel.add(input);
-
-    //save button
-    saveButton = new JButton("Save File");
-    buttonPanel.add(saveButton);
-    saveButton.setActionCommand("Save Button");
-
-    //Load button
-    loadButton = new JButton("Load File");
-    buttonPanel.add(loadButton);
-    loadButton.setActionCommand("Load Button");
 
     //Application automatically closes if user exits out
     this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
@@ -174,53 +121,38 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
   }
 
   @Override
-  public void addActionListener(ActionListener actionEvent) {
-    cancelButton.addActionListener(actionEvent);
-    confirmButton.addActionListener(actionEvent);
-    saveButton.addActionListener(actionEvent);
-    loadButton.addActionListener(actionEvent);
-  }
-
-  @Override
-  public void addMouseListener(MouseListener actionMouse) {
-    initTable.addMouseListener(actionMouse);
-  }
-
-  @Override
-  public void addKeyListener(KeyListener actionKey) {
-    initTable.addKeyListener(actionKey);
-  }
-
   public void setJTextField(String s) {
-    input.setText(s);
+    // Supposed to be empty.
   }
 
-  //to be added to interface
+  @Override
   public String getRawCellContent(int row, int col) {
-    return model.getCell(col, row).content.toString();
+    return null;
   }
 
   @Override
   public String getInputText() {
-    return input.getText();
+    return null;
   }
 
   @Override
   public Coord getSelectedCellCoord() {
-    final int row = Math.max(0, initTable.getSelectedRow());
-    final int col = Math.max(0, initTable.getSelectedColumn());
-    return new Coord(col + 1, row + 1);
+    return null;
   }
 
   @Override
   public void setValueAt(int row, int col, String value) {
-    initTable.setValueAt(value, row, col);
+    // supposed to be empty.
+  }
+
+  @Override
+  public void addActionListener(ActionListener al) {
+    // supposed to be empty.
   }
 
   @Override
   public void setJLabel(int rowIndex, int columnIndex) {
-    String s = Coord.colIndexToName(columnIndex) + rowIndex;
-    cellSelection.setText(s);
+    // supposed to be empty.
   }
 
 }

@@ -10,7 +10,7 @@ import edu.cs3500.spreadsheets.model.Coord;
  * Represents a boolean value that can be put into a cell.
  */
 public class BooleanValue implements Value {
-  private boolean value;
+  public boolean value;
 
   /**
    * The boolean value that can be contained in a cell.

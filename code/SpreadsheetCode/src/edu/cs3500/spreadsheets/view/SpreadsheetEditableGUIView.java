@@ -105,6 +105,7 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
 
     //Application automatically closes if user exits out
     this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+
   }
 
   /**
