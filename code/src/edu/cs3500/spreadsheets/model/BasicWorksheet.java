@@ -27,9 +27,11 @@ public class BasicWorksheet implements GeneralWorksheet {
 
   @Override
   public void modifyOrAdd(int col, int row, String contents) {
+    boolean alreadyCreated = ws.containsKey(new Coord(col, row));
+
     if (contents.length() > 1) {
       if (contents.charAt(0) == '=') {
-        if (ws.containsKey(new Coord(col, row))) {
+        if (alreadyCreated) {
           ws.get(new Coord(col, row))
                   .setContent(Parser.parse(contents.substring(1))
                           .accept(new CreateCellFormula(ws)));
@@ -38,15 +40,21 @@ public class BasicWorksheet implements GeneralWorksheet {
                   new Cell(Parser.parse(contents.substring(1)).accept(new CreateCellFormula(ws)),
                           new Coord(col, row)));
         }
-      } else {
+      } else if (!ws.containsKey(new Coord(col, row))) {
         ws.put(new Coord(col, row),
                 new Cell(Parser.parse(contents).accept(new CreateCellValue()),
                         new Coord(col, row)));
+      } else {
+        ws.get(new Coord(col, row))
+            .setContent(Parser.parse(contents).accept(new CreateCellValue()));
       }
-    } else {
+    } else if (!alreadyCreated) {
       ws.put(new Coord(col, row),
               new Cell(Parser.parse(contents).accept(new CreateCellValue()),
                       new Coord(col, row)));
+    } else {
+      ws.get(new Coord(col, row))
+            .setContent(Parser.parse(contents).accept(new CreateCellValue()));
     }
   }
 

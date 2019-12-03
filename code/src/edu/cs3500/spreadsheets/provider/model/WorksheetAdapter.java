@@ -4,7 +4,6 @@ package edu.cs3500.spreadsheets.provider.model;
 import java.util.HashMap;
 
 import edu.cs3500.spreadsheets.model.Blank;
-import edu.cs3500.spreadsheets.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 import edu.cs3500.spreadsheets.provider.value.IValue;
@@ -23,6 +22,7 @@ public class WorksheetAdapter implements IWorksheet<Cell>{
       gw.removeCell(col, row);
     }
     else {
+
       gw.modifyOrAdd(col, row, contents);
     }
   }
@@ -38,7 +38,7 @@ public class WorksheetAdapter implements IWorksheet<Cell>{
     for (int i = 1; i <= gw.getMaxHeight(); i++) {
       for (int j = 1; j <= gw.getMaxWidth(); j++) {
         if (!gw.getCell(j, i).content.equals(new Blank())) {
-          allCells.put(new Coord(i, j), gw.getCell(j, i));
+          allCells.put(new Coord(j, i), getCellAt(j, i));
         }
       }
     }
@@ -56,7 +56,8 @@ public class WorksheetAdapter implements IWorksheet<Cell>{
   }
 
   @Override
-  public Cell getCellAt(int col, int row) throws IllegalArgumentException {
-    return gw.getCell(col, row);
+  public Cell getCellAt(int col, int row){
+    edu.cs3500.spreadsheets.model.Cell c = gw.getCell(col, row);
+    return new Cell(c.content.toString(), c.cellReference);
   }
 }

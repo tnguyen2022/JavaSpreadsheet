@@ -34,19 +34,16 @@ public class ValueVisitorAdapter<T> implements CellContentVisitor<T> {
 
   @Override
   public T visitDoubleValue(DoubleValue d) throws UnsupportedOperationException {
-    //return (T) v.visitDouble(d.value);
-    return null;
+    return (T) v.visitDouble(d.value);
   }
 
   @Override
   public T visitStringValue(StringValue s) throws UnsupportedOperationException {
-    //return (T) v.visitString(s.value);
-    return null;
+    return (T) v.visitString(s.value);
   }
 
   @Override
   public T visitBooleanValue(BooleanValue b) throws UnsupportedOperationException {
-    //return (T) v.visitBoolean(b.value);
-    return null;
+    return (T) v.visitBoolean(b.value);
   }
 }

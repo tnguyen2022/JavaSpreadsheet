@@ -2,7 +2,7 @@ package edu.cs3500.spreadsheets.provider.model;
 
 import java.util.HashMap;
 
-import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.provider.model.Cell;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.provider.value.IValue;
 

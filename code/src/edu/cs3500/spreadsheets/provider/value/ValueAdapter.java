@@ -17,8 +17,6 @@ public class ValueAdapter implements IValue {
 
   @Override
   public <R> R accept(ValueVisitor<R> visitor) {
-    System.out.println("boi");
-    //return v.accept(new ValueVisitorAdapter<>(visitor));
-    return null;
+    return v.accept(new ValueVisitorAdapter<>(visitor));
   }
 }
