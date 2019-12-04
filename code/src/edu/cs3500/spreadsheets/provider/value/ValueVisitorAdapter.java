@@ -10,6 +10,12 @@ import edu.cs3500.spreadsheets.model.value.BooleanValue;
 import edu.cs3500.spreadsheets.model.value.DoubleValue;
 import edu.cs3500.spreadsheets.model.value.StringValue;
 
+/**
+ * Translates a ValueVisitor to an CellContentVisitor which is an abstracted function object for
+ * processing any CellContent.
+ *
+ * @param <T> Any Value type.
+ */
 public class ValueVisitorAdapter<T> implements CellContentVisitor<T> {
   private ValueVisitor v;
 

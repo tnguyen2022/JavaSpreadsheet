@@ -6,6 +6,10 @@ import edu.cs3500.spreadsheets.provider.model.IWorksheet;
 import edu.cs3500.spreadsheets.provider.view.IView;
 import edu.cs3500.spreadsheets.provider.model.Cell;
 
+/**
+ * Allows user to update model and view by allowing for cells to be selected,edited, and gain
+ * access to a provided view.
+ */
 public class FeaturesProviderController implements Features {
   private IWorksheet<Cell> model;
   private IView view;
