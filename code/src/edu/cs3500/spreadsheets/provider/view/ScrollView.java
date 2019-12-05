@@ -5,11 +5,10 @@ import java.awt.Dimension;
 import javax.swing.JScrollPane;
 
 import edu.cs3500.spreadsheets.provider.model.IViewWorksheet;
-import edu.cs3500.spreadsheets.provider.view.DrawSpreadsheet;
 
 /**
- * The panel that adds all the scrolling features to the visual representation of cells.
- * This contains the infinite scroll component.
+ * The panel that adds all the scrolling features to the visual representation of cells. This
+ * contains the infinite scroll component.
  */
 public class ScrollView extends JScrollPane {
   static final int BORDER = 10;
@@ -18,9 +17,10 @@ public class ScrollView extends JScrollPane {
 
   /**
    * Creates the panel that contains the cells and labels and surrounds them with scroll bars.
-   * @param w the model that provides cell information
-   * @param ds the panel that contains the same model given in {@code w} and draws the cells
-   *          and labels
+   *
+   * @param w  the model that provides cell information
+   * @param ds the panel that contains the same model given in {@code w} and draws the cells and
+   *           labels
    */
   ScrollView(IViewWorksheet w, DrawSpreadsheet ds) {
     super(ds);

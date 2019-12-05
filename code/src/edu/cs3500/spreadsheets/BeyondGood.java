@@ -16,7 +16,6 @@ import edu.cs3500.spreadsheets.model.value.Value;
 import edu.cs3500.spreadsheets.model.WorksheetReader;
 import edu.cs3500.spreadsheets.provider.controller.Features;
 import edu.cs3500.spreadsheets.provider.controller.FeaturesProviderController;
-import edu.cs3500.spreadsheets.provider.model.IViewWorksheet;
 import edu.cs3500.spreadsheets.provider.model.IWorksheet;
 import edu.cs3500.spreadsheets.provider.model.WorksheetAdapter;
 import edu.cs3500.spreadsheets.provider.view.IView;
@@ -104,7 +103,7 @@ public class BeyondGood {
             Features controller = new FeaturesProviderController(providerModel, view);
             controller.setView(view);
             view.render();
-          }else {
+          } else {
             throw new IllegalStateException("Not proper command-line style (needs to specify" +
                     "-eval, -save, -gui, or -edit)");
           }
@@ -120,6 +119,12 @@ public class BeyondGood {
         } catch (IOException e) {
           throw new IllegalStateException("Cannot create Spreadsheet view");
         }
+      } else if (args[0].equals("-provider")) {
+        IWorksheet providerModel = new WorksheetAdapter(new BasicWorksheet());
+        IView view = new WorksheetViewEditable(providerModel);
+        Features controller = new FeaturesProviderController(providerModel, view);
+        controller.setView(view);
+        view.render();
       } else {
         throw new IllegalStateException("Not proper -in command");
       }

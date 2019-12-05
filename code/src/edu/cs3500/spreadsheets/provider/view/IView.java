@@ -13,6 +13,7 @@ public interface IView {
 
   /**
    * Allows the view to communicate with the controller.
+   *
    * @param features the controller
    */
   void addFeatures(Features features);

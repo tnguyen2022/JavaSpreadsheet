@@ -16,6 +16,7 @@ public class WorksheetView extends JFrame implements IView {
 
   /**
    * Constructs a view-only worksheet GUI with all the Swing components inside the frame.
+   *
    * @param ivw the worksheet to be viewed
    */
   public WorksheetView(IViewWorksheet ivw) {

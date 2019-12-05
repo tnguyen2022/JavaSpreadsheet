@@ -1,7 +1,5 @@
 package edu.cs3500.spreadsheets.provider.value;
 
-import java.util.List;
-
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.CellContentVisitor;
 import edu.cs3500.spreadsheets.model.Reference;
@@ -19,7 +17,7 @@ import edu.cs3500.spreadsheets.model.value.StringValue;
 public class ValueVisitorAdapter<T> implements CellContentVisitor<T> {
   private ValueVisitor v;
 
-  ValueVisitorAdapter(ValueVisitor v){
+  ValueVisitorAdapter(ValueVisitor v) {
     this.v = v;
   }
 

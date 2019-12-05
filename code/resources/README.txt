@@ -1,3 +1,19 @@
+ASSIGNMENT 8 - PROVIDERS CODE:
+Successful Features:
+Successful Features include getting the buttons to work: confirming and cancelling edits made on a given cell. 
+The delete button also works as intended, deleting a cell content on that given cell, however, the spreadsheet 
+automatically will default evaluate that empty cell to 0.00000. The user is also able to scroll and select cells 
+(with a red indication border of what cell is being selected).
+Unsuccessful Features: 
+However, there were some features that we were not able to get working. For example, they already previously had 
+their infinite scrolling to be glitchy and only obtainable by using the arrow keys around the scroll bar. 
+Additionally, scrolling would be very laggy, as we assume it is reconstructing the view every frame that is being 
+scrolled. Since they also didn’t implement extra credit functionalities, like selecting cells with keys, or any 
+save/loading file features, we did not need to implement it from our controller to theirs. They also implemented
+their delete extra credit feature with a button in constrast to our implementation that used they delete key, and
+therefore, we adjusted to use their implementation of deleting a cell instead.
+
+
 EXTRA CREDIT FEATURES:
 LOADING FILES FROM GUI: opens and loads the file in a new seperate GUI JTable
 SAVING FILES FROM GUI: saves a file to an existing .txt file or creates a new save file

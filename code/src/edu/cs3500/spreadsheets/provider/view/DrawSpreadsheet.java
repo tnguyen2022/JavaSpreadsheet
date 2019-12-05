@@ -14,8 +14,8 @@ import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.provider.model.IViewWorksheet;
 
 /**
- * A panel that draws all the cells in a worksheet, the numbered row labels, and the lettered
- * column labels.
+ * A panel that draws all the cells in a worksheet, the numbered row labels, and the lettered column
+ * labels.
  */
 public class DrawSpreadsheet extends JPanel {
   private IViewWorksheet worksheet;
@@ -27,10 +27,11 @@ public class DrawSpreadsheet extends JPanel {
   static final int BOLD_STROKE = 2;
   static final int PADDING = 2;
   //initial cell highlight
-  static final Coord INITIAL_CELL = new Coord(1,1);
+  static final Coord INITIAL_CELL = new Coord(1, 1);
 
   /**
    * Constructs the interface of labels and cells for the GUI.
+   *
    * @param ivw the worksheet model to be rendered visually
    */
   public DrawSpreadsheet(IViewWorksheet ivw) {
@@ -85,8 +86,7 @@ public class DrawSpreadsheet extends JPanel {
           if (fc.col == c && fc.row == r) {
             g2d.setStroke(new BasicStroke(BOLD_STROKE));
             g2d.setPaint(Color.red);
-          }
-          else {
+          } else {
             g2d.setPaint(Color.black);
           }
           g2d.drawRect(c * CELL_WIDTH, r * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);

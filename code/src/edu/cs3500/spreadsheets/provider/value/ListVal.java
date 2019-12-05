@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a list of IValues. Intended for giving functions multiple inputs, not for
- * displaying as a final cell output.
+ * Represents a list of IValues. Intended for giving functions multiple inputs, not for displaying
+ * as a final cell output.
  */
 public class ListVal implements IValue {
   private List<IValue> values;

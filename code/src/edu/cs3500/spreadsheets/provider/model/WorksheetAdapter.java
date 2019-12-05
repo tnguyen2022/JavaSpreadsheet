@@ -10,28 +10,30 @@ import edu.cs3500.spreadsheets.provider.value.ValueAdapter;
 
 /**
  * Translates a GeneralWorksheet to an IWorksheet allowing for the ability to retrieve/evaluate data
- * about the current state of the spreadsheet.
+ * about the current state of the spreadsheet. Uses composition to adapt our worksheet interface
+ * with the providers worksheet interface.
  */
 public class WorksheetAdapter implements IWorksheet<Cell> {
   private GeneralWorksheet gw;
 
-  public WorksheetAdapter(GeneralWorksheet gw){
+  public WorksheetAdapter(GeneralWorksheet gw) {
     this.gw = gw;
   }
 
   @Override
   public void updateCell(int col, int row, String contents) {
-    if (contents.equals("")){
+    if (contents.equals("")) {
       gw.removeCell(col, row);
-    }
-    else {
+    } else {
       gw.modifyOrAdd(col, row, contents);
     }
   }
 
   @Override
   public Coord getLargestCoord() {
-    return new Coord(gw.getMaxWidth(), gw.getMaxHeight());
+    int width = Math.max(52, gw.getMaxWidth());
+    int height = Math.max(100, gw.getMaxHeight());
+    return new Coord(width, height);
   }
 
   @Override
@@ -51,8 +53,7 @@ public class WorksheetAdapter implements IWorksheet<Cell> {
   public IValue evaluateCell(int col, int row) throws IllegalArgumentException {
     try {
       return new ValueAdapter(gw.evaluateCell(gw.getCell(col, row)));
-    }
-    catch(UnsupportedOperationException | IllegalArgumentException e) {
+    } catch (UnsupportedOperationException | IllegalArgumentException e) {
       throw new IllegalArgumentException();
     }
   }

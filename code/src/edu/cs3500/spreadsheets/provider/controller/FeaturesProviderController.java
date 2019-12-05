@@ -7,21 +7,25 @@ import edu.cs3500.spreadsheets.provider.view.IView;
 import edu.cs3500.spreadsheets.provider.model.Cell;
 
 /**
- * Allows user to update model and view by allowing for cells to be selected,edited, and gain
- * access to a provided view.
+ * Allows user to update model and view by allowing for cells to be selected,edited, and gain access
+ * to a provided view. Reimplementation of the providers controller, given their model and view
  */
 public class FeaturesProviderController implements Features {
   private IWorksheet<Cell> model;
   private IView view;
 
-  public FeaturesProviderController(IWorksheet<Cell> model, IView view){
+  public FeaturesProviderController(IWorksheet<Cell> model, IView view) {
     this.model = model;
     this.view = view;
   }
 
   @Override
   public String selectForm(Coord c) {
-    return "= " + model.getCellAt(c.col, c.row).getForm();
+    String s =  model.getCellAt(c.col, c.row).getForm();
+    if (s.equals("")){
+      return s;
+    }
+    return "= " + s;
   }
 
   @Override

@@ -46,7 +46,7 @@ public class BasicWorksheet implements GeneralWorksheet {
                         new Coord(col, row)));
       } else {
         ws.get(new Coord(col, row))
-            .setContent(Parser.parse(contents).accept(new CreateCellValue()));
+                .setContent(Parser.parse(contents).accept(new CreateCellValue()));
       }
     } else if (!alreadyCreated) {
       ws.put(new Coord(col, row),
@@ -54,7 +54,7 @@ public class BasicWorksheet implements GeneralWorksheet {
                       new Coord(col, row)));
     } else {
       ws.get(new Coord(col, row))
-            .setContent(Parser.parse(contents).accept(new CreateCellValue()));
+              .setContent(Parser.parse(contents).accept(new CreateCellValue()));
     }
   }
 

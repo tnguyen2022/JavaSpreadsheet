@@ -123,8 +123,7 @@ public class WorksheetViewEditable extends JFrame implements IView {
       private Coord locToCoord(int x, int y) {
         try {
           return new Coord(x / spread.CELL_WIDTH, y / spread.CELL_HEIGHT);
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
           return spread.getFocusCell();
         }
       }
