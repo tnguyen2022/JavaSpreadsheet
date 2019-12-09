@@ -77,13 +77,13 @@ public final class WorksheetReader {
       if (scan.hasNext("--ROW")) {
         scan.next();
         String s = scan.next();
-        try{
+        try {
           int rowNumber = Integer.parseInt(s);
           scan.next();
           int rowHeight = Integer.parseInt(scan.nextLine().substring(1));
           builder = builder.adjustRowHeight(rowNumber, rowHeight);
         }
-        catch (NumberFormatException e){
+        catch (NumberFormatException e) {
           throw new IllegalArgumentException("Invalid Row Number");
         }
       }

@@ -78,10 +78,10 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
     }
     if (s.contains(":")) {
       if (s.split(":")[0].equals(s.split(":")[1])) {
-        if (!s.matches(".*\\d.*")){
+        if (!s.matches(".*\\d.*")) {
           int col = Coord.colNameToIndex(s.split(":")[0]);
-          for (Coord c : ws.keySet()){
-            if (c.col == col){
+          for (Coord c : ws.keySet()) {
+            if (c.col == col) {
               Cell currentCell = retrieveCell(c.col, c.row);
               region.add(currentCell);
             }
@@ -93,11 +93,11 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
         int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
         Cell currentCell = retrieveCell(col, row);
         region.add(currentCell);
-      } else if (!s.matches(".*\\d.*")){
+      } else if (!s.matches(".*\\d.*")) {
         int col1 = Coord.colNameToIndex(s.split(":")[0]);
         int col2 = Coord.colNameToIndex(s.split(":")[1]);
-        for (Coord c : ws.keySet()){
-          if (c.col == col1 || c.col == col2){
+        for (Coord c : ws.keySet()) {
+          if (c.col == col1 || c.col == col2) {
             Cell currentCell = retrieveCell(c.col, c.row);
             region.add(currentCell);
           }

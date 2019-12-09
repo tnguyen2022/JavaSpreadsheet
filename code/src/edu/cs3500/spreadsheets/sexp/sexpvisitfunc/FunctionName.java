@@ -20,8 +20,8 @@ public class FunctionName implements SexpVisitor<String> {
 
   @Override
   public String visitSymbol(String s) {
-    if (s.equalsIgnoreCase("SUM") || s.equalsIgnoreCase("PRODUCT") ||
-            s.equals("<") || s.equalsIgnoreCase("LEFT")) {
+    if (s.equalsIgnoreCase("SUM") || s.equalsIgnoreCase("PRODUCT")
+        || s.equals("<") || s.equalsIgnoreCase("LEFT")) {
       return s.toUpperCase();
     } else {
       throw new IllegalArgumentException("Has to be a valid function");

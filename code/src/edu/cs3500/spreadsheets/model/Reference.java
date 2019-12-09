@@ -23,13 +23,13 @@ public class Reference implements Formula {
   @Override
   public String toString() {
     if (this.region.size() == 1) {
-      return Coord.colIndexToName(region.get(0).cellReference.col) +
-              region.get(0).cellReference.row;
+      return Coord.colIndexToName(region.get(0).cellReference.col)
+          + region.get(0).cellReference.row;
     } else {
-      return Coord.colIndexToName(region.get(0).cellReference.col) +
-              region.get(0).cellReference.row + ":" +
-              Coord.colIndexToName(region.get(region.size() - 1).cellReference.col) +
-              region.get(region.size() - 1).cellReference.row;
+      return Coord.colIndexToName(region.get(0).cellReference.col)
+          + region.get(0).cellReference.row + ":"
+          + Coord.colIndexToName(region.get(region.size() - 1).cellReference.col)
+          + region.get(region.size() - 1).cellReference.row;
     }
   }
 

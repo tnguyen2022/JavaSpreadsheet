@@ -20,13 +20,10 @@ import edu.cs3500.spreadsheets.provider.model.IViewWorksheet;
  */
 public class WorksheetViewEditable extends JFrame implements IView {
   private DrawSpreadsheet spread;
-  private ScrollView sv;
   private JButton conf;
   private JButton canc;
   private JButton delete;
-  private JLabel helpMenu;
   private JTextField inp;
-  private JPanel toolbar;
 
   /**
    * Constructs an editable worksheet GUI with all the Swing components inside the frame.
@@ -39,7 +36,7 @@ public class WorksheetViewEditable extends JFrame implements IView {
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setSize(new Dimension(850, 450));
     this.spread = new DrawSpreadsheet(ivw);
-    this.sv = new ScrollView(ivw, this.spread);
+    ScrollView sv = new ScrollView(ivw, this.spread);
 
     conf = new JButton("✓"); //check
     conf.setActionCommand("Cell Conf");
@@ -48,10 +45,11 @@ public class WorksheetViewEditable extends JFrame implements IView {
     delete = new JButton("Delete");
     delete.setActionCommand("Cell Del");
     inp = new JTextField(10);
-    helpMenu = new JLabel("Formulas: numbers, strings, booleans, references to other cells, " +
-            "SUM, PRODUCT, <, CONCAT");
+    JLabel helpMenu = new JLabel(
+        "Formulas: numbers, strings, booleans, references to other cells, "
+            + "SUM, PRODUCT, <, CONCAT");
 
-    this.toolbar = new JPanel();
+    JPanel toolbar = new JPanel();
     toolbar.add(conf, BorderLayout.WEST);
     toolbar.add(canc, BorderLayout.CENTER);
     toolbar.add(delete, BorderLayout.CENTER);

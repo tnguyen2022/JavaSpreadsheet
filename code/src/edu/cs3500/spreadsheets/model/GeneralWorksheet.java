@@ -51,11 +51,33 @@ public interface GeneralWorksheet {
    */
   public int getMaxHeight();
 
+  /**
+   * Adds to a row or sets the row height for a given spreadsheet.
+   *
+   * @param row The row number in the spreadsheet
+   * @param rowHeight the height of the given row
+   */
   public void addOrSetRowHeight(int row, int rowHeight);
 
+  /**
+   * Adds to a column or sets the column width for a given spreadsheet.
+   *
+   * @param col The column number in a spreadsheet
+   * @param colWidth the width of the given column
+   */
   public void addOrSetColWidth(int col, int colWidth);
 
+  /**
+   * Gets the total height of a given row in a spreadsheet.
+   * @param row the row number in the spreadsheet
+   * @return the size of the row
+   */
   public int getRowHeight(int row);
 
+  /**
+   * Gets the total width of a given column in a spreadsheet.
+   * @param col the column number in the spreadsheet
+   * @return the size of the column
+   */
   public int getColWidth(int col);
 }

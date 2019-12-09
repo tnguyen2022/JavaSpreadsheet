@@ -2,12 +2,15 @@ package edu.cs3500.spreadsheets.model;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a reference of all the values in a column from a given instance of a spreadsheet.
+ */
 public class ColumnReference extends Reference {
   private int col1;
   private int col2;
+
   /**
    * Parses a given string to rectangular region of cells that represents a reference.
-   *
    * @param r the rectangular region of referenced cells.
    */
   public ColumnReference(int col1, int col2, ArrayList<Cell> r) {

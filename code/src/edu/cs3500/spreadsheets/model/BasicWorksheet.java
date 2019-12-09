@@ -109,8 +109,8 @@ public class BasicWorksheet implements GeneralWorksheet {
         maxWidth = c.col;
       }
     }
-    for (int i : columnWidth.keySet()){
-      if (i > maxWidth){
+    for (int i : columnWidth.keySet()) {
+      if (i > maxWidth) {
         maxWidth = i;
       }
     }
@@ -129,8 +129,8 @@ public class BasicWorksheet implements GeneralWorksheet {
         maxHeight = c.row;
       }
     }
-    for (int i : rowHeight.keySet()){
-      if (i > maxHeight){
+    for (int i : rowHeight.keySet()) {
+      if (i > maxHeight) {
         maxHeight = i;
       }
     }

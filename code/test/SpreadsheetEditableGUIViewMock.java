@@ -32,14 +32,7 @@ public class SpreadsheetEditableGUIViewMock extends JFrame implements
    */
   private final StringBuilder log;
 
-  private GeneralWorksheet model;
-  private JButton confirmButton;
-  private JButton cancelButton;
-  private JButton saveButton;
   public SpreadsheetTable initTable;
-  private JTextField input;
-  private JLabel cellSelection;
-  private JButton loadButton;
 
   /**
    * Constructs a BasicPyramidSolitaireMock.
@@ -49,9 +42,6 @@ public class SpreadsheetEditableGUIViewMock extends JFrame implements
   public SpreadsheetEditableGUIViewMock(StringBuilder log, GeneralWorksheet model) {
     super();
     this.log = Objects.requireNonNull(log);
-
-
-    this.model = model;
 
     int maxTableHeight = Math.max(100, model.getMaxHeight());
     int maxTableWidth = Math.max(52, model.getMaxWidth());
@@ -86,33 +76,33 @@ public class SpreadsheetEditableGUIViewMock extends JFrame implements
     this.add(buttonPanel, BorderLayout.NORTH);
 
     //Confirm and Cancel buttons
-    confirmButton = new JButton("Confirm");
+    JButton confirmButton = new JButton("Confirm");
     buttonPanel.add(confirmButton);
     confirmButton.setActionCommand("Confirm Button");
-    cancelButton = new JButton("Cancel");
+    JButton cancelButton = new JButton("Cancel");
     buttonPanel.add(cancelButton);
     cancelButton.setActionCommand("Cancel Button");
 
     //Label denoting current cell selection
-    cellSelection = new JLabel();
+    JLabel cellSelection = new JLabel();
     cellSelection.setText("A1");
     buttonPanel.add(cellSelection);
 
     //input textfield
     //input = new JTextField(80);
-    input = new JTextField(60);
+    JTextField input = new JTextField(60);
     if (!initTable.getValueAt(0, 0).toString().equals("")) {
       input.setText("= " + initTable.getValueAt(0, 0).toString());
     }
     buttonPanel.add(input);
 
     //save button
-    saveButton = new JButton("Save File");
+    JButton saveButton = new JButton("Save File");
     buttonPanel.add(saveButton);
     saveButton.setActionCommand("Save Button");
 
     //Load button
-    loadButton = new JButton("Load File");
+    JButton loadButton = new JButton("Load File");
     buttonPanel.add(loadButton);
     loadButton.setActionCommand("Load Button");
 

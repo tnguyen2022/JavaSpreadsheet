@@ -15,6 +15,11 @@ public class KeyboardListener extends KeyAdapter implements KeyListener {
   private SpreadsheetView view;
   private GeneralWorksheet model;
 
+  /**
+   * Changes the view of the spreadsheet based on certain key inputs.
+   * @param view a instance of a view of the spreadsheet
+   * @param model the model the spreadsheet is implemented on
+   */
   public KeyboardListener(SpreadsheetView view, GeneralWorksheet model) {
 
     this.view = view;

@@ -2,13 +2,11 @@ package edu.cs3500.spreadsheets.view;
 
 import java.awt.Color;
 import java.awt.Component;
-
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 /**
@@ -20,7 +18,6 @@ public class SpreadsheetRowHeader extends JTable {
 
   /**
    * Creates rowHeaders table.
-   *
    * @param data        represents rowHeaders data of the spreadsheet
    * @param columnNames represents column header of the rowHeaders
    */
@@ -31,9 +28,6 @@ public class SpreadsheetRowHeader extends JTable {
     JTableHeader header = this.getTableHeader();
     header.setBackground(Color.gray);
 
-    /**
-     * Creates a default table model where the first column is immutable.
-     */
     tableModel = new DefaultTableModel(data, columnNames) {
       @Override
       public boolean isCellEditable(int row, int column) {
@@ -54,8 +48,8 @@ public class SpreadsheetRowHeader extends JTable {
     //disable user column dragging
     this.getTableHeader().setReorderingAllowed(false);
 
-    for (int i = 0; i < model.getMaxHeight(); i++){
-      this.setRowHeight(i, model.getRowHeight(i+1));
+    for (int i = 0; i < model.getMaxHeight(); i++) {
+      this.setRowHeight(i, model.getRowHeight(i + 1));
     }
   }
 

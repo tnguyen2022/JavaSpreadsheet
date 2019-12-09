@@ -31,8 +31,8 @@ public class SpreadsheetScroll extends JScrollPane {
 
     //infinite scrolling vertically
     this.getVerticalScrollBar().addAdjustmentListener(e -> {
-      int maxValue = this.getVerticalScrollBar().getMaximum() -
-              this.getVerticalScrollBar().getVisibleAmount();
+      int maxValue = this.getVerticalScrollBar().getMaximum()
+          - this.getVerticalScrollBar().getVisibleAmount();
       int currentValue = this.getVerticalScrollBar().getValue();
       float fraction = (float) currentValue / (float) maxValue;
 
@@ -48,8 +48,8 @@ public class SpreadsheetScroll extends JScrollPane {
 
     //infinite scrolling horizontally
     this.getHorizontalScrollBar().addAdjustmentListener(e -> {
-      int maxValue = this.getHorizontalScrollBar().getMaximum() -
-              this.getHorizontalScrollBar().getVisibleAmount();
+      int maxValue = this.getHorizontalScrollBar().getMaximum()
+          - this.getHorizontalScrollBar().getVisibleAmount();
       int currentValue = this.getHorizontalScrollBar().getValue();
       float fraction = (float) currentValue / (float) maxValue;
 

@@ -104,8 +104,8 @@ public class BeyondGood {
             controller.setView(view);
             view.render();
           } else {
-            throw new IllegalStateException("Not proper command-line style (needs to specify" +
-                    "-eval, -save, -gui, or -edit)");
+            throw new IllegalStateException("Not proper command-line style (needs to specify"
+                + "-eval, -save, -gui, or -edit)");
           }
         }
       } else if (args[0].equals("-gui")) {

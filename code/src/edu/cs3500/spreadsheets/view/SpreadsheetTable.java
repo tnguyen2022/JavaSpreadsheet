@@ -11,11 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.TableColumnModelEvent;
 import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableModel;
-
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 
@@ -29,7 +25,6 @@ public class SpreadsheetTable extends JTable {
 
   /**
    * Creates Spreadsheet table.
-   *
    * @param data        represents the 2d array of cell data in the Spreadsheet.
    * @param columnNames represents the Column names of the spreadsheet.
    */
@@ -70,14 +65,12 @@ public class SpreadsheetTable extends JTable {
 
     getTableHeader().addMouseListener( new MouseAdapter() {
       @Override
-      public void mouseReleased(MouseEvent e)
-      {
+      public void mouseReleased(MouseEvent e) {
         /* On mouse release, check if column width has changed */
-        if(getColumnWidthChanged())
-        {
-          for (int i = 0; i < getColumnCount(); i++){
-            if (!(columnModel.getColumn(i).getWidth() == 75)){
-              model.addOrSetColWidth(i+1, columnModel.getColumn(i).getWidth());
+        if (getColumnWidthChanged()) {
+          for (int i = 0; i < getColumnCount(); i++) {
+            if (columnModel.getColumn(i).getWidth() != 75) {
+              model.addOrSetColWidth(i + 1, columnModel.getColumn(i).getWidth());
             }
           }
 
@@ -88,20 +81,16 @@ public class SpreadsheetTable extends JTable {
     }
     );
 
-    getColumnModel().addColumnModelListener(new TableColumnModelListener()
-    {
+    getColumnModel().addColumnModelListener(new TableColumnModelListener() {
       @Override
-      public void columnMarginChanged(ChangeEvent e)
-      {
+      public void columnMarginChanged(ChangeEvent e) {
         /* columnMarginChanged is called continuously as the column width is changed
            by dragging. Therefore, execute code below ONLY if we are not already
            aware of the column width having changed */
-        if(!getColumnWidthChanged())
-        {
-            /* the condition  below will NOT be true if
-               the column width is being changed by code. */
-          if(getTableHeader().getResizingColumn() != null)
-          {
+        if (!getColumnWidthChanged()) {
+          /* the condition  below will NOT be true if
+          the column width is being changed by code. */
+          if (getTableHeader().getResizingColumn() != null) {
             // User must have dragged column and changed width
             setColumnWidthChanged(true);
           }
@@ -109,35 +98,54 @@ public class SpreadsheetTable extends JTable {
       }
 
       @Override
-      public void columnMoved(TableColumnModelEvent e) { }
+      public void columnMoved(TableColumnModelEvent e) {
+        // supposed to be empty.
+      }
 
       @Override
-      public void columnAdded(TableColumnModelEvent e) { }
+      public void columnAdded(TableColumnModelEvent e) {
+        // supposed to be empty.
+      }
 
       @Override
-      public void columnRemoved(TableColumnModelEvent e) { }
+      public void columnRemoved(TableColumnModelEvent e) {
+        // supposed to be empty.
+      }
 
       @Override
-      public void columnSelectionChanged(ListSelectionEvent e) { }
+      public void columnSelectionChanged(ListSelectionEvent e) {
+        // supposed to be empty.
+      }
     });
 
   }
 
+  /**
+   * Checks whether or not the Column width in the spreadsheet needs to be changed.
+   * @return whether or not the Column Width is changed.
+   */
   private boolean getColumnWidthChanged() {
     return isColumnWidthChanged;
   }
 
+  /**
+   * Changes the value of whether or not the column width has been changed.
+   * @param widthChanged whether or not the width is to be changed
+   */
   private void setColumnWidthChanged(boolean widthChanged) {
     isColumnWidthChanged = widthChanged;
   }
 
-  private void setRowAndColDimensions(){
-    for (int i = 0; i < model.getMaxWidth(); i++){
-      System.out.println(model.getColWidth(i+1));
-      this.columnModel.getColumn(i).setPreferredWidth(model.getColWidth(i+1));
+  /**
+   * Sets the rows and column dimensions of the spreadsheet table.
+   */
+  private void setRowAndColDimensions() {
+    for (int i = 0; i < model.getMaxWidth(); i++) {
+      System.out.println(model.getColWidth(i + 1));
+      this.columnModel.getColumn(i).setPreferredWidth(model.getColWidth(i + 1));
     }
-    for (int i = 0; i < model.getMaxHeight(); i++){
-      this.setRowHeight(i, model.getRowHeight(i+1));
+    for (int i = 0; i < model.getMaxHeight(); i++) {
+      this.setRowHeight(i, model.getRowHeight(i + 1));
     }
   }
 
