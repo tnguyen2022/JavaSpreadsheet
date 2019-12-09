@@ -17,12 +17,16 @@ import edu.cs3500.spreadsheets.sexp.Parser;
  */
 public class BasicWorksheet implements GeneralWorksheet {
   private HashMap<Coord, Cell> ws;
+  private HashMap<Integer, Integer> rowHeight;
+  private HashMap<Integer, Integer> columnWidth;
 
   /**
    * Constructs a a blank worksheet represented by an empty HashMap of Key Coord mapped to a Cell.
    */
   public BasicWorksheet() {
     ws = new HashMap<>();
+    rowHeight = new HashMap<>();
+    columnWidth = new HashMap<>();
   }
 
   @Override
@@ -105,6 +109,11 @@ public class BasicWorksheet implements GeneralWorksheet {
         maxWidth = c.col;
       }
     }
+    for (int i : columnWidth.keySet()){
+      if (i > maxWidth){
+        maxWidth = i;
+      }
+    }
     return maxWidth;
   }
 
@@ -120,7 +129,32 @@ public class BasicWorksheet implements GeneralWorksheet {
         maxHeight = c.row;
       }
     }
+    for (int i : rowHeight.keySet()){
+      if (i > maxHeight){
+        maxHeight = i;
+      }
+    }
     return maxHeight;
+  }
+
+  @Override
+  public void addOrSetRowHeight(int row, int rowHeight) {
+    this.rowHeight.put(row, rowHeight);
+  }
+
+  @Override
+  public void addOrSetColWidth(int col, int colWidth) {
+    this.columnWidth.put(col, colWidth);
+  }
+
+  @Override
+  public int getRowHeight(int row) {
+    return this.rowHeight.getOrDefault(row, 16);
+  }
+
+  @Override
+  public int getColWidth(int col) {
+    return this.columnWidth.getOrDefault(col, 75);
   }
 
   @Override

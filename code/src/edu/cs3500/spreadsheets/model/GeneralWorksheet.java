@@ -50,4 +50,12 @@ public interface GeneralWorksheet {
    * @return the max height dimension of the to be created worksheet
    */
   public int getMaxHeight();
+
+  public void addOrSetRowHeight(int row, int rowHeight);
+
+  public void addOrSetColWidth(int col, int colWidth);
+
+  public int getRowHeight(int row);
+
+  public int getColWidth(int col);
 }

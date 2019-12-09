@@ -83,7 +83,7 @@ public class TestController {
 
     SpreadsheetController controller = new Controller(gw, mock);
     controller.runController();
-    KeyboardListener kl = new KeyboardListener(mock);
+    KeyboardListener kl = new KeyboardListener(mock, gw);
     kl.keyPressed(new KeyEvent(mock.initTable, 502, 1, 16, KeyEvent.VK_DOWN));
     assertEquals("Called render method\n" +
             "Called addMouseListener method\n" +
@@ -119,7 +119,7 @@ public class TestController {
 
     SpreadsheetController controller = new Controller(gw, mock);
     controller.runController();
-    KeyboardListener kl = new KeyboardListener(mock);
+    KeyboardListener kl = new KeyboardListener(mock, gw);
     kl.keyPressed(new KeyEvent(mock.initTable, 502, 1, 16, KeyEvent.VK_UP));
     assertEquals("Called render method\n" +
             "Called addMouseListener method\n" +
@@ -155,7 +155,7 @@ public class TestController {
 
     SpreadsheetController controller = new Controller(gw, mock);
     controller.runController();
-    KeyboardListener kl = new KeyboardListener(mock);
+    KeyboardListener kl = new KeyboardListener(mock, gw);
     kl.keyPressed(new KeyEvent(mock.initTable, 502, 1, 16, KeyEvent.VK_RIGHT));
     assertEquals("Called render method\n" +
             "Called addMouseListener method\n" +
@@ -191,7 +191,7 @@ public class TestController {
 
     SpreadsheetController controller = new Controller(gw, mock);
     controller.runController();
-    KeyboardListener kl = new KeyboardListener(mock);
+    KeyboardListener kl = new KeyboardListener(mock, gw);
     kl.keyPressed(new KeyEvent(mock.initTable, 502, 1, 16, KeyEvent.VK_LEFT));
     assertEquals("Called render method\n" +
             "Called addMouseListener method\n" +
@@ -227,7 +227,7 @@ public class TestController {
 
     SpreadsheetController controller = new Controller(gw, mock);
     controller.runController();
-    KeyboardListener kl = new KeyboardListener(mock);
+    KeyboardListener kl = new KeyboardListener(mock, gw);
     kl.keyPressed(new KeyEvent(mock.initTable, 502, 1, 16, KeyEvent.VK_DELETE));
     assertEquals("Called render method\n" +
             "Called addMouseListener method\n" +

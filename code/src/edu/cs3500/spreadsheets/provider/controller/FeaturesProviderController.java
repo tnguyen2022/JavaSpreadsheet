@@ -21,8 +21,8 @@ public class FeaturesProviderController implements Features {
 
   @Override
   public String selectForm(Coord c) {
-    String s =  model.getCellAt(c.col, c.row).getForm();
-    if (s.equals("")){
+    String s = model.getCellAt(c.col, c.row).getForm();
+    if (s.equals("")) {
       return s;
     }
     return "= " + s;

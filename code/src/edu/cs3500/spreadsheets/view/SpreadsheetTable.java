@@ -2,10 +2,19 @@ package edu.cs3500.spreadsheets.view;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JTable;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableColumnModelEvent;
+import javax.swing.event.TableColumnModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
 
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
@@ -16,6 +25,7 @@ import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 public class SpreadsheetTable extends JTable {
   private DefaultTableModel tableModel;
   private GeneralWorksheet model;
+  private boolean isColumnWidthChanged;
 
   /**
    * Creates Spreadsheet table.
@@ -31,8 +41,6 @@ public class SpreadsheetTable extends JTable {
 
     //Table column widths cannot be resized
     this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-
-    //addKeyFeatures();
 
     //makes selection of cell noticeable
     this.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
@@ -55,7 +63,82 @@ public class SpreadsheetTable extends JTable {
       }
     });
 
-    //this.setDefaultEditor(Object.class, new DefaultCellEditor(new JTextField()));
+    //disable user column dragging
+    this.getTableHeader().setReorderingAllowed(false);
+
+    this.setRowAndColDimensions();
+
+    getTableHeader().addMouseListener( new MouseAdapter() {
+      @Override
+      public void mouseReleased(MouseEvent e)
+      {
+        /* On mouse release, check if column width has changed */
+        if(getColumnWidthChanged())
+        {
+          for (int i = 0; i < getColumnCount(); i++){
+            if (!(columnModel.getColumn(i).getWidth() == 75)){
+              model.addOrSetColWidth(i+1, columnModel.getColumn(i).getWidth());
+            }
+          }
+
+          // Reset the flag on the table.
+          setColumnWidthChanged(false);
+        }
+      }
+    }
+    );
+
+    getColumnModel().addColumnModelListener(new TableColumnModelListener()
+    {
+      @Override
+      public void columnMarginChanged(ChangeEvent e)
+      {
+        /* columnMarginChanged is called continuously as the column width is changed
+           by dragging. Therefore, execute code below ONLY if we are not already
+           aware of the column width having changed */
+        if(!getColumnWidthChanged())
+        {
+            /* the condition  below will NOT be true if
+               the column width is being changed by code. */
+          if(getTableHeader().getResizingColumn() != null)
+          {
+            // User must have dragged column and changed width
+            setColumnWidthChanged(true);
+          }
+        }
+      }
+
+      @Override
+      public void columnMoved(TableColumnModelEvent e) { }
+
+      @Override
+      public void columnAdded(TableColumnModelEvent e) { }
+
+      @Override
+      public void columnRemoved(TableColumnModelEvent e) { }
+
+      @Override
+      public void columnSelectionChanged(ListSelectionEvent e) { }
+    });
+
+  }
+
+  private boolean getColumnWidthChanged() {
+    return isColumnWidthChanged;
+  }
+
+  private void setColumnWidthChanged(boolean widthChanged) {
+    isColumnWidthChanged = widthChanged;
+  }
+
+  private void setRowAndColDimensions(){
+    for (int i = 0; i < model.getMaxWidth(); i++){
+      System.out.println(model.getColWidth(i+1));
+      this.columnModel.getColumn(i).setPreferredWidth(model.getColWidth(i+1));
+    }
+    for (int i = 0; i < model.getMaxHeight(); i++){
+      this.setRowHeight(i, model.getRowHeight(i+1));
+    }
   }
 
   /**
@@ -66,7 +149,7 @@ public class SpreadsheetTable extends JTable {
   public void addColumn(String column) {
     tableModel.addColumn(column);
     this.setModel(tableModel);
-
+    this.setRowAndColDimensions();
   }
 
   /**
@@ -75,10 +158,9 @@ public class SpreadsheetTable extends JTable {
   public void addRow() {
     tableModel.insertRow(this.getRowCount(), new String[]{});
     this.setModel(tableModel);
-
+    this.setRowAndColDimensions();
   }
 
-  //
   @Override
   public Object getValueAt(int row, int col) {
     try {
@@ -120,6 +202,7 @@ public class SpreadsheetTable extends JTable {
     return false;
   }
 }
+
 
 
 

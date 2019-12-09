@@ -23,7 +23,7 @@ public class Controller implements SpreadsheetController {
     this.view.render();
     ButtonListener bl = new ButtonListener(view, model);
     MouseListener ml = new MouseListener(view);
-    KeyboardListener kl = new KeyboardListener(view);
+    KeyboardListener kl = new KeyboardListener(view, model);
     view.addMouseListener(ml);
     view.addActionListener(bl);
     view.addKeyListener(kl);

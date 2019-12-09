@@ -62,7 +62,7 @@ public class SpreadsheetEditableGUIViewMock extends JFrame implements
     //instance of out rowHeaders table
     SpreadsheetRowHeader rowHeaders =
             new SpreadsheetRowHeader(getRowHeaders(maxTableHeight),
-                    new String[]{""});
+                    new String[]{""}, model);
 
     // instance of our customizable table
     this.initTable = new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth], model),

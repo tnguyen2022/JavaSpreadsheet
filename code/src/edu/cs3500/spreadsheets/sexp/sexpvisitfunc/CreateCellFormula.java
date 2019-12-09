@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import edu.cs3500.spreadsheets.model.Cell;
+import edu.cs3500.spreadsheets.model.ColumnReference;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.Reference;
 import edu.cs3500.spreadsheets.model.value.BooleanValue;
@@ -77,12 +78,33 @@ public class CreateCellFormula implements SexpVisitor<Formula> {
     }
     if (s.contains(":")) {
       if (s.split(":")[0].equals(s.split(":")[1])) {
+        if (!s.matches(".*\\d.*")){
+          int col = Coord.colNameToIndex(s.split(":")[0]);
+          for (Coord c : ws.keySet()){
+            if (c.col == col){
+              Cell currentCell = retrieveCell(c.col, c.row);
+              region.add(currentCell);
+            }
+          }
+          return new ColumnReference(col, col, region);
+        }
         int col = Coord.colNameToIndex(s.split(":")[0].substring(0,
                 Cell.getIndexOfSplit(s)));
         int row = Integer.parseInt(s.substring(Cell.getIndexOfSplit(s)));
         Cell currentCell = retrieveCell(col, row);
         region.add(currentCell);
-      } else {
+      } else if (!s.matches(".*\\d.*")){
+        int col1 = Coord.colNameToIndex(s.split(":")[0]);
+        int col2 = Coord.colNameToIndex(s.split(":")[1]);
+        for (Coord c : ws.keySet()){
+          if (c.col == col1 || c.col == col2){
+            Cell currentCell = retrieveCell(c.col, c.row);
+            region.add(currentCell);
+          }
+        }
+        return new ColumnReference(col1, col2, region);
+      }
+      else {
         int col1 = (Coord.colNameToIndex(s.split(":")[0].substring(0,
                 Cell.getIndexOfSplit(s.split(":")[0]))));
         int row1 = Integer.parseInt(s.split(":")[0].substring(

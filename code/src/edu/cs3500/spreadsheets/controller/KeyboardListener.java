@@ -4,6 +4,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 import edu.cs3500.spreadsheets.view.SpreadsheetView;
 
 /**
@@ -12,9 +13,12 @@ import edu.cs3500.spreadsheets.view.SpreadsheetView;
  */
 public class KeyboardListener extends KeyAdapter implements KeyListener {
   private SpreadsheetView view;
+  private GeneralWorksheet model;
 
-  public KeyboardListener(SpreadsheetView view) {
+  public KeyboardListener(SpreadsheetView view, GeneralWorksheet model) {
+
     this.view = view;
+    this.model = model;
   }
 
   @Override
@@ -26,6 +30,13 @@ public class KeyboardListener extends KeyAdapter implements KeyListener {
       case KeyEvent.VK_DELETE:
         view.setValueAt(row - 1, col - 1, null);
         view.setJTextField("");
+        for (int i = 0; i < model.getMaxHeight(); i++) {
+          for (int j = 0; j < model.getMaxWidth(); j++) {
+            if (!model.getCell(j + 1, i + 1).content.toString().equals("")) {
+              view.setValueAt(i, j, "= " + view.getRawCellContent(i + 1, j + 1));
+            }
+          }
+        }
         break;
       case KeyEvent.VK_UP:
         row = Math.max(1, row - 1);

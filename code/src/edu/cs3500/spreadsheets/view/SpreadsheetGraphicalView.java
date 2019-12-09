@@ -31,7 +31,7 @@ public class SpreadsheetGraphicalView extends JFrame implements SpreadsheetView 
 
     //instance of out rowHeaders table
     SpreadsheetRowHeader rowHeaders = new SpreadsheetRowHeader(getRowHeaders(maxTableHeight),
-            new String[]{""});
+            new String[]{""}, model);
 
     // instance of our customizable table
     SpreadsheetTable initTable = new

@@ -29,6 +29,10 @@ public final class WorksheetReader {
      */
     WorksheetBuilder<T> createCell(int col, int row, String contents);
 
+    WorksheetBuilder<T> adjustRowHeight(int row, int rowHeight);
+
+    WorksheetBuilder<T> adjustColWidth(int col, int colWidth);
+
     /**
      * Finalizes the construction of the worksheet and returns it.
      *
@@ -70,21 +74,44 @@ public final class WorksheetReader {
         scan.nextLine();
         scan.skip("\\s*");
       }
-      String cell = scan.next();
-      Matcher m = cellRef.matcher(cell);
-      if (m.matches()) {
-        col = Coord.colNameToIndex(m.group(1));
-        row = Integer.parseInt(m.group(2));
-      } else {
-        throw new IllegalStateException("Expected cell ref");
+      if (scan.hasNext("--ROW")) {
+        scan.next();
+        String s = scan.next();
+        try{
+          int rowNumber = Integer.parseInt(s);
+          scan.next();
+          int rowHeight = Integer.parseInt(scan.nextLine().substring(1));
+          builder = builder.adjustRowHeight(rowNumber, rowHeight);
+        }
+        catch (NumberFormatException e){
+          throw new IllegalArgumentException("Invalid Row Number");
+        }
       }
-      scan.skip("\\s*");
-      while (scan.hasNext("#.*")) {
-        scan.nextLine();
+      else if (scan.hasNext("--COL")) {
+        scan.next();
+        int colNumber = Coord.colNameToIndex(scan.next());
+        scan.next();
+        int colHeight = Integer.parseInt(scan.nextLine().substring(1));
+        builder = builder.adjustColWidth(colNumber, colHeight);
+      }
+      else {
+        String cell = scan.next();
+        Matcher m = cellRef.matcher(cell);
+        if (m.matches()) {
+          col = Coord.colNameToIndex(m.group(1));
+          row = Integer.parseInt(m.group(2));
+        } else {
+          throw new IllegalStateException("Expected cell ref");
+        }
         scan.skip("\\s*");
+        while (scan.hasNext("#.*")) {
+          scan.nextLine();
+          scan.skip("\\s*");
+        }
+        String contents = scan.nextLine();
+        builder = builder.createCell(col, row, contents);
       }
-      String contents = scan.nextLine();
-      builder = builder.createCell(col, row, contents);
+
     }
 
     return builder.createWorksheet();

@@ -9,13 +9,14 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 /**
  * Creates the rowHeaders of the Spreadsheet.
  */
 public class SpreadsheetRowHeader extends JTable {
   private DefaultTableModel tableModel;
-  //private GeneralWorksheet model;
+  GeneralWorksheet model;
 
   /**
    * Creates rowHeaders table.
@@ -23,9 +24,9 @@ public class SpreadsheetRowHeader extends JTable {
    * @param data        represents rowHeaders data of the spreadsheet
    * @param columnNames represents column header of the rowHeaders
    */
-  public SpreadsheetRowHeader(String[][] data, String[] columnNames) {
+  public SpreadsheetRowHeader(String[][] data, String[] columnNames, GeneralWorksheet model) {
     super(data, columnNames);
-    //this.model = model;
+    this.model = model;
 
     JTableHeader header = this.getTableHeader();
     header.setBackground(Color.gray);
@@ -46,6 +47,16 @@ public class SpreadsheetRowHeader extends JTable {
 
     //Table column widths cannot be resized
     this.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+    //rowHeader widths cannot be modified
+    this.getColumnModel().getColumn(0).setResizable(false);
+
+    //disable user column dragging
+    this.getTableHeader().setReorderingAllowed(false);
+
+    for (int i = 0; i < model.getMaxHeight(); i++){
+      this.setRowHeight(i, model.getRowHeight(i+1));
+    }
   }
 
   @Override

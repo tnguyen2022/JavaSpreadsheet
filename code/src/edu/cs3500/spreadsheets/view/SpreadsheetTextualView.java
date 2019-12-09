@@ -43,6 +43,27 @@ public class SpreadsheetTextualView implements SpreadsheetView {
     int viewWidth = model.getMaxWidth();
 
     try {
+      for (int i = 1; i <= viewHeight; i++){
+        if (!(model.getRowHeight(i) == 16)){
+          this.in.append("--ROW " + i + " HEIGHT: " + model.getRowHeight(i) + "\n");
+        }
+      }
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Unable to save row heights");
+    }
+
+    try {
+      for (int i = 1; i <= viewWidth; i++){
+        if (!(model.getColWidth(i) == 75)){
+          this.in.append("--COL " +  Coord.colIndexToName(i) + " WIDTH: " +
+                 model.getColWidth(i) + "\n");
+        }
+      }
+    } catch (IOException e) {
+      throw new IllegalArgumentException("Unable to save row heights");
+    }
+
+    try {
       for (int i = 1; i <= viewHeight; i++) {
         for (int j = 1; j <= viewWidth; j++) {
           if (!model.getCell(j, i).content.equals(new Blank())) {

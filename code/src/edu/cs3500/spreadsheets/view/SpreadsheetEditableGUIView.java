@@ -12,13 +12,17 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.ListSelectionModel;
 import javax.swing.JFrame;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableColumnModelEvent;
+import javax.swing.event.TableColumnModelListener;
 
 import edu.cs3500.spreadsheets.model.Blank;
 import edu.cs3500.spreadsheets.model.Coord;
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 /**
- * Represents a Graphical visual GUI of a Spreadsheet using JTables thats non-editable.
+ * Represents a Graphical visual GUI of a Spreadsheet using JTables thats editable.
  */
 public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetView {
   private GeneralWorksheet model;
@@ -48,8 +52,7 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
 
     //instance of out rowHeaders table
     SpreadsheetRowHeader rowHeaders =
-            new SpreadsheetRowHeader(getRowHeaders(maxTableHeight),
-                    new String[]{""});
+            new SpreadsheetRowHeader(getRowHeaders(maxTableHeight), new String[]{""}, model);
 
     // instance of our customizable table
     initTable = new SpreadsheetTable(getData(new String[maxTableHeight][maxTableWidth], model),
@@ -58,6 +61,9 @@ public class SpreadsheetEditableGUIView extends JFrame implements SpreadsheetVie
     //combines the two tables next to each other
     ListSelectionModel rowHeaderModel = rowHeaders.getSelectionModel();
     initTable.setSelectionModel(rowHeaderModel);
+
+    //allows the rowHeaders height to be resized
+    new TableRowResizer(rowHeaders, initTable, model);
 
     // adding it to JScrollPane
     SpreadsheetScroll sp = new SpreadsheetScroll(initTable, rowHeaders);

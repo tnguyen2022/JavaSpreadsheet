@@ -21,6 +21,18 @@ public class BuildWorksheet implements WorksheetReader.WorksheetBuilder<BasicWor
   }
 
   @Override
+  public WorksheetReader.WorksheetBuilder<BasicWorksheet> adjustRowHeight(int row, int rowHeight) {
+     w.addOrSetRowHeight(row, rowHeight);
+    return this;
+  }
+
+  @Override
+  public WorksheetReader.WorksheetBuilder<BasicWorksheet> adjustColWidth(int col, int colWidth) {
+    w.addOrSetColWidth(col, colWidth);
+    return this;
+  }
+
+  @Override
   public BasicWorksheet createWorksheet() {
     return w;
   }
