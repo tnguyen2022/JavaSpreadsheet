@@ -2,30 +2,33 @@ package edu.cs3500.spreadsheets.view;
 
 import javax.swing.JTable;
 import javax.swing.event.MouseInputAdapter;
+
 import java.awt.Cursor;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+
 import edu.cs3500.spreadsheets.model.GeneralWorksheet;
 
 /**
  * Allows user to resize a specific row of a table.
  */
 public class TableRowResizer extends MouseInputAdapter {
-  public static Cursor resizeCursor = Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR);
+  public static Cursor RESIZECURSOR = Cursor.getPredefinedCursor(Cursor.N_RESIZE_CURSOR);
 
   private int mouseYOffset;
   private int resizingRow;
-  private Cursor otherCursor = resizeCursor;
+  private Cursor otherCursor = RESIZECURSOR;
   private JTable rowHeaderTable;
   private JTable table;
   private GeneralWorksheet model;
 
   /**
    * Clicking on a specific row in a spreadsheet, users are allowed to change the size of it.
+   *
    * @param rowHeaderTable The name of the row that is being resized
-   * @param table The specific table in the spreadsheet
-   * @param model The model implementation of the spreadsheet
+   * @param table          The specific table in the spreadsheet
+   * @param model          The model implementation of the spreadsheet
    */
   public TableRowResizer(JTable rowHeaderTable, JTable table, GeneralWorksheet model) {
     this.rowHeaderTable = rowHeaderTable;
@@ -44,12 +47,14 @@ public class TableRowResizer extends MouseInputAdapter {
       return -1;
     }
     int col = rowHeaderTable.columnAtPoint(p);
-    if (col == -1)
+    if (col == -1) {
       return -1;
+    }
     Rectangle r = rowHeaderTable.getCellRect(row, col, true);
     r.grow(0, -3);
-    if (r.contains(p))
+    if (r.contains(p)) {
       return -1;
+    }
 
     int midPoint = r.y + r.height / 2;
     int rowIndex = (p.y < midPoint) ? row - 1 : row;
@@ -74,7 +79,7 @@ public class TableRowResizer extends MouseInputAdapter {
   @Override
   public void mouseMoved(MouseEvent e) {
     if ((getResizingRow(e.getPoint()) >= 0)
-            != (rowHeaderTable.getCursor() == resizeCursor)) {
+            != (rowHeaderTable.getCursor() == RESIZECURSOR)) {
       swapCursor();
     }
   }

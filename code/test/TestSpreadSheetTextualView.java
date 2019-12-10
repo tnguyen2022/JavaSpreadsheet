@@ -47,7 +47,8 @@ public class TestSpreadSheetTextualView {
   public void testValidCellsSave() {
     try {
       PrintWriter saveFile =
-              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\save2.txt");
+              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                      "\\save2.txt");
       try {
         GeneralWorksheet gw = new BasicWorksheet();
         gw.modifyOrAdd(1, 1, "= (SUM A2 A3)");
@@ -62,7 +63,8 @@ public class TestSpreadSheetTextualView {
         saveFile.close();
 
         FileReader testFile =
-                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\save2.txt");
+                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                        "\\save2.txt");
         GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(), testFile);
         assertEquals(gw, gwTest);
       } catch (IOException e) {
@@ -77,7 +79,8 @@ public class TestSpreadSheetTextualView {
   public void testInvalidCellsSave() {
     try {
       PrintWriter saveFile =
-              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\save3.txt");
+              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                      "\\save3.txt");
       try {
         GeneralWorksheet gw = new BasicWorksheet();
         gw.modifyOrAdd(1, 1, "= (PRODUCT true A3)");
@@ -92,7 +95,8 @@ public class TestSpreadSheetTextualView {
         saveFile.close();
 
         FileReader testFile =
-                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\save3.txt");
+                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                        "\\save3.txt");
         GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(), testFile);
         assertEquals(gw, gwTest);
       } catch (IOException e) {
@@ -103,4 +107,63 @@ public class TestSpreadSheetTextualView {
     }
   }
 
+  @Test
+  public void testValidRowHeightSave() {
+    try {
+      PrintWriter saveFile =
+              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                      "\\save4.txt");
+      try {
+        GeneralWorksheet gw = new BasicWorksheet();
+        gw.addOrSetRowHeight(3, 69);
+        gw.addOrSetRowHeight(4, 420);
+
+        gw.modifyOrAdd(1, 2, "= 69");
+
+        SpreadsheetView saveView = new SpreadsheetTextualView(gw, saveFile);
+        saveView.render();
+        saveFile.close();
+
+        FileReader testFile =
+                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                        "\\save4.txt");
+        GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(), testFile);
+        assertEquals(gw, gwTest);
+      } catch (IOException e) {
+        throw new IllegalStateException("Unable to save worksheet: " + e);
+      }
+    } catch (FileNotFoundException e) {
+      throw new IllegalStateException("Unable to access .txt file");
+    }
+  }
+
+  @Test
+  public void testValidColWidthSave() {
+    try {
+      PrintWriter saveFile =
+              new PrintWriter("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                      "\\save5.txt");
+      try {
+        GeneralWorksheet gw = new BasicWorksheet();
+        gw.addOrSetColWidth(3, 69);
+        gw.addOrSetColWidth(4, 420);
+
+        gw.modifyOrAdd(1, 2, "= 69");
+
+        SpreadsheetView saveView = new SpreadsheetTextualView(gw, saveFile);
+        saveView.render();
+        saveFile.close();
+
+        FileReader testFile =
+                new FileReader("C:\\IntelliJ Projects\\speadsheet\\code\\resources" +
+                        "\\save5.txt");
+        GeneralWorksheet gwTest = WorksheetReader.read(new BuildWorksheet(), testFile);
+        assertEquals(gw, gwTest);
+      } catch (IOException e) {
+        throw new IllegalStateException("Unable to save worksheet: " + e);
+      }
+    } catch (FileNotFoundException e) {
+      throw new IllegalStateException("Unable to access .txt file");
+    }
+  }
 }

@@ -33,4 +33,22 @@ public class TestBasicWorksheet {
     assertEquals(basicWorksheet.getCell(1, 1),
             new Cell(new BooleanValue(true), new Coord(1, 1)));
   }
+
+  @Test
+  public void testWorksheetRowHeight() {
+    BasicWorksheet basicWorksheet = new BasicWorksheet();
+    basicWorksheet.addOrSetRowHeight(3, 69);
+    assertEquals(basicWorksheet.getRowHeight(3), 69);
+    basicWorksheet.addOrSetRowHeight(3, 420);
+    assertEquals(basicWorksheet.getRowHeight(3), 420);
+  }
+
+  @Test
+  public void testWorksheetColWidth() {
+    BasicWorksheet basicWorksheet = new BasicWorksheet();
+    basicWorksheet.addOrSetColWidth(3, 69);
+    assertEquals(basicWorksheet.getColWidth(3), 69);
+    basicWorksheet.addOrSetColWidth(3, 420);
+    assertEquals(basicWorksheet.getColWidth(3), 420);
+  }
 }

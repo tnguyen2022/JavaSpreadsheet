@@ -232,4 +232,21 @@ public class TestCellContent {
     assertEquals(worksheet.getCell(1, 3).content.toString(),
             "\"hi b\\\"ye \\\\ n\\\\o\"");
   }
+
+  @Test
+  public void testColumnReference() {
+    BasicWorksheet basicWorksheet = new BasicWorksheet();
+    basicWorksheet.modifyOrAdd(1, 1, "= 5");
+    basicWorksheet.modifyOrAdd(2, 1, "= 6");
+    basicWorksheet.modifyOrAdd(1, 2, "= 7");
+    basicWorksheet.modifyOrAdd(3, 1, "= (SUM A:B)");
+
+    assertEquals(new DoubleValue(18),
+            basicWorksheet.evaluateCell(basicWorksheet.getCell(3, 1)));
+
+    basicWorksheet.modifyOrAdd(2, 2, "= 8");
+    basicWorksheet.modifyOrAdd(3, 1, "= (SUM A:B)");
+    assertEquals(new DoubleValue(26),
+            basicWorksheet.evaluateCell(basicWorksheet.getCell(3, 1)));
+  }
 }
